@@ -56,9 +56,9 @@ void SimCore::mainLoop()
     while(!m_interrupt.load())
     {
         const auto objects = field->getObjects();
-        for(const std::shared_ptr<FieldObject>& object : objects)
+        for(const auto& object : objects)
         {
-            object->update();
+            object->update(field);
         }
         std::this_thread::sleep_for(std::chrono::milliseconds(200));
     }

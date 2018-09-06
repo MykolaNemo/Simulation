@@ -28,26 +28,27 @@ std::shared_ptr<StateAbstract> AnimalStateWalking::update()
         walkingCount = 0;
         return next();
     }
-//    std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
-//    long long microsecondsPast = std::chrono::duration_cast<std::chrono::microseconds>(now - m_lastUpdateTime).count();
-//    m_lastUpdateTime = now;
-
-//    m_distanceWalked += velocity*(static_cast<double>(microsecondsPast)/1000000.0);
-//    if(m_distanceWalked > m_totalDistance)
-//    {
-//        m_distanceWalked = m_totalDistance;
-//    }
-//    m_currentPosition.x = static_cast<int>(static_cast<double>(m_startPoint.x) -
-//            (m_distanceWalked * static_cast<double>(m_startPoint.x - m_destinationPoint.x))/m_totalDistance);
-//    m_currentPosition.y = static_cast<int>(static_cast<double>(m_startPoint.y) -
-//            (m_distanceWalked * static_cast<double>(m_startPoint.y - m_destinationPoint.y))/m_totalDistance);
-
-//    updated();
 }
 
 void AnimalStateWalking::doWork()
 {
     walkingCount++;
+
+    //    std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
+    //    long long microsecondsPast = std::chrono::duration_cast<std::chrono::microseconds>(now - m_lastUpdateTime).count();
+    //    m_lastUpdateTime = now;
+
+    //    m_distanceWalked += velocity*(static_cast<double>(microsecondsPast)/1000000.0);
+    //    if(m_distanceWalked > m_totalDistance)
+    //    {
+    //        m_distanceWalked = m_totalDistance;
+    //    }
+    //    m_currentPosition.x = static_cast<int>(static_cast<double>(m_startPoint.x) -
+    //            (m_distanceWalked * static_cast<double>(m_startPoint.x - m_destinationPoint.x))/m_totalDistance);
+    //    m_currentPosition.y = static_cast<int>(static_cast<double>(m_startPoint.y) -
+    //            (m_distanceWalked * static_cast<double>(m_startPoint.y - m_destinationPoint.y))/m_totalDistance);
+
+    //    updated();
 }
 
 //Position AnimalStateWalking::getPosition() const

@@ -29,12 +29,8 @@ void AnimalStateIdle::doWork()
     idlingCount++;
 }
 
-std::shared_ptr<StateAbstract> AnimalStateIdle::next(/*const std::shared_ptr<ThinkerInfo> &thinkerInfo*/)
+std::shared_ptr<StateAbstract> AnimalStateIdle::next()
 {
     idlingCount = 0;
-    return std::make_shared<AnimalStateWalking>(Position(), Position());
-//    auto field = thinkerInfo->getField();
-//    auto animal = thinkerInfo->getThinkingObject();
-//    auto closest = field->getClosestObject(animal->getPosition(), typeid(Grass));
-//    return std::make_shared<AnimalStateWalking>(animal->getPosition(), closest->getPosition());
+    return std::make_shared<AnimalStateWalking>(Position(),Position());
 }

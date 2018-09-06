@@ -17,7 +17,7 @@ Grass::Grass(const Position& pos):
 //    thinker->thinkFor(std::dynamic_pointer_cast<Sheep>(shared_from_this()));
 //}
 
-void Grass::draw(const std::shared_ptr<DrawerVisitor> &/*drawer*/)
+void Grass::draw(const std::shared_ptr<DrawerVisitor> &drawer)
 {
-//    drawer->drawFor(std::dynamic_pointer_cast<Grass>(shared_from_this()));
+    drawer->drawFor(std::dynamic_pointer_cast<Grass>(shared_from_this()));
 }

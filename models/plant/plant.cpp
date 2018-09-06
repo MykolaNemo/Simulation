@@ -4,8 +4,7 @@
 Plant::Plant(const Position& pos):
     FieldObject(pos)
 {
-    std::shared_ptr<PlantStateGrowing> plantState = std::make_shared<PlantStateGrowing>();
-    createStateConnections(plantState);
+    auto plantState = std::make_shared<PlantStateGrowing>();
     m_state = plantState;
 }
 
@@ -18,7 +17,7 @@ void Plant::createStateConnections(const std::shared_ptr<PlantState> &plantState
 //    });
 }
 
-void Plant::update()
+void Plant::update(const std::shared_ptr<Field>& field)
 {
     if(!m_state) return;
 

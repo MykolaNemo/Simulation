@@ -20,11 +20,11 @@ class StateAbstract
 {
 public:
     virtual std::shared_ptr<StateAbstract> update() = 0;
-    virtual std::shared_ptr<StateAbstract> next(/*const std::shared_ptr<ThinkerInfo>& thinkerInfo*/) = 0;
 //    boost::signals2::signal<void(void)> nextStateRequest;
 
 protected:
     StateAbstract() = default;
+    virtual std::shared_ptr<StateAbstract> next() = 0;
     virtual ~StateAbstract(){}
     StateAbstract(const StateAbstract& other) = default;
     StateAbstract(StateAbstract&& other) = default;

@@ -12,7 +12,7 @@ class Animal : public FieldObject
 {
 public:
     void grow();
-    void update();
+    void update(const std::shared_ptr<Field> &field);
 
 protected:
     Animal();

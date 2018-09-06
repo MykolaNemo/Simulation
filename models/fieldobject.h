@@ -24,7 +24,7 @@ public:
     void setPosition(const int x, const int y);
     void setPosition(const Position& m_position);
 
-    virtual void update() = 0;
+    virtual void update(const std::shared_ptr<Field>&) = 0;
 
 //    void transferToNextState(const std::shared_ptr<Field>& field) = 0;
 

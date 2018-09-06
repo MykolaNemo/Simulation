@@ -35,7 +35,7 @@ SOURCES += \
     state/animalstates/animalstateeating.cpp \
     state/plantstates/plantstategrowing.cpp \
     state/plantstates/plantstatenotgrowing.cpp \
-    sheepstrategy.cpp
+    state/animalstates/animalstatethinktowalk.cpp
 
 HEADERS += \
     position.h \
@@ -60,4 +60,4 @@ HEADERS += \
     state/plantstates/plantstategrowing.h \
     state/plantstates/plantstatenotgrowing.h \
     canbedrawn.h \
-    sheepstrategy.h
+    state/animalstates/animalstatethinktowalk.h

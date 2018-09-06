@@ -36,6 +36,7 @@ std::shared_ptr<Scene> Scene::create(const std::shared_ptr<Field> &field)
 
 void Scene::setField(const std::shared_ptr<Field> &field)
 {
+    mGraphicsItemsMap.clear();
     clear();
 
     mField = field;

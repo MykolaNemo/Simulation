@@ -40,7 +40,6 @@ std::shared_ptr<Field> createField()
     auto field = std::make_shared<Field>(fieldWidth, fieldHeight);
     field->addObjects(sheeps);
     field->addObjects(grass);
-    std::cout<<field->getObjects().size()<<std::endl;
     return field;
 }
 

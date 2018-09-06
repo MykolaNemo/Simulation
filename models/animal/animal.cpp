@@ -15,7 +15,7 @@ Animal::Animal(const Position& _position):
     m_state = animalState;
 }
 
-void Animal::update()
+void Animal::update(const std::shared_ptr<Field> &field)
 {
     if(!m_state) return;
 
