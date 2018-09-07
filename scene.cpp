@@ -48,8 +48,11 @@ void Scene::setField(const std::shared_ptr<Field> &field)
     const auto objects = mField->getObjects();
     for(const auto& object : objects)
     {
-        object->positionChanged.connect([this](const std::shared_ptr<FieldObject>& object, const Position& pos){
-           emit positionChanged(object, pos);
+        object->positionChanged.connect([this](const std::shared_ptr<FieldObject>& obj, const Position& pos){
+           emit positionChanged(obj, pos);
+        });
+        object->invalidated.connect([this](const std::shared_ptr<FieldObject>& obj){
+            obj->draw(std::make_shared<DrawerVisitor>(shared_from_this()));
         });
         object->draw(drawer);
         if(mGraphicsItemsMap.count(object) == 0)

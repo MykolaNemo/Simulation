@@ -6,14 +6,14 @@
 class PlantStateNotGrowing: public PlantState/*State<StateEnum::Plant>*/
 {
 public:
-    PlantStateNotGrowing();
-    ~PlantStateNotGrowing(){}
+    PlantStateNotGrowing() = default;
+    ~PlantStateNotGrowing() = default;
     PlantStateNotGrowing(const PlantStateNotGrowing& other) = default;
     PlantStateNotGrowing(PlantStateNotGrowing&& other) = default;
     PlantStateNotGrowing& operator =(const PlantStateNotGrowing& other) = default;
     PlantStateNotGrowing& operator =(PlantStateNotGrowing&& other) = default;
 
-    std::shared_ptr<StateAbstract> update() override;
+    std::shared_ptr<StateAbstract> update(FieldObject &object, const Field &field) override;
 
 private:
     void doWork();

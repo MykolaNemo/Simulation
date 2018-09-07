@@ -28,12 +28,27 @@ void FieldObject::setPosition(const int x, const int y)
     positionChanged(shared_from_this(), m_position);
 }
 
-void FieldObject::setPosition(const Position &pos)
+bool FieldObject::isOccupied() const
 {
-    if(m_position == pos)
+    return m_occupied;
+}
+
+void FieldObject::setOccupied(bool occupied)
+{
+    m_occupied = occupied;
+    if(m_occupied)
     {
-        return;
+        /*emit*/ wasOccupied();
     }
-    m_position = pos;
-    positionChanged(shared_from_this(), m_position);
+}
+
+void FieldObject::setEated(bool eated)
+{
+    m_eated = eated;
+    /*emit*/ invalidated(shared_from_this());
+}
+
+bool FieldObject::isEated() const
+{
+    return m_eated;
 }

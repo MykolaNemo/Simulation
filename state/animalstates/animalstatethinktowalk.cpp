@@ -13,7 +13,7 @@ AnimalStateThinkToWalk::AnimalStateThinkToWalk(const Position& currentPosition,
 {
 }
 
-std::shared_ptr<StateAbstract> AnimalStateThinkToWalk::update()
+std::shared_ptr<StateAbstract> AnimalStateThinkToWalk::update(FieldObject &object, const Field &field)
 {
     std::cout<<"Thinking where to go..."<<std::endl;
     return next();
@@ -21,6 +21,6 @@ std::shared_ptr<StateAbstract> AnimalStateThinkToWalk::update()
 
 std::shared_ptr<StateAbstract> AnimalStateThinkToWalk::next()
 {
-    auto closest = mField->getClosestObject(mCurrentPosition, typeid(Grass));
-    return std::make_shared<AnimalStateWalking>(mCurrentPosition, closest->getPosition());
+    auto closest = mField->getClosestUnoccupiedObject(mCurrentPosition, typeid(Grass));
+    return std::make_shared<AnimalStateWalking>(mCurrentPosition, closest);
 }

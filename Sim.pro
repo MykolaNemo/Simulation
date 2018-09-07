@@ -29,7 +29,6 @@ SOURCES += \
     models/plant/plant.cpp \
     models/plant/grass.cpp \
     visitors/drawervisitor.cpp \
-    visitors/thinkervisitor.cpp \
     state/animalstates/animalstatewalking.cpp \
     state/animalstates/animalstateidle.cpp \
     state/animalstates/animalstateeating.cpp \
@@ -52,7 +51,6 @@ HEADERS += \
     models/plant/plant.h \
     models/plant/grass.h \
     visitors/drawervisitor.h \
-    visitors/thinkervisitor.h \
     state/state.h \
     state/animalstates/animalstatewalking.h \
     state/animalstates/animalstateidle.h \

@@ -4,31 +4,18 @@
 
 static int notGrowingCount = 0;
 
-PlantStateNotGrowing::PlantStateNotGrowing():
-    PlantState()
-//    State<StateEnum::Plant>(StateEnum::Plant::NotGrowing)
-{
-
-}
-
-std::shared_ptr<StateAbstract> PlantStateNotGrowing::update()
+std::shared_ptr<StateAbstract> PlantStateNotGrowing::update(FieldObject &object, const Field &field)
 {
     if(notGrowingCount < 5)
     {
-        std::cout<<"Not growing update"<<std::endl;
-        doWork();
-        return std::shared_ptr<StateAbstract>();
+        notGrowingCount++;
     }
     else
     {
         notGrowingCount = 0;
-        return next();
+        return std::make_shared<PlantStateGrowing>();
     }
-}
-
-void PlantStateNotGrowing::doWork()
-{
-    notGrowingCount++;
+    return std::shared_ptr<StateAbstract>();
 }
 
 std::shared_ptr<StateAbstract> PlantStateNotGrowing::next(/*const std::shared_ptr<ThinkerInfo> &thinkerInfo*/)

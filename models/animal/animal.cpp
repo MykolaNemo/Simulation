@@ -15,15 +15,14 @@ Animal::Animal(const Position& _position):
     m_state = animalState;
 }
 
-void Animal::update(const std::shared_ptr<Field> &field)
+void Animal::update(const Field &field)
 {
     if(!m_state) return;
 
-    std::shared_ptr<StateAbstract> nextState = m_state->update();
+    std::shared_ptr<StateAbstract> nextState = m_state->update(*this, field);
     if(nextState)
     {
         m_state = nextState;
-        m_state->update();
     }
 }
 

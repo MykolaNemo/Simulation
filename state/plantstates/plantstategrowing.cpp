@@ -11,11 +11,11 @@ PlantStateGrowing::PlantStateGrowing():
 
 }
 
-std::shared_ptr<StateAbstract> PlantStateGrowing::update()
+std::shared_ptr<StateAbstract> PlantStateGrowing::update(FieldObject &object, const Field &field)
 {
     if(growingCount < 5)
     {
-        std::cout<<"Growing update"<<std::endl;
+//        std::cout<<"Growing update"<<std::endl;
         doWork();
         return std::shared_ptr<StateAbstract>();
     }

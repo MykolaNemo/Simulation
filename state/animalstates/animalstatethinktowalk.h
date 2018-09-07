@@ -9,7 +9,7 @@ class AnimalStateThinkToWalk: public AnimalState
 public:
     AnimalStateThinkToWalk(const Position &currentPosition, const std::shared_ptr<Field>& field);
 
-    std::shared_ptr<StateAbstract> update() override;
+    std::shared_ptr<StateAbstract> update(FieldObject &object, const Field &field) override;
     std::shared_ptr<StateAbstract> next() override;
 
 private:

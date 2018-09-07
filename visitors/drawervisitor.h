@@ -3,12 +3,14 @@
 
 #include <memory>
 
+#include <QObject>
+
 class QGraphicsItem;
 class Scene;
 class Sheep;
 class Grass;
 
-class DrawerVisitor
+class DrawerVisitor: public QObject
 {
 public:
     DrawerVisitor(const std::shared_ptr<Scene> &scene);

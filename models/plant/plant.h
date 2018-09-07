@@ -8,7 +8,7 @@ class PlantState;
 class Plant: public FieldObject
 {
 public:
-    void update(const std::shared_ptr<Field> &) override;
+    void update(const Field &field) override;
 
 protected:
     Plant(const Position &pos = Position());

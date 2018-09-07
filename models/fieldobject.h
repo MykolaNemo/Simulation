@@ -20,20 +20,26 @@ public:
     FieldObject& operator =(const FieldObject& other) = default;
     FieldObject& operator =(FieldObject&& other) = default;
 
+    virtual void update(const Field&) = 0;
+
     Position getPosition() const;
     void setPosition(const int x, const int y);
-    void setPosition(const Position& m_position);
-
-    virtual void update(const std::shared_ptr<Field>&) = 0;
-
-//    void transferToNextState(const std::shared_ptr<Field>& field) = 0;
+    inline void setPosition(const Position& m_position) {setPosition(m_position.x, m_position.y);}
+    bool isOccupied() const;
+    void setOccupied(bool occupied);
 
 public:
     boost::signals2::signal<void(const std::shared_ptr<FieldObject>&, const Position&)> positionChanged;
-    boost::signals2::signal<void(const std::shared_ptr<FieldObject>&)> nextTaskRequest;
+    boost::signals2::signal<void(void)> wasOccupied;
+    boost::signals2::signal<void(std::shared_ptr<FieldObject>)> invalidated;
 
-protected:
+    bool isEated() const;
+    void setEated(bool eated);
+
+private:
     Position m_position;
+    bool m_occupied = false;
+    bool m_eated = false;
 };
 
 #endif // FIELDOBJECT_H

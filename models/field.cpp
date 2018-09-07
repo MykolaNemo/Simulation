@@ -30,24 +30,24 @@ void Field::addObject(const std::shared_ptr<FieldObject> &object)
     m_objects.push_back(object);
 }
 
-std::shared_ptr<FieldObject> Field::getObjectAt(const int x, const int y) const
+std::vector<std::shared_ptr<FieldObject>> Field::getObjectsAt(const int x, const int y) const
 {
     if((x < 0) || (x > size.width-1) || (y < 0) || (y > size.height-1))
     {
         throw std::out_of_range("Field::getObjectAt(x,y): coordinates out of range");
     }
 
-    const auto it = std::find_if(m_objects.begin(), m_objects.end(),
-                           [&x,&y](const std::shared_ptr<FieldObject>& object)->bool{
-        const Position pos = object->getPosition();
-        return (pos.x == x && pos.y == y);
-    });
+    std::vector<std::shared_ptr<FieldObject>> vector;
 
-    if(it != m_objects.end())
+    for(const auto& object : m_objects)
     {
-        return *it;
+        const Position pos = object->getPosition();
+        if(pos.x == x && pos.y == y)
+        {
+            vector.push_back(object);
+        }
     }
-    return std::shared_ptr<FieldObject>();
+    return vector;
 }
 
 std::vector<std::shared_ptr<FieldObject> > Field::getObjects() const
@@ -65,6 +65,28 @@ std::shared_ptr<FieldObject> Field::getClosestObject(const Position &centralPoin
     for(const auto& object : m_objects)
     {
         if(typeid(*object.get()) == type)
+        {
+            const double currentDistance = objectDistance(object->getPosition(), centralPoint);
+            if(currentDistance < minDistance || minDistance == -1)
+            {
+                minDistance = currentDistance;
+                closestObject = object;
+            }
+        }
+    }
+    return closestObject;
+}
+
+std::shared_ptr<FieldObject> Field::getClosestUnoccupiedObject(const Position &centralPoint,
+                                                               const std::type_info& type) const
+{
+    if (m_objects.empty()) return std::shared_ptr<FieldObject>();
+
+    double minDistance = -1;
+    std::shared_ptr<FieldObject> closestObject;
+    for(const auto& object : m_objects)
+    {
+        if(!object->isOccupied() && typeid(*object.get()) == type)
         {
             const double currentDistance = objectDistance(object->getPosition(), centralPoint);
             if(currentDistance < minDistance || minDistance == -1)

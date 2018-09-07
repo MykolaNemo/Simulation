@@ -19,7 +19,7 @@ class Field;
 class StateAbstract
 {
 public:
-    virtual std::shared_ptr<StateAbstract> update() = 0;
+    virtual std::shared_ptr<StateAbstract> update(FieldObject&, const Field&) = 0;
 //    boost::signals2::signal<void(void)> nextStateRequest;
 
 protected:

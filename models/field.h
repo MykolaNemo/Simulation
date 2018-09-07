@@ -20,9 +20,14 @@ public:
 
     void addObjects(const std::vector<std::shared_ptr<FieldObject> > &objects);
     void addObject(const std::shared_ptr<FieldObject> &object);
-    std::shared_ptr<FieldObject> getObjectAt(const int x, const int y) const;
+    std::vector<std::shared_ptr<FieldObject> > getObjectsAt(const int x, const int y) const;
+    inline std::vector<std::shared_ptr<FieldObject> > getObjectsAt(const Position& position) const
+    { return getObjectsAt(position.x, position.y); }
+
     std::vector<std::shared_ptr<FieldObject>> getObjects() const;
     std::shared_ptr<FieldObject> getClosestObject(const Position &centralPoint,
+                                                  const type_info &type) const;
+    std::shared_ptr<FieldObject> getClosestUnoccupiedObject(const Position &centralPoint,
                                                   const type_info &type) const;
 
     Size2D getSize() const;

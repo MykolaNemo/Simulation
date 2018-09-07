@@ -7,7 +7,7 @@ class FieldView: public QGraphicsView
 {
     Q_OBJECT
 public:
-    FieldView(QGraphicsScene *scene, QWidget *parent = nullptr);
+    explicit FieldView(QGraphicsScene *scene, QWidget *parent = nullptr);
 
 signals:
     void aboutToClose();

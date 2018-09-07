@@ -10,27 +10,28 @@
 
 static int idlingCount = 0;
 
-std::shared_ptr<StateAbstract> AnimalStateIdle::update()
+std::shared_ptr<StateAbstract> AnimalStateIdle::update(FieldObject &object, const Field &field)
 {
     if(idlingCount < 5)
     {
-        std::cout<<"Idling..."<<std::endl;
-        doWork();
-        return std::shared_ptr<StateAbstract>();
+        std::cout<<"Idling... "<< idlingCount<<std::endl;
+        idlingCount++;
     }
     else
     {
-        return next();
+        const auto currentPosition = object.getPosition();
+        const auto closestGrass = field.getClosestUnoccupiedObject(currentPosition, typeid(Grass));
+        if(closestGrass)
+        {
+            idlingCount = 0;
+            return std::make_shared<AnimalStateWalking>(currentPosition, closestGrass);
+        }
     }
-}
-
-void AnimalStateIdle::doWork()
-{
-    idlingCount++;
+    return std::shared_ptr<StateAbstract>();
 }
 
 std::shared_ptr<StateAbstract> AnimalStateIdle::next()
 {
     idlingCount = 0;
-    return std::make_shared<AnimalStateWalking>(Position(),Position());
+    return std::make_shared<AnimalStateWalking>(Position(),std::shared_ptr<FieldObject>());
 }
