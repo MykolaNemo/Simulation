@@ -2,7 +2,6 @@
 #define STATE_H
 
 #include "boost/signals2/signal.hpp"
-#include "visitors/thinkervisitor.h"
 
 #include <memory>
 

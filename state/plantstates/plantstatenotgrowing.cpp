@@ -18,7 +18,7 @@ std::shared_ptr<StateAbstract> PlantStateNotGrowing::update(FieldObject &object,
     return std::shared_ptr<StateAbstract>();
 }
 
-std::shared_ptr<StateAbstract> PlantStateNotGrowing::next(/*const std::shared_ptr<ThinkerInfo> &thinkerInfo*/)
+std::shared_ptr<StateAbstract> PlantStateNotGrowing::next()
 {
     return std::make_shared<PlantStateGrowing>();
 }

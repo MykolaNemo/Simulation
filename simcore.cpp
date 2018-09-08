@@ -1,7 +1,5 @@
 #include "simcore.h"
 #include "models/field.h"
-#include "visitors/thinkervisitor.h"
-#include "visitors/thinkervisitor.h"
 #include "models/fieldobject.h"
 #include "models/animal/animal.h"
 
@@ -16,16 +14,6 @@ SimCore::SimCore(const std::shared_ptr<Field>& _field)
         throw std::invalid_argument("SimCore::SimCore(field): field is null");
     }
     field = _field;
-
-//    const auto objects = field->getObjects();
-//    for(const auto object : objects)
-//    {
-//        object->nextTaskRequest.connect([this](const std::shared_ptr<FieldObject>& obj){
-//            std::shared_ptr<ThinkerInfo> thinkerInfo(new ThinkerInfo);
-//            thinkerInfo->setField(field);
-//            obj->think(thinkerInfo);
-//        });
-//    }
 }
 
 SimCore::~SimCore()

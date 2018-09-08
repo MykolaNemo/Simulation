@@ -3,8 +3,6 @@
 #include "state/animalstates/animalstatewalking.h"
 #include "state/animalstates/animalstateeating.h"
 
-#include "visitors/thinkervisitor.h"
-
 #include <iostream>
 #include <memory>
 

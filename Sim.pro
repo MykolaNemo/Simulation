@@ -33,8 +33,7 @@ SOURCES += \
     state/animalstates/animalstateidle.cpp \
     state/animalstates/animalstateeating.cpp \
     state/plantstates/plantstategrowing.cpp \
-    state/plantstates/plantstatenotgrowing.cpp \
-    state/animalstates/animalstatethinktowalk.cpp
+    state/plantstates/plantstatenotgrowing.cpp
 
 HEADERS += \
     position.h \
@@ -43,7 +42,6 @@ HEADERS += \
     simcore.h \
     signal.h \
     scene.h \
-    canthink.h \
     models/animal/animal.h \
     models/animal/sheep.h \
     models/field.h \
@@ -57,5 +55,4 @@ HEADERS += \
     state/animalstates/animalstateeating.h \
     state/plantstates/plantstategrowing.h \
     state/plantstates/plantstatenotgrowing.h \
-    canbedrawn.h \
-    state/animalstates/animalstatethinktowalk.h
+    canbedrawn.h

@@ -2,12 +2,10 @@
 #define FIELDOBJECT_H
 
 #include "position.h"
-#include "canthink.h"
 #include "canbedrawn.h"
 #include "boost/signals2/signal.hpp"
 #include "state/state.h"
 
-//class FieldObject: public CanThink,
 class FieldObject: public CanBeDrawn,
                    public std::enable_shared_from_this<FieldObject>
 {

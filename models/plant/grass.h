@@ -8,7 +8,6 @@ class Grass: public Plant
 {
 public:
     explicit Grass(const Position &pos = Position());
-//    void think(const std::shared_ptr<ThinkerInfo> &thinkerInfo) override;
     void draw(const std::shared_ptr<DrawerVisitor> &drawer) override;
 };
 

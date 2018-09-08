@@ -1,5 +1,4 @@
 #include "sheep.h"
-#include "visitors/thinkervisitor.h"
 #include <iostream>
 
 Sheep::Sheep(Position pos):

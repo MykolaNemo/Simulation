@@ -7,7 +7,6 @@
 #include "signal.h"
 
 class Field;
-class ThinkerInfo;
 class SimCore
 {
 public:
