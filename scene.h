@@ -2,11 +2,12 @@
 #define SCENE_H
 
 #include <QGraphicsScene>
-#include <memory>
 #include "position.h"
+#include <memory>
 
 class Field;
 class FieldObject;
+class DrawerVisitor;
 
 class Scene: public QGraphicsScene, public std::enable_shared_from_this<Scene>
 {
@@ -27,6 +28,7 @@ private:
 private:
     std::shared_ptr<Field> mField;
     std::map<const std::shared_ptr<FieldObject>, QGraphicsItem*> mGraphicsItemsMap;
+    std::shared_ptr<DrawerVisitor> mDrawer;
 };
 
 #endif // SCENE_H

@@ -30,6 +30,7 @@ void Scene::objectPositionChanged(const std::shared_ptr<FieldObject> &object, co
 std::shared_ptr<Scene> Scene::create(const std::shared_ptr<Field> &field)
 {
     std::shared_ptr<Scene> scene(new Scene());
+    scene->mDrawer = std::make_shared<DrawerVisitor>(scene);
     scene->setField(field);
     return scene;
 }
@@ -44,7 +45,6 @@ void Scene::setField(const std::shared_ptr<Field> &field)
     if(!mField) return;
     setSceneRect(QRect(0, 0, field->getWidth(), field->getHeight()));
 
-    std::shared_ptr<DrawerVisitor> drawer(new DrawerVisitor(shared_from_this()));
     const auto objects = mField->getObjects();
     for(const auto& object : objects)
     {
@@ -52,12 +52,15 @@ void Scene::setField(const std::shared_ptr<Field> &field)
            emit positionChanged(obj, pos);
         });
         object->invalidated.connect([this](const std::shared_ptr<FieldObject>& obj){
-            obj->draw(std::make_shared<DrawerVisitor>(shared_from_this()));
+            if(auto it = mGraphicsItemsMap.find(obj); it != mGraphicsItemsMap.end())
+            {
+                it->second->update();
+            }
         });
-        object->draw(drawer);
+        object->draw(mDrawer);
         if(mGraphicsItemsMap.count(object) == 0)
         {
-            auto pair = std::make_pair(object, drawer->getGraphicsItem());
+            auto pair = std::make_pair(object, mDrawer->getGraphicsItem());
             mGraphicsItemsMap.insert(pair);
         }
     }

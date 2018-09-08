@@ -33,7 +33,9 @@ SOURCES += \
     state/animalstates/animalstateidle.cpp \
     state/animalstates/animalstateeating.cpp \
     state/plantstates/plantstategrowing.cpp \
-    state/plantstates/plantstatenotgrowing.cpp
+    state/plantstates/plantstatenotgrowing.cpp \
+    graphicsitems/sheepgraphicsitem.cpp \
+    graphicsitems/grassgraphicsitem.cpp
 
 HEADERS += \
     position.h \
@@ -55,4 +57,6 @@ HEADERS += \
     state/animalstates/animalstateeating.h \
     state/plantstates/plantstategrowing.h \
     state/plantstates/plantstatenotgrowing.h \
-    canbedrawn.h
+    canbedrawn.h \
+    graphicsitems/sheepgraphicsitem.h \
+    graphicsitems/grassgraphicsitem.h
