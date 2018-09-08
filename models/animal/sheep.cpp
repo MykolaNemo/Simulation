@@ -8,6 +8,5 @@ Sheep::Sheep(Position pos):
 
 void Sheep::draw(const std::shared_ptr<DrawerVisitor> &drawer)
 {
-    std::cout<<"draw Sheep";
     drawer->drawFor(std::dynamic_pointer_cast<Sheep>(shared_from_this()));
 }

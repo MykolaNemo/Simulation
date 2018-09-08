@@ -1,6 +1,11 @@
 #include "plant.h"
 #include "state/plantstates/plantstategrowing.h"
 
+#include <iostream>
+#include <QElapsedTimer>
+
+QElapsedTimer t2;
+
 Plant::Plant(const Position& pos):
     FieldObject(pos)
 {
@@ -9,14 +14,16 @@ Plant::Plant(const Position& pos):
 
 void Plant::update(const Field &field)
 {
+    t2.start();
     if(!m_state) return;
 
-    std::shared_ptr<StateAbstract> nextState = m_state->update(*this, field);
+    auto ptr(shared_from_this());
+    std::shared_ptr<StateAbstract> nextState = m_state->update(ptr, field);
     if(nextState)
     {
         m_state = nextState;
-        m_state->update(*this, field);
     }
+    std::cout<<"Plant update: "<<t2.elapsed()<<std::endl;
 }
 
 void Plant::setState(const std::shared_ptr<PlantState> &newState)

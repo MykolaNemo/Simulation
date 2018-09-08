@@ -35,7 +35,8 @@ SOURCES += \
     state/plantstates/plantstategrowing.cpp \
     state/plantstates/plantstatenotgrowing.cpp \
     graphicsitems/sheepgraphicsitem.cpp \
-    graphicsitems/grassgraphicsitem.cpp
+    graphicsitems/grassgraphicsitem.cpp \
+    datastruct/binarysearchtree.cpp
 
 HEADERS += \
     position.h \
@@ -59,4 +60,5 @@ HEADERS += \
     state/plantstates/plantstatenotgrowing.h \
     canbedrawn.h \
     graphicsitems/sheepgraphicsitem.h \
-    graphicsitems/grassgraphicsitem.h
+    graphicsitems/grassgraphicsitem.h \
+    datastruct/binarysearchtree.h

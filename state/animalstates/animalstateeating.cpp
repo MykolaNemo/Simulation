@@ -2,6 +2,7 @@
 #include "animalstateidle.h"
 #include "models/field.h"
 #include "models/fieldobject.h"
+#include "models/plant/grass.h"
 
 #include <iostream>
 
@@ -16,24 +17,23 @@ AnimalStateEating::AnimalStateEating(const std::shared_ptr<FieldObject> &foodObj
     }
 }
 
-std::shared_ptr<StateAbstract> AnimalStateEating::update(FieldObject &object, const Field &field)
+std::shared_ptr<StateAbstract> AnimalStateEating::update(std::shared_ptr<FieldObject> &object, const Field &field)
 {
-    if(eatingCount < 5)
+    if(mFoodObject)
     {
-        std::cout<<"Eating update"<<std::endl;
-        eatingCount++;
-    }
-    else
-    {
-        eatingCount = 0;
-        if(mFoodObject)
+        std::shared_ptr<Grass> grass = std::dynamic_pointer_cast<Grass>(mFoodObject);
+        if(grass && grass->getFoodPoints() > 0)
         {
-//            mFoodObject->setOccupied(false);
-            mFoodObject->setEated(true);
+            grass->setFoodPoints(grass->getFoodPoints() - 1);
+            if(grass->getFoodPoints() == 0)
+            {
+                mFoodObject->setOccupied(false);
+                return std::make_shared<AnimalStateIdle>();
+            }
+            return std::shared_ptr<StateAbstract>();
         }
-        return std::make_shared<AnimalStateIdle>();
     }
-    return std::shared_ptr<StateAbstract>();
+    return std::make_shared<AnimalStateIdle>();
 }
 
 std::shared_ptr<StateAbstract> AnimalStateEating::next()

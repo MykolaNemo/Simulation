@@ -5,6 +5,9 @@
 
 #include <iostream>
 #include <memory>
+#include <QElapsedTimer>
+
+QElapsedTimer t;
 
 Animal::Animal(const Position& _position):
     FieldObject(_position)
@@ -15,13 +18,16 @@ Animal::Animal(const Position& _position):
 
 void Animal::update(const Field &field)
 {
+    t.start();
     if(!m_state) return;
 
-    std::shared_ptr<StateAbstract> nextState = m_state->update(*this, field);
+    auto ptr(shared_from_this());
+    std::shared_ptr<StateAbstract> nextState = m_state->update(ptr, field);
     if(nextState)
     {
         m_state = nextState;
     }
+//    std::cout<<"Animal update: "<<t.elapsed()<<std::endl;
 }
 
 void Animal::setState(const std::shared_ptr<AnimalState> &newState)

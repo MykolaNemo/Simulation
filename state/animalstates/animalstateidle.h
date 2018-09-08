@@ -13,7 +13,7 @@ public:
     AnimalStateIdle(AnimalStateIdle&& other) = default;
     AnimalStateIdle& operator =(const AnimalStateIdle& other) = default;
     AnimalStateIdle& operator =(AnimalStateIdle&& other) = default;
-    std::shared_ptr<StateAbstract> update(FieldObject &object, const Field &field) override;
+    std::shared_ptr<StateAbstract> update(std::shared_ptr<FieldObject> &object, const Field &field) override;
 
 private:
     void doWork();

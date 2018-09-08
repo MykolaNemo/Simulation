@@ -1,35 +1,29 @@
 #include "plantstategrowing.h"
 #include "plantstatenotgrowing.h"
+#include "models/fieldobject.h"
+
 #include <iostream>
 
 static int growingCount = 0;
 
 PlantStateGrowing::PlantStateGrowing():
     PlantState()
-//    State<StateEnum::Plant>(StateEnum::Plant::Growing)
 {
 
 }
 
-std::shared_ptr<StateAbstract> PlantStateGrowing::update(FieldObject &object, const Field &field)
+std::shared_ptr<StateAbstract> PlantStateGrowing::update(std::shared_ptr<FieldObject> &object, const Field &field)
 {
-    if(growingCount < 5)
+    const int foodPoints = object->getFoodPoints();
+    if(!object->isOccupied() && (foodPoints < object->getMaxFoodPoints()))
     {
-//        std::cout<<"Growing update"<<std::endl;
-        doWork();
+        object->setFoodPoints(foodPoints);
         return std::shared_ptr<StateAbstract>();
     }
     else
     {
-        growingCount = 0;
-//        nextStateRequest();
-        return next();
+        return std::make_shared<PlantStateNotGrowing>();
     }
-}
-
-void PlantStateGrowing::doWork()
-{
-    growingCount++;
 }
 
 std::shared_ptr<StateAbstract> PlantStateGrowing::next()

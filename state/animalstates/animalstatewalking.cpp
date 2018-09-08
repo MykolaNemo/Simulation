@@ -26,7 +26,7 @@ AnimalStateWalking::AnimalStateWalking(const Position start, const std::shared_p
     }
 }
 
-std::shared_ptr<StateAbstract> AnimalStateWalking::update(FieldObject &currentObject, const Field &)
+std::shared_ptr<StateAbstract> AnimalStateWalking::update(std::shared_ptr<FieldObject> &currentObject, const Field &)
 {
     if(m_interrupt)
     {
@@ -35,7 +35,6 @@ std::shared_ptr<StateAbstract> AnimalStateWalking::update(FieldObject &currentOb
 
     if(m_distanceWalked != m_totalDistance)
     {
-        std::cout<<"Walking update"<<std::endl;
         doWork(currentObject);
     }
     else
@@ -45,7 +44,7 @@ std::shared_ptr<StateAbstract> AnimalStateWalking::update(FieldObject &currentOb
     return std::shared_ptr<StateAbstract>();
 }
 
-void AnimalStateWalking::doWork(FieldObject& object)
+void AnimalStateWalking::doWork(std::shared_ptr<FieldObject>& object)
 {
     std::chrono::system_clock::time_point now = std::chrono::system_clock::now();
     long long microsecondsPast = std::chrono::duration_cast<std::chrono::microseconds>(now - m_lastUpdateTime).count();
@@ -61,7 +60,7 @@ void AnimalStateWalking::doWork(FieldObject& object)
     const int y = static_cast<int>(static_cast<double>(m_startPoint.y) -
                              (m_distanceWalked * static_cast<double>(m_startPoint.y - m_destinationPoint.y))/m_totalDistance);
 
-    object.setPosition(Position(x,y));
+    object->setPosition(Position(x,y));
 }
 
 std::shared_ptr<StateAbstract> AnimalStateWalking::next()

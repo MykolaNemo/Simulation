@@ -13,7 +13,7 @@ public:
     AnimalStateEating& operator =(const AnimalStateEating& other) = default;
     AnimalStateEating& operator =(AnimalStateEating&& other) = default;
 
-    std::shared_ptr<StateAbstract> update(FieldObject &object, const Field &field) override;
+    std::shared_ptr<StateAbstract> update(std::shared_ptr<FieldObject> &object, const Field &field) override;
 
 private:
     std::shared_ptr<StateAbstract> next() override;

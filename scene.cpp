@@ -57,6 +57,7 @@ void Scene::setField(const std::shared_ptr<Field> &field)
                 it->second->update();
             }
         });
+
         object->draw(mDrawer);
         if(mGraphicsItemsMap.count(object) == 0)
         {

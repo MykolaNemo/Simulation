@@ -13,10 +13,9 @@ public:
     PlantStateGrowing& operator =(const PlantStateGrowing& other) = default;
     PlantStateGrowing& operator =(PlantStateGrowing&& other) = default;
 
-    std::shared_ptr<StateAbstract> update(FieldObject &object, const Field &field) override;
+    std::shared_ptr<StateAbstract> update(std::shared_ptr<FieldObject> &object, const Field &field) override;
 
 private:
-    void doWork();
     std::shared_ptr<StateAbstract> next() override;
 };
 

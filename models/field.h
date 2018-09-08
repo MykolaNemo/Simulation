@@ -27,7 +27,7 @@ public:
     std::vector<std::shared_ptr<FieldObject>> getObjects() const;
     std::shared_ptr<FieldObject> getClosestObject(const Position &centralPoint,
                                                   const type_info &type) const;
-    std::shared_ptr<FieldObject> getClosestUnoccupiedObject(const Position &centralPoint,
+    std::shared_ptr<FieldObject> getClosestFoodObject(const Position &centralPoint,
                                                   const type_info &type) const;
 
     Size2D getSize() const;

@@ -19,10 +19,10 @@ public:
     AnimalStateWalking& operator =(const AnimalStateWalking& other) = default;
     AnimalStateWalking& operator =(AnimalStateWalking&& other) = default;
 
-    std::shared_ptr<StateAbstract> update(FieldObject &currentObject, const Field &) override;
+    std::shared_ptr<StateAbstract> update(std::shared_ptr<FieldObject> &currentObject, const Field &) override;
 
 private:
-    void doWork(FieldObject &object);
+    void doWork(std::shared_ptr<FieldObject> &object);
     std::shared_ptr<StateAbstract> next() override;
 
     static const double velocity;

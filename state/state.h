@@ -4,7 +4,7 @@
 #include "boost/signals2/signal.hpp"
 
 #include <memory>
-
+#include <iostream>
 //template<typename... Args>
 //struct TypeList {
 //    static constexpr int size{ sizeof... (Args) };
@@ -18,7 +18,7 @@ class Field;
 class StateAbstract
 {
 public:
-    virtual std::shared_ptr<StateAbstract> update(FieldObject&, const Field&) = 0;
+    virtual std::shared_ptr<StateAbstract> update(std::shared_ptr<FieldObject>&, const Field&) = 0;
 //    boost::signals2::signal<void(void)> nextStateRequest;
 
 protected:

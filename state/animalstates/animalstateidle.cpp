@@ -10,17 +10,16 @@
 
 static int idlingCount = 0;
 
-std::shared_ptr<StateAbstract> AnimalStateIdle::update(FieldObject &object, const Field &field)
+std::shared_ptr<StateAbstract> AnimalStateIdle::update(std::shared_ptr<FieldObject> &object, const Field &field)
 {
     if(idlingCount < 5)
     {
-        std::cout<<"Idling... "<< idlingCount<<std::endl;
         idlingCount++;
     }
     else
     {
-        const auto currentPosition = object.getPosition();
-        const auto closestGrass = field.getClosestUnoccupiedObject(currentPosition, typeid(Grass));
+        const auto currentPosition = object->getPosition();
+        const auto closestGrass = field.getClosestFoodObject(currentPosition, typeid(Grass));
         if(closestGrass)
         {
             idlingCount = 0;

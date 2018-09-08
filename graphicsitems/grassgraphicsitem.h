@@ -16,6 +16,8 @@ protected:
 private:
     void setup();
     const std::shared_ptr<Grass> mGrassObject;
+    static const QColor eatedColor;
+    static const QColor notEatedColor;
 };
 
 #endif // GRASSGRAPHICSITEM_H

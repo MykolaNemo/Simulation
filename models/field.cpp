@@ -77,7 +77,7 @@ std::shared_ptr<FieldObject> Field::getClosestObject(const Position &centralPoin
     return closestObject;
 }
 
-std::shared_ptr<FieldObject> Field::getClosestUnoccupiedObject(const Position &centralPoint,
+std::shared_ptr<FieldObject> Field::getClosestFoodObject(const Position &centralPoint,
                                                                const std::type_info& type) const
 {
     if (m_objects.empty()) return std::shared_ptr<FieldObject>();
@@ -86,7 +86,7 @@ std::shared_ptr<FieldObject> Field::getClosestUnoccupiedObject(const Position &c
     std::shared_ptr<FieldObject> closestObject;
     for(const auto& object : m_objects)
     {
-        if(!object->isOccupied() && typeid(*object.get()) == type)
+        if(!object->isOccupied() && (typeid(*object.get()) == type) && (object->getFoodPoints() > 0))
         {
             const double currentDistance = objectDistance(object->getPosition(), centralPoint);
             if(currentDistance < minDistance || minDistance == -1)

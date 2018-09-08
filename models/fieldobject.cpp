@@ -42,13 +42,21 @@ void FieldObject::setOccupied(bool occupied)
     }
 }
 
-void FieldObject::setEated(bool eated)
+void FieldObject::setFoodPoints(int foodPoints)
 {
-    m_eated = eated;
-    /*emit*/ invalidated(shared_from_this());
+    if(foodPoints >= 0)
+    {
+        mFoodPoints = foodPoints;
+        /*emit*/ invalidated(shared_from_this());
+    }
 }
 
-bool FieldObject::isEated() const
+int FieldObject::getMaxFoodPoints() const
 {
-    return m_eated;
+    return mMaxFoodPoints;
+}
+
+int FieldObject::getFoodPoints() const
+{
+    return mFoodPoints;
 }

@@ -25,19 +25,21 @@ public:
     inline void setPosition(const Position& m_position) {setPosition(m_position.x, m_position.y);}
     bool isOccupied() const;
     void setOccupied(bool occupied);
+    int getFoodPoints() const;
+    void setFoodPoints(int foodPoints);
 
 public:
     boost::signals2::signal<void(const std::shared_ptr<FieldObject>&, const Position&)> positionChanged;
     boost::signals2::signal<void(void)> wasOccupied;
-    boost::signals2::signal<void(std::shared_ptr<FieldObject>)> invalidated;
+    boost::signals2::signal<void(const std::shared_ptr<FieldObject>&)> invalidated;
 
-    bool isEated() const;
-    void setEated(bool eated);
+    int getMaxFoodPoints() const;
 
 private:
     Position m_position;
     bool m_occupied = false;
-    bool m_eated = false;
+    const int mMaxFoodPoints = 15;
+    int mFoodPoints = mMaxFoodPoints;
 };
 
 #endif // FIELDOBJECT_H
