@@ -9,6 +9,7 @@
 #include <vector>
 #include "boost/signals2/signal.hpp"
 
+class Animal;
 class AnimalStateWalking: public AnimalState/*State<StateEnum::Animal>*/
 {
 public:

@@ -14,4 +14,9 @@ struct Position
     int y;
 };
 
+inline Position operator+(const Position& first, const Position& second)
+{
+    return Position(first.x + second.x, first.y + second.y);
+}
+
 #endif // POSITION_H
