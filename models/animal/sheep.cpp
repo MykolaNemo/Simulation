@@ -1,12 +1,32 @@
 #include "sheep.h"
 #include <iostream>
+#include "graphicsitems/sheepgraphicsitem.h"
+
+//ugly hack for shared_ptr with protected constructors
+class SheepDer:public Sheep
+{
+public:
+    SheepDer(Position pos = Position()): Sheep(std::move(pos)){}
+};
 
 Sheep::Sheep(Position pos):
     Animal(std::move(pos))
 {
 }
 
-void Sheep::draw(const std::shared_ptr<DrawerVisitor> &drawer)
+void Sheep::init()
 {
-    drawer->drawFor(std::dynamic_pointer_cast<Sheep>(shared_from_this()));
+    mGraphics = new SheepGraphicsItem(std::static_pointer_cast<Sheep>(shared_from_this()));
+}
+
+QGraphicsItem *Sheep::getGraphics() const
+{
+    return mGraphics;
+}
+
+std::shared_ptr<Sheep> Sheep::create(const Position& pos)
+{
+    std::shared_ptr<Sheep> sheep = std::make_shared<SheepDer>(pos);
+    sheep->init();
+    return sheep;
 }

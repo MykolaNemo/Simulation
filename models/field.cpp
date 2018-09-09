@@ -1,5 +1,6 @@
 #include "field.h"
 #include "fieldobject.h"
+#include "models/plant/grass.h"
 
 #include <random>
 #include <functional>
@@ -77,8 +78,7 @@ std::shared_ptr<FieldObject> Field::getClosestObject(const Position &centralPoin
     return closestObject;
 }
 
-std::shared_ptr<FieldObject> Field::getClosestFoodObject(const Position &centralPoint,
-                                                         const std::type_info& type) const
+std::shared_ptr<FieldObject> Field::getClosestGrass(const Position &centralPoint) const
 {
     if (m_objects.empty()) return std::shared_ptr<FieldObject>();
 
@@ -86,7 +86,9 @@ std::shared_ptr<FieldObject> Field::getClosestFoodObject(const Position &central
     std::shared_ptr<FieldObject> closestObject;
     for(const auto& object : m_objects)
     {
-        if(!object->isOccupied() && (typeid(*object.get()) == type) && (object->getFoodPoints() == object->getMaxFoodPoints()))
+        if(!object->isInUse() &&
+                std::dynamic_pointer_cast<Grass>(object) &&
+                (object->getFoodPoints() == object->getMaxFoodPoints()))
         {
             const double currentDistance = objectDistanceSquared(object->getPosition(), centralPoint);
             if(currentDistance < minDistance || minDistance == -1)

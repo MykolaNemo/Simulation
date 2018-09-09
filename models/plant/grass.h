@@ -4,11 +4,19 @@
 #include "plant.h"
 #include "position.h"
 
+class GrassGraphicsItem;
 class Grass: public Plant
 {
 public:
+    static std::shared_ptr<Grass> create(const Position &pos = Position());
+    QGraphicsItem *getGraphics() const override;
+
+protected:
     explicit Grass(const Position &pos = Position());
-    void draw(const std::shared_ptr<DrawerVisitor> &drawer) override;
+
+private:
+    void init();
+    GrassGraphicsItem* mGraphics;
 };
 
 #endif // GRASS_H

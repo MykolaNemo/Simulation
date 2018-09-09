@@ -3,9 +3,9 @@
 
 #include <QBrush>
 
-SheepGraphicsItem::SheepGraphicsItem(const std::shared_ptr<Sheep> &sheep, QGraphicsItem *parent):
+SheepGraphicsItem::SheepGraphicsItem(const std::shared_ptr<Sheep> sheep, QGraphicsItem *parent):
     QGraphicsEllipseItem(0, 0, 20, 15, parent),
-    mSheep(sheep)
+    mSheep(std::move(sheep))
 {
     setup();
 }

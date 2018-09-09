@@ -28,15 +28,15 @@ void FieldObject::setPosition(const int x, const int y)
     positionChanged(shared_from_this(), m_position);
 }
 
-bool FieldObject::isOccupied() const
+bool FieldObject::isInUse() const
 {
-    return m_occupied;
+    return mInUse;
 }
 
-void FieldObject::setOccupied(bool occupied)
+void FieldObject::setInUse(bool occupied)
 {
-    m_occupied = occupied;
-    if(m_occupied)
+    mInUse = occupied;
+    if(mInUse)
     {
         /*emit*/ wasOccupied();
     }

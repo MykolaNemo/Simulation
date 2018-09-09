@@ -1,7 +1,6 @@
 #include "scene.h"
 #include "models/field.h"
 #include "models/fieldobject.h"
-#include "visitors/drawervisitor.h"
 
 #include <QGraphicsEllipseItem>
 #include <QTimer>
@@ -30,7 +29,6 @@ void Scene::objectPositionChanged(const std::shared_ptr<FieldObject> &object, co
 std::shared_ptr<Scene> Scene::create(const std::shared_ptr<Field> &field)
 {
     std::shared_ptr<Scene> scene(new Scene());
-    scene->mDrawer = std::make_shared<DrawerVisitor>(scene);
     scene->setField(field);
     return scene;
 }
@@ -58,10 +56,12 @@ void Scene::setField(const std::shared_ptr<Field> &field)
             }
         });
 
-        object->draw(mDrawer);
+        this->addItem(object->getGraphics());
+        object->getGraphics()->setPos(object->getPosition().x,object->getPosition().y);
+
         if(mGraphicsItemsMap.count(object) == 0)
         {
-            auto pair = std::make_pair(object, mDrawer->getGraphicsItem());
+            auto pair = std::make_pair(object, object->getGraphics());
             mGraphicsItemsMap.insert(pair);
         }
     }

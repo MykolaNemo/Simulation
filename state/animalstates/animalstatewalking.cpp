@@ -9,9 +9,18 @@
 
 const double AnimalStateWalking::velocity = 10.0;
 
-AnimalStateWalking::AnimalStateWalking(const Position start, const std::shared_ptr<FieldObject>& destObject):
+namespace {
+    Position calculateDestinationPosition(const std::shared_ptr<FieldObject> &animalObject,
+                                          const std::shared_ptr<FieldObject>& destObject)
+    {
+        return Position();
+    }
+}
+
+AnimalStateWalking::AnimalStateWalking(const std::shared_ptr<FieldObject> &animalObject,
+                                       const std::shared_ptr<FieldObject>& destObject):
     AnimalState(),
-    m_startPoint(std::move(start)),
+    m_startPoint(animalObject ? animalObject->getPosition() : Position()),
     m_destinationPoint(destObject ? destObject->getPosition() : m_startPoint),
     m_totalDistance(sqrt(pow(abs(m_destinationPoint.x - m_startPoint.x),2) +
                          pow(abs(m_destinationPoint.y - m_startPoint.y),2))),
@@ -20,7 +29,7 @@ AnimalStateWalking::AnimalStateWalking(const Position start, const std::shared_p
 {
     if(m_destinationObject)
     {
-        m_destinationObject->setOccupied(true);
+        m_destinationObject->setInUse(true);
         m_signalConnections.push_back(m_destinationObject->wasOccupied.connect([this](){
             m_interrupt = true;
         }));
@@ -70,9 +79,4 @@ void AnimalStateWalking::doWork(std::shared_ptr<FieldObject>& object)
                              (m_distanceWalked * static_cast<double>(m_startPoint.y - m_destinationPoint.y))/m_totalDistance);
 
     object->setPosition(Position(x,y));
-}
-
-std::shared_ptr<StateAbstract> AnimalStateWalking::next()
-{
-    return std::make_shared<AnimalStateEating>(std::shared_ptr<FieldObject>());
 }

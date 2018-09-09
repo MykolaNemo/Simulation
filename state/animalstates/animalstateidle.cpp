@@ -18,19 +18,12 @@ std::shared_ptr<StateAbstract> AnimalStateIdle::update(std::shared_ptr<FieldObje
     }
     else
     {
-        const auto currentPosition = object->getPosition();
-        const auto closestGrass = field.getClosestFoodObject(currentPosition, typeid(Grass));
+        const auto closestGrass = field.getClosestGrass(object->getPosition());
         if(closestGrass)
         {
             idlingCount = 0;
-            return std::make_shared<AnimalStateWalking>(currentPosition, closestGrass);
+            return std::make_shared<AnimalStateWalking>(object, closestGrass);
         }
     }
     return std::shared_ptr<StateAbstract>();
-}
-
-std::shared_ptr<StateAbstract> AnimalStateIdle::next()
-{
-    idlingCount = 0;
-    return std::make_shared<AnimalStateWalking>(Position(),std::shared_ptr<FieldObject>());
 }

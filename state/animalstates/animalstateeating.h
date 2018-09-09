@@ -16,7 +16,6 @@ public:
     std::shared_ptr<StateAbstract> update(std::shared_ptr<FieldObject> &object, const Field &field) override;
 
 private:
-    std::shared_ptr<StateAbstract> next() override;
     std::shared_ptr<FieldObject> mFoodObject;
 };
 

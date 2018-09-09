@@ -6,9 +6,9 @@
 const QColor GrassGraphicsItem::eatedColor = QColor(127, 102, 48);
 const QColor GrassGraphicsItem::notEatedColor = QColor(127, 255, 48);
 
-GrassGraphicsItem::GrassGraphicsItem(const std::shared_ptr<Grass>& grassObject, QGraphicsItem* parent):
+GrassGraphicsItem::GrassGraphicsItem(const std::shared_ptr<Grass> grassObject, QGraphicsItem* parent):
     QGraphicsEllipseItem(0, 0, 8, 8, parent),
-    mGrassObject(grassObject)
+    mGrassObject(std::move(grassObject))
 {
     setup();
 }

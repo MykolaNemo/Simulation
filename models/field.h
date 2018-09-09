@@ -27,8 +27,7 @@ public:
     std::vector<std::shared_ptr<FieldObject>> getObjects() const;
     std::shared_ptr<FieldObject> getClosestObject(const Position &centralPoint,
                                                   const type_info &type) const;
-    std::shared_ptr<FieldObject> getClosestFoodObject(const Position &centralPoint,
-                                                  const type_info &type) const;
+    std::shared_ptr<FieldObject> getClosestGrass(const Position &centralPoint) const;
 
     Size2D getSize() const;
     inline int getWidth() const {return getSize().width;}

@@ -17,7 +17,6 @@ public:
 
 private:
     void doWork();
-    std::shared_ptr<StateAbstract> next() override;
 };
 
 #endif // PLANTSTATENOTGROWING_H

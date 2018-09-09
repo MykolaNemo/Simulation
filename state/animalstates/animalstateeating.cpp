@@ -13,7 +13,7 @@ AnimalStateEating::AnimalStateEating(const std::shared_ptr<FieldObject> &foodObj
 {
 //    if(mFoodObject)
 //    {
-//        mFoodObject->setOccupied(true);
+//        mFoodObject->setInUse(true);
 //    }
 }
 
@@ -27,16 +27,11 @@ std::shared_ptr<StateAbstract> AnimalStateEating::update(std::shared_ptr<FieldOb
             grass->setFoodPoints(grass->getFoodPoints() - 5);
             if(grass->getFoodPoints() <= 0)
             {
-                mFoodObject->setOccupied(false);
+                mFoodObject->setInUse(false);
                 return std::make_shared<AnimalStateIdle>();
             }
             return std::shared_ptr<StateAbstract>();
         }
     }
-    return std::make_shared<AnimalStateIdle>();
-}
-
-std::shared_ptr<StateAbstract> AnimalStateEating::next()
-{
     return std::make_shared<AnimalStateIdle>();
 }

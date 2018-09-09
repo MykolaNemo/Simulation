@@ -3,12 +3,19 @@
 
 #include "animal.h"
 
+class SheepGraphicsItem;
 class Sheep: public Animal
 {
 public:
+    QGraphicsItem* getGraphics() const;
+    static std::shared_ptr<Sheep> create(const Position& pos = Position());
+
+protected:
     Sheep(Position pos = Position());
 
-    void draw(const std::shared_ptr<DrawerVisitor> &drawer) override;
+private:
+    void init();
+    SheepGraphicsItem* mGraphics;
 };
 
 #endif // SHEEP_H

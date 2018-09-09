@@ -8,7 +8,7 @@ class Sheep;
 class SheepGraphicsItem : public QGraphicsEllipseItem
 {
 public:
-    explicit SheepGraphicsItem(const std::shared_ptr<Sheep>& sheep, QGraphicsItem* parent = nullptr);
+    explicit SheepGraphicsItem(const std::shared_ptr<Sheep> sheep, QGraphicsItem* parent = nullptr);
 
 private:
     void setup();

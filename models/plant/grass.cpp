@@ -1,14 +1,31 @@
 #include "grass.h"
-#include "visitors/drawervisitor.h"
-#include "state/plantstates/plantstategrowing.h"
-#include "state/plantstates/plantstatenotgrowing.h"
+#include "graphicsitems/grassgraphicsitem.h"
+
+//ugly hack for shared_ptr with protected constructors
+class GrassDer:public Grass
+{
+public:
+    GrassDer(Position pos = Position()):Grass(std::move(pos)){}
+};
 
 Grass::Grass(const Position& pos):
     Plant(pos)
 {
 }
 
-void Grass::draw(const std::shared_ptr<DrawerVisitor> &drawer)
+void Grass::init()
 {
-    drawer->drawFor(std::dynamic_pointer_cast<Grass>(shared_from_this()));
+    mGraphics = new GrassGraphicsItem(std::static_pointer_cast<Grass>(shared_from_this()));
+}
+
+QGraphicsItem *Grass::getGraphics() const
+{
+    return mGraphics;
+}
+
+std::shared_ptr<Grass> Grass::create(const Position& pos)
+{
+    std::shared_ptr<Grass> grass = std::make_shared<GrassDer>(pos);
+    grass->init();
+    return grass;
 }

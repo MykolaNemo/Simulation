@@ -4,11 +4,10 @@
 #include <QGraphicsEllipseItem>
 
 class Grass;
-
 class GrassGraphicsItem : public QGraphicsEllipseItem
 {
 public:
-    explicit GrassGraphicsItem(const std::shared_ptr<Grass> &grassObject, QGraphicsItem *parent = nullptr);
+    explicit GrassGraphicsItem(const std::shared_ptr<Grass> grassObject, QGraphicsItem *parent = nullptr);
 
 protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;

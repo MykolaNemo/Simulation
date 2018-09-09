@@ -15,7 +15,7 @@ PlantStateGrowing::PlantStateGrowing():
 std::shared_ptr<StateAbstract> PlantStateGrowing::update(std::shared_ptr<FieldObject> &object, const Field &field)
 {
     const int foodPoints = object->getFoodPoints();
-    if(!object->isOccupied() && (foodPoints < object->getMaxFoodPoints()))
+    if(!object->isInUse() && (foodPoints < object->getMaxFoodPoints()))
     {
         object->setFoodPoints(foodPoints+1);
         return std::shared_ptr<StateAbstract>();
@@ -24,9 +24,4 @@ std::shared_ptr<StateAbstract> PlantStateGrowing::update(std::shared_ptr<FieldOb
     {
         return std::make_shared<PlantStateNotGrowing>();
     }
-}
-
-std::shared_ptr<StateAbstract> PlantStateGrowing::next()
-{
-    return std::make_shared<PlantStateNotGrowing>();
 }

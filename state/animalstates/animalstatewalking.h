@@ -12,7 +12,8 @@
 class AnimalStateWalking: public AnimalState/*State<StateEnum::Animal>*/
 {
 public:
-    AnimalStateWalking(const Position start, const std::shared_ptr<FieldObject> &destObject);
+    AnimalStateWalking(const std::shared_ptr<FieldObject> &animalObject,
+                       const std::shared_ptr<FieldObject> &destObject);
     ~AnimalStateWalking();
     AnimalStateWalking(const AnimalStateWalking& other) = default;
     AnimalStateWalking(AnimalStateWalking&& other) = default;
@@ -23,7 +24,6 @@ public:
 
 private:
     void doWork(std::shared_ptr<FieldObject> &object);
-    std::shared_ptr<StateAbstract> next() override;
 
     static const double velocity;
     const Position m_startPoint;
