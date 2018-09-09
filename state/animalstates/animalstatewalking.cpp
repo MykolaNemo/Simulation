@@ -26,6 +26,14 @@ AnimalStateWalking::AnimalStateWalking(const Position start, const std::shared_p
     }
 }
 
+AnimalStateWalking::~AnimalStateWalking()
+{
+    for(auto connection : m_signalConnections)
+    {
+        connection.disconnect();
+    }
+}
+
 std::shared_ptr<StateAbstract> AnimalStateWalking::update(std::shared_ptr<FieldObject> &currentObject, const Field &)
 {
     if(m_interrupt)
