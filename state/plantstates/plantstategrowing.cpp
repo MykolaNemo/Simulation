@@ -17,7 +17,7 @@ std::shared_ptr<StateAbstract> PlantStateGrowing::update(std::shared_ptr<FieldOb
     const int foodPoints = object->getFoodPoints();
     if(!object->isOccupied() && (foodPoints < object->getMaxFoodPoints()))
     {
-        object->setFoodPoints(foodPoints);
+        object->setFoodPoints(foodPoints+1);
         return std::shared_ptr<StateAbstract>();
     }
     else

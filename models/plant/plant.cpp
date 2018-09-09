@@ -2,9 +2,6 @@
 #include "state/plantstates/plantstategrowing.h"
 
 #include <iostream>
-#include <QElapsedTimer>
-
-QElapsedTimer t2;
 
 Plant::Plant(const Position& pos):
     FieldObject(pos)
@@ -14,7 +11,6 @@ Plant::Plant(const Position& pos):
 
 void Plant::update(const Field &field)
 {
-    t2.start();
     if(!m_state) return;
 
     auto ptr(shared_from_this());
@@ -23,7 +19,6 @@ void Plant::update(const Field &field)
     {
         m_state = nextState;
     }
-    std::cout<<"Plant update: "<<t2.elapsed()<<std::endl;
 }
 
 void Plant::setState(const std::shared_ptr<PlantState> &newState)

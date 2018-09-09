@@ -26,7 +26,7 @@ public:
     bool isOccupied() const;
     void setOccupied(bool occupied);
     int getFoodPoints() const;
-    void setFoodPoints(int foodPoints);
+    void setFoodPoints(const int foodPoints);
 
 public:
     boost::signals2::signal<void(const std::shared_ptr<FieldObject>&, const Position&)> positionChanged;
@@ -38,7 +38,7 @@ public:
 private:
     Position m_position;
     bool m_occupied = false;
-    const int mMaxFoodPoints = 15;
+    const int mMaxFoodPoints = 200;
     int mFoodPoints = mMaxFoodPoints;
 };
 

@@ -20,6 +20,7 @@ AnimalStateWalking::AnimalStateWalking(const Position start, const std::shared_p
 {
     if(m_destinationObject)
     {
+        m_destinationObject->setOccupied(true);
         m_signalConnections.push_back(m_destinationObject->wasOccupied.connect([this](){
             m_interrupt = true;
         }));

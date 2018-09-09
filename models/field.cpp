@@ -5,10 +5,10 @@
 #include <functional>
 #include <iostream>
 
-double objectDistance (const Position& firstPos, const Position& secondPos)
+double objectDistanceSquared (const Position& firstPos, const Position& secondPos)
 {
-    return std::sqrt(std::pow(std::abs(firstPos.x - secondPos.x),2) +
-                     std::pow(std::abs(firstPos.y - secondPos.y),2));
+    return std::pow(std::abs(firstPos.x - secondPos.x),2) +
+            std::pow(std::abs(firstPos.y - secondPos.y),2);
 }
 
 Field::Field(int _width, int _height):
@@ -66,7 +66,7 @@ std::shared_ptr<FieldObject> Field::getClosestObject(const Position &centralPoin
     {
         if(typeid(*object.get()) == type)
         {
-            const double currentDistance = objectDistance(object->getPosition(), centralPoint);
+            const double currentDistance = objectDistanceSquared(object->getPosition(), centralPoint);
             if(currentDistance < minDistance || minDistance == -1)
             {
                 minDistance = currentDistance;
@@ -78,7 +78,7 @@ std::shared_ptr<FieldObject> Field::getClosestObject(const Position &centralPoin
 }
 
 std::shared_ptr<FieldObject> Field::getClosestFoodObject(const Position &centralPoint,
-                                                               const std::type_info& type) const
+                                                         const std::type_info& type) const
 {
     if (m_objects.empty()) return std::shared_ptr<FieldObject>();
 
@@ -86,9 +86,9 @@ std::shared_ptr<FieldObject> Field::getClosestFoodObject(const Position &central
     std::shared_ptr<FieldObject> closestObject;
     for(const auto& object : m_objects)
     {
-        if(!object->isOccupied() && (typeid(*object.get()) == type) && (object->getFoodPoints() > 0))
+        if(!object->isOccupied() && (typeid(*object.get()) == type) && (object->getFoodPoints() == object->getMaxFoodPoints()))
         {
-            const double currentDistance = objectDistance(object->getPosition(), centralPoint);
+            const double currentDistance = objectDistanceSquared(object->getPosition(), centralPoint);
             if(currentDistance < minDistance || minDistance == -1)
             {
                 minDistance = currentDistance;

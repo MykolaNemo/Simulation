@@ -42,9 +42,13 @@ void FieldObject::setOccupied(bool occupied)
     }
 }
 
-void FieldObject::setFoodPoints(int foodPoints)
+void FieldObject::setFoodPoints(const int foodPoints)
 {
-    if(foodPoints >= 0)
+    if(foodPoints < 0)
+    {
+        mFoodPoints = 0;
+    }
+    else
     {
         mFoodPoints = foodPoints;
         /*emit*/ invalidated(shared_from_this());

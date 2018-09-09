@@ -9,7 +9,7 @@ static int notGrowingCount = 0;
 
 std::shared_ptr<StateAbstract> PlantStateNotGrowing::update(std::shared_ptr<FieldObject> &object, const Field &field)
 {
-    if(!object->isOccupied() && object->getFoodPoints() <= 0)
+    if(!object->isOccupied() && (object->getFoodPoints() <= 0))
     {
         return std::make_shared<PlantStateGrowing>();
     }

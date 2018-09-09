@@ -12,13 +12,13 @@
 
 std::shared_ptr<Field> createField()
 {
-    const int fieldWidth = 1300;
-    const int fieldHeight = 650;
+    const int fieldWidth = 600;
+    const int fieldHeight = 400;
 
     const auto sheeps = [](){
         std::vector<std::shared_ptr<FieldObject>> v;
         v.reserve(1000);
-        for(int i = 0; i < 1000; ++i)
+        for(int i = 0; i < 10; ++i)
         {
             v.emplace_back(std::make_shared<Sheep>());
         }
@@ -28,7 +28,7 @@ std::shared_ptr<Field> createField()
     const auto grass = []{
         std::vector<std::shared_ptr<FieldObject>> v;
         v.reserve(1000);
-        for(int i = 0; i < 1000; ++i)
+        for(int i = 0; i < 40; ++i)
         {
             v.emplace_back(std::make_shared<Grass>());
         }
