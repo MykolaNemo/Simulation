@@ -3,8 +3,6 @@
 #include "models/fieldobject.h"
 
 #include <QGraphicsEllipseItem>
-#include <QTimer>
-#include <iostream>
 
 Scene::Scene(QObject *parent):
     QGraphicsScene(parent)
@@ -41,28 +39,32 @@ void Scene::setField(const std::shared_ptr<Field> &field)
     mField = field;
 
     if(!mField) return;
-    setSceneRect(QRect(0, 0, field->getWidth(), field->getHeight()));
+    setSceneRect(QRect(0, 0, mField->getWidth(), mField->getHeight()));
 
     const auto objects = mField->getObjects();
     for(const auto& object : objects)
     {
-        object->positionChanged.connect([this](const std::shared_ptr<FieldObject>& obj, const Position& pos){
-           emit positionChanged(obj, pos);
+        QGraphicsItem* graphicsItem = object->getGraphics();
+        if(!graphicsItem) continue;
+
+        this->addItem(graphicsItem);
+        graphicsItem->setPos(object->getPosition().x, object->getPosition().y);
+
+        if(mGraphicsItemsMap.count(object) == 0)
+        {
+            mGraphicsItemsMap.insert(std::make_pair(object, object->getGraphics()));
+        }
+
+        object->positionChanged.connect([this](const std::shared_ptr<FieldObject>& obj,
+                                               const Position& pos){
+            emit positionChanged(obj, pos);
         });
+
         object->invalidated.connect([this](const std::shared_ptr<FieldObject>& obj){
             if(auto it = mGraphicsItemsMap.find(obj); it != mGraphicsItemsMap.end())
             {
                 it->second->update();
             }
         });
-
-        this->addItem(object->getGraphics());
-        object->getGraphics()->setPos(object->getPosition().x,object->getPosition().y);
-
-        if(mGraphicsItemsMap.count(object) == 0)
-        {
-            auto pair = std::make_pair(object, object->getGraphics());
-            mGraphicsItemsMap.insert(pair);
-        }
     }
 }
