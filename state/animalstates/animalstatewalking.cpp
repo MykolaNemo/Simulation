@@ -13,7 +13,7 @@
 const double AnimalStateWalking::velocity = 10.0;
 
 namespace {
-    Position calculateDestinationPosition(const std::shared_ptr<FieldObject>& animalObject,
+    Position calculateDestinationPositionCircleContact(const std::shared_ptr<FieldObject>& animalObject,
                                           const std::shared_ptr<FieldObject>& foodObject)
     {
         assert(animalObject && foodObject);
@@ -22,22 +22,13 @@ namespace {
         QGraphicsItem* foodGraphics = foodObject->getGraphics();
         assert(animalGraphics && foodGraphics);
 
-//        QRect animalRect(animalObject->getPosition().x,
-//                         animalObject->getPosition().y,
-//                         animalGraphics->boundingRect().size().width(),
-//                         animalGraphics->boundingRect().size().height());
-
-//        QRect foodRect(foodObject->getPosition().x,
-//                         foodObject->getPosition().y,
-//                         foodGraphics->boundingRect().size().width(),
-//                         foodGraphics->boundingRect().size().height());
-
+        QSize animalSize = animalGraphics->boundingRect().size().toSize();
         Position animalCenterPoint = animalObject->getPosition() +
-                                        Position(animalGraphics->boundingRect().size().width()/2,
-                                        animalGraphics->boundingRect().size().height()/2);
+                                        Position(animalSize.width()/2, animalSize.height()/2);
+
+        QSize foodSize = foodGraphics->boundingRect().size().toSize();
         Position foodCenterPoint = foodObject->getPosition() +
-                                        Position(foodGraphics->boundingRect().size().width()/2,
-                                        foodGraphics->boundingRect().size().height()/2);
+                                        Position(foodSize.width()/2, foodSize.height()/2);
 
         double distance = sqrt(pow(abs(foodCenterPoint.x - animalCenterPoint.x),2) +
                                pow(abs(foodCenterPoint.y - animalCenterPoint.y),2));
@@ -53,45 +44,52 @@ namespace {
             }
             std::cout<<"angle:" <<angle*180.0/M_PI<<std::endl;
         }
-        int x = foodCenterPoint.x + foodGraphics->boundingRect().width() * cos(angle);
-        int y = foodCenterPoint.y + foodGraphics->boundingRect().height() * sin(angle);
+
+        int x = foodCenterPoint.x + static_cast<double>(foodSize.width()/2+animalSize.width()/2)*cos(angle) - animalSize.width()/2;
+        int y = foodCenterPoint.y + static_cast<double>(foodSize.height()/2+animalSize.height()/2)*sin(angle) - animalSize.height()/2;
+
         return Position(x,y);
-//        QGraphicsItem* animalGraphics = animalObject->getGraphics();
-//        QGraphicsItem* foodGraphics = foodObject->getGraphics();
-//        if(!animalGraphics || !foodGraphics)
-//        {
-//            return animalObject->getPosition();
-//        }
+    }
 
-//        QRect animalRect(animalGraphics->pos().x(), animalGraphics->pos().y(),
-//                         animalGraphics->boundingRect().size().toSize().height(),
-//                         animalGraphics->boundingRect().size().toSize().width());
+    Position calculateDestinationPositionFromTheSide(const std::shared_ptr<FieldObject>& animalObject,
+                                                     const std::shared_ptr<FieldObject>& foodObject)
+    {
+        assert(animalObject && foodObject);
 
-//        QRect foodRect(foodGraphics->pos().x(), foodGraphics->pos().y(),
-//                       foodGraphics->boundingRect().size().toSize().height(),
-//                       foodGraphics->boundingRect().size().toSize().width());
+        QGraphicsItem* animalGraphics = animalObject->getGraphics();
+        QGraphicsItem* foodGraphics = foodObject->getGraphics();
+        assert(animalGraphics && foodGraphics);
 
-//        int x,y;
-//        if(animalRect.center().x() <= foodRect.center().x())
-//        {
-//            x = foodRect.right() - animalRect.width();
-//        }
-//        else
-//        {
-//            x = foodRect.left();
-//        }
+        QSize animalSize = animalGraphics->boundingRect().size().toSize();
+        Position animalCenterPoint = animalObject->getPosition() +
+                                        Position(animalSize.width()/2, animalSize.height()/2);
 
-//        if(animalRect.center().y() <= foodRect.center().y())
-//        return Position(x,y);
+        QSize foodSize = foodGraphics->boundingRect().size().toSize();
+        Position foodCenterPoint = foodObject->getPosition() +
+                                        Position(foodSize.width()/2, foodSize.height()/2);
+
+        int x,y;
+        if(animalCenterPoint.x <= foodCenterPoint.x)
+        {
+            x = foodObject->getPosition().x - animalSize.width();
+            y = foodCenterPoint.y - animalSize.height()/2;
+        }
+        else
+        {
+            x = foodObject->getPosition().x + foodSize.width();
+            y = foodCenterPoint.y - animalSize.height()/2;
+        }
+        return Position(x,y);
     }
 }
+
 
 AnimalStateWalking::AnimalStateWalking(const std::shared_ptr<FieldObject> &animalObject,
                                        const std::shared_ptr<FieldObject>& destObject):
     AnimalState(),
     m_startPoint(animalObject ? animalObject->getPosition() : Position()),
 //    m_destinationPoint(destObject ? destObject->getPosition() : m_startPoint),
-    m_destinationPoint(calculateDestinationPosition(animalObject, destObject)),
+    m_destinationPoint(calculateDestinationPositionFromTheSide(animalObject, destObject)),
     m_totalDistance(sqrt(pow(abs(m_destinationPoint.x - m_startPoint.x),2) +
                          pow(abs(m_destinationPoint.y - m_startPoint.y),2))),
     m_lastUpdateTime(std::chrono::system_clock::now()),
@@ -121,7 +119,7 @@ std::shared_ptr<StateAbstract> AnimalStateWalking::update(std::shared_ptr<FieldO
         return std::make_shared<AnimalStateIdle>();
     }
 
-    calculateDestinationPosition(currentObject, m_destinationObject);
+    calculateDestinationPositionCircleContact(currentObject, m_destinationObject);
     if(m_distanceWalked != m_totalDistance)
     {
         doWork(currentObject);
