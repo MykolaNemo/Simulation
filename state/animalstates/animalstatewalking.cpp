@@ -42,7 +42,6 @@ namespace {
             {
                 angle = 2*M_PI-angle;
             }
-            std::cout<<"angle:" <<angle*180.0/M_PI<<std::endl;
         }
 
         int x = foodCenterPoint.x + static_cast<double>(foodSize.width()/2+animalSize.width()/2)*cos(angle) - animalSize.width()/2;

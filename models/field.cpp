@@ -111,7 +111,7 @@ Position Field::randomPosition() const
     std::random_device rd;
     const std::default_random_engine generatorX(rd());
     const std::default_random_engine generatorY(rd());
-    const std::uniform_int_distribution<int> distributionX(0, size.width - 1);
-    const std::uniform_int_distribution<int> distributionY(0, size.height - 1);
+    const std::uniform_int_distribution<int> distributionX(leftMargin, size.width - 1 - rightMargin);
+    const std::uniform_int_distribution<int> distributionY(topMargin, size.height - 1 - bottomMargin);
     return Position(std::bind(distributionX, generatorX)(), std::bind(distributionY, generatorY)());
 }

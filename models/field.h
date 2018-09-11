@@ -41,6 +41,10 @@ private:
 private:
     Size2D size;
     std::vector<std::shared_ptr<FieldObject>> m_objects;
+    const int leftMargin = 5;
+    const int rightMargin = 30;
+    const int topMargin = 20;
+    const int bottomMargin = 25;
 };
 
 #endif // FIELD_H
