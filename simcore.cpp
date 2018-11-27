@@ -6,6 +6,7 @@
 #include <QDebug>
 #include <stdexcept>
 #include <iostream>
+#include <thread>
 #include <QElapsedTimer>
 
 SimCore::SimCore(const std::shared_ptr<Field>& _field)

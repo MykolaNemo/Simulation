@@ -9,11 +9,11 @@ void BinarySearchTree::addValue(int value)
 {
     if(!mRoot)
     {
-        mRoot = new TreeNode(value);
+        mRoot = new Tree(value);
         return;
     }
 
-    TreeNode* currentNode = mRoot;
+    Tree* currentNode = mRoot;
     while(true)
     {
         if(value > currentNode->value)
@@ -23,7 +23,7 @@ void BinarySearchTree::addValue(int value)
                 currentNode = currentNode->right;
                 continue;
             }
-            TreeNode* newNode = new TreeNode(value);
+            auto newNode = new Tree(value);
             newNode->parent = currentNode;
             currentNode->right = newNode;
             break;
@@ -33,7 +33,8 @@ void BinarySearchTree::addValue(int value)
             currentNode = currentNode->left;
             continue;
         }
-        TreeNode* newNode = new TreeNode(value);
+
+        auto newNode = new Tree(value);
         newNode->parent = currentNode;
         currentNode->left = newNode;
         break;
@@ -44,8 +45,8 @@ void BinarySearchTree::removeValue(int value)
 {
     if(!mRoot) return;
 
-    TreeNode* currentNode = mRoot;
-    while(true)
+    Tree* currentNode = mRoot;
+    while(currentNode)
     {
         if(value > currentNode->value)//bigger->go right
         {
@@ -76,7 +77,7 @@ void BinarySearchTree::removeValue(int value)
                 }
                 else
                 {
-                    TreeNode* min = minNode(currentNode);
+                    Tree* min = minNode(currentNode);
                     currentNode->value = min->value;
 
                     removeFromTheParentNode(min);
@@ -86,11 +87,13 @@ void BinarySearchTree::removeValue(int value)
             {
                 currentNode->value = currentNode->left->value;
                 delete currentNode->left;
+                currentNode->left = nullptr;
             }
             else if(currentNode->right)//only right child present
             {
                 currentNode->value = currentNode->right->value;
                 delete currentNode->right;
+                currentNode->right = nullptr;
             }
             else // no children present
             {
@@ -100,11 +103,11 @@ void BinarySearchTree::removeValue(int value)
     }
 }
 
-void BinarySearchTree::removeFromTheParentNode(TreeNode* node)
+void BinarySearchTree::removeFromTheParentNode(Tree* node)
 {
     if(!node || !node->parent) return;
 
-    TreeNode* parent = node->parent;
+    Tree* parent = node->parent;
     if(parent->left == node)
     {
         delete parent->left;
@@ -117,11 +120,11 @@ void BinarySearchTree::removeFromTheParentNode(TreeNode* node)
     }
 }
 
-TreeNode* BinarySearchTree::minNode(TreeNode* node)
+Tree* BinarySearchTree::minNode(Tree* node)
 {
     if(!node) return nullptr;
 
-    TreeNode* currentNode = node;
+    Tree* currentNode = node;
     while(currentNode->left)
     {
         currentNode = node->left;

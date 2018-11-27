@@ -6,8 +6,8 @@
 class AnimalStateEating: public AnimalState/*State<StateEnum::Animal>*/
 {
 public:
-    AnimalStateEating(const std::shared_ptr<FieldObject> &foodObject);
-    ~AnimalStateEating() = default;
+    AnimalStateEating(std::shared_ptr<FieldObject> foodObject);
+    ~AnimalStateEating() override = default;
     AnimalStateEating(const AnimalStateEating& other) = default;
     AnimalStateEating(AnimalStateEating&& other) = default;
     AnimalStateEating& operator =(const AnimalStateEating& other) = default;

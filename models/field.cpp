@@ -5,6 +5,7 @@
 #include <random>
 #include <functional>
 #include <iostream>
+#include <optional>
 
 double objectDistanceSquared (const Position& firstPos, const Position& secondPos)
 {
@@ -61,18 +62,29 @@ std::shared_ptr<FieldObject> Field::getClosestObject(const Position &centralPoin
 {
     if (m_objects.empty()) return std::shared_ptr<FieldObject>();
 
-    double minDistance = -1;
+    auto distanceLambda = [&type, &centralPoint](const std::shared_ptr<FieldObject>& object)->std::optional<double>{
+        const auto ptr = object.get();
+        if(typeid(*ptr) == type)
+        {
+            return objectDistanceSquared(object->getPosition(), centralPoint);
+        }
+        return std::optional<double>();
+    };
+
+    std::optional<double> minDistance;
     std::shared_ptr<FieldObject> closestObject;
     for(const auto& object : m_objects)
     {
-        if(typeid(*object.get()) == type)
+        const std::optional<double> currentDistance = distanceLambda(object);
+        if(!minDistance.has_value() && currentDistance.has_value())
         {
-            const double currentDistance = objectDistanceSquared(object->getPosition(), centralPoint);
-            if(currentDistance < minDistance || minDistance == -1)
-            {
-                minDistance = currentDistance;
-                closestObject = object;
-            }
+            minDistance = currentDistance;
+            closestObject = object;
+        }
+        else if(currentDistance.has_value() && currentDistance.value() < minDistance.value())
+        {
+            minDistance = currentDistance;
+            closestObject = object;
         }
     }
     return closestObject;
@@ -82,20 +94,30 @@ std::shared_ptr<FieldObject> Field::getClosestGrass(const Position &centralPoint
 {
     if (m_objects.empty()) return std::shared_ptr<FieldObject>();
 
-    double minDistance = -1;
-    std::shared_ptr<FieldObject> closestObject;
-    for(const auto& object : m_objects)
-    {
+    auto distanceLambda = [&centralPoint](const std::shared_ptr<FieldObject>& object)->std::optional<double>{
         if(!object->isInUse() &&
                 std::dynamic_pointer_cast<Grass>(object) &&
                 (object->getFoodPoints() == object->getMaxFoodPoints()))
         {
-            const double currentDistance = objectDistanceSquared(object->getPosition(), centralPoint);
-            if(currentDistance < minDistance || minDistance == -1)
-            {
-                minDistance = currentDistance;
-                closestObject = object;
-            }
+            return objectDistanceSquared(object->getPosition(), centralPoint);
+        }
+        return std::optional<double>();
+    };
+
+    std::optional<double> minDistance;
+    std::shared_ptr<FieldObject> closestObject;
+    for(const auto& object : m_objects)
+    {
+        const std::optional<double> currentDistance = distanceLambda(object);
+        if(!minDistance.has_value() && currentDistance.has_value())
+        {
+            minDistance = currentDistance;
+            closestObject = object;
+        }
+        else if(currentDistance.has_value() && currentDistance.value() < minDistance.value())
+        {
+            minDistance = currentDistance;
+            closestObject = object;
         }
     }
     return closestObject;

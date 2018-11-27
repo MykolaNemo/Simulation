@@ -6,10 +6,10 @@
 
 #include <iostream>
 
-static int eatingCount = 0;
+//static int eatingCount = 0;
 
-AnimalStateEating::AnimalStateEating(const std::shared_ptr<FieldObject> &foodObject):
-    mFoodObject(foodObject)
+AnimalStateEating::AnimalStateEating(std::shared_ptr<FieldObject> foodObject):
+    mFoodObject(std::move(foodObject))
 {
 //    if(mFoodObject)
 //    {
@@ -17,7 +17,8 @@ AnimalStateEating::AnimalStateEating(const std::shared_ptr<FieldObject> &foodObj
 //    }
 }
 
-std::shared_ptr<StateAbstract> AnimalStateEating::update(std::shared_ptr<FieldObject> &object, const Field &field)
+std::shared_ptr<StateAbstract> AnimalStateEating::update(std::shared_ptr<FieldObject> &/*object*/,
+                                                         const Field &/*field*/)
 {
     if(mFoodObject)
     {

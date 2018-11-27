@@ -16,7 +16,7 @@ protected:
 
 private:
     void init();
-    GrassGraphicsItem* mGraphics;
+    GrassGraphicsItem* mGraphics = nullptr;
 };
 
 #endif // GRASS_H

@@ -3,14 +3,14 @@
 
 #include <memory>
 
-struct TreeNode
+struct Tree
 {
-    TreeNode(int _value):value(_value){}
-    ~TreeNode() { delete left;delete right; }
+    Tree(int _value):value(_value){}
+    ~Tree() { delete left;delete right; }
 
-    TreeNode* parent = nullptr;
-    TreeNode* left = nullptr;
-    TreeNode* right = nullptr;
+    Tree* parent = nullptr;
+    Tree* left = nullptr;
+    Tree* right = nullptr;
     int value = 0;
 };
 
@@ -23,10 +23,10 @@ public:
     void removeValue(int value);
 
 private:
-    TreeNode* minNode(TreeNode* node);
-    void removeFromTheParentNode(TreeNode *node);
+    Tree* minNode(Tree* node);
+    void removeFromTheParentNode(Tree *node);
 
-    TreeNode* mRoot = nullptr;
+    Tree* mRoot = nullptr;
 };
 
 #endif // RANGETREE_H

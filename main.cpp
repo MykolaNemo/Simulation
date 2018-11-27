@@ -17,7 +17,7 @@ std::shared_ptr<Field> createField()
 
     const auto sheeps = [](){
         std::vector<std::shared_ptr<FieldObject>> v;
-        v.reserve(1000);
+        v.reserve(50);
         for(int i = 0; i < 50; ++i)
         {
             v.emplace_back(Sheep::create());
@@ -27,7 +27,7 @@ std::shared_ptr<Field> createField()
 
     const auto grass = []{
         std::vector<std::shared_ptr<FieldObject>> v;
-        v.reserve(1000);
+        v.reserve(150);
         for(int i = 0; i < 150; ++i)
         {
             v.emplace_back(Grass::create());
@@ -61,5 +61,5 @@ int main(int argc, char *argv[])
 
     simCore.start();
 
-    return a.exec();
+    return QApplication::exec();
 }

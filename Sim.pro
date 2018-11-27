@@ -2,8 +2,6 @@ QT += widgets
 CONFIG += c++17
 CONFIG -= app_bundle
 
-QMAKE_CXXFLAGS += /std:c++17
-
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
 # depend on your compiler). Please consult the documentation of the
@@ -15,7 +13,22 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
-INCLUDEPATH += boost_1_67_0
+BOOST_VERSION=1_68
+INCLUDEPATH+=boost/$${BOOST_VERSION}/include
+
+win32{
+LIBS+=-Lboost/$${BOOST_VERSION}/win/lib
+QMAKE_CXXFLAGS+=/std:c++17
+}
+
+unix{
+# -L     -> buildtime linker search paths
+# -rpath -> runtime linker paths and libraries
+# -Wl    -> comma separated values
+LIBS+=-Lboost/$${BOOST_VERSION}/linux/lib
+LIBS+=-Wl,-rpath=-L/usr/local/gcc-8.2/lib64
+QMAKE_CXXFLAGS+=-std=c++17
+}
 
 SOURCES += \
         main.cpp \

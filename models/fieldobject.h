@@ -11,7 +11,7 @@ class FieldObject: public std::enable_shared_from_this<FieldObject>
 public:
     FieldObject(const Position& _position = Position());
 
-    virtual ~FieldObject();
+    virtual ~FieldObject() = default;
     FieldObject(const FieldObject& other) = default;
     FieldObject(FieldObject&& other) = default;
     FieldObject& operator =(const FieldObject& other) = default;
@@ -20,7 +20,7 @@ public:
     virtual void update(const Field&) = 0;
     virtual QGraphicsItem* getGraphics() const = 0;
 
-    Position getPosition() const;
+    inline Position getPosition() const { return m_position; }
     void setPosition(const int x, const int y);
     inline void setPosition(const Position& m_position) {setPosition(m_position.x, m_position.y);}
     bool isInUse() const;

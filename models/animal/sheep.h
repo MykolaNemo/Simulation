@@ -15,7 +15,7 @@ protected:
 
 private:
     void init();
-    SheepGraphicsItem* mGraphics;
+    SheepGraphicsItem* mGraphics = nullptr;
 };
 
 #endif // SHEEP_H

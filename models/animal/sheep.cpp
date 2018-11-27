@@ -6,11 +6,11 @@
 class SheepDer:public Sheep
 {
 public:
-    SheepDer(Position pos = Position()): Sheep(std::move(pos)){}
+    SheepDer(Position pos = Position()): Sheep(pos){}
 };
 
 Sheep::Sheep(Position pos):
-    Animal(std::move(pos))
+    Animal(pos)
 {
 }
 

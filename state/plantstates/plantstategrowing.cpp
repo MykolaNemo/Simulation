@@ -4,15 +4,9 @@
 
 #include <iostream>
 
-static int growingCount = 0;
+//static int growingCount = 0;
 
-PlantStateGrowing::PlantStateGrowing():
-    PlantState()
-{
-
-}
-
-std::shared_ptr<StateAbstract> PlantStateGrowing::update(std::shared_ptr<FieldObject> &object, const Field &field)
+std::shared_ptr<StateAbstract> PlantStateGrowing::update(std::shared_ptr<FieldObject> &object, const Field &/*field*/)
 {
     const int foodPoints = object->getFoodPoints();
     if(!object->isInUse() && (foodPoints < object->getMaxFoodPoints()))
@@ -20,8 +14,5 @@ std::shared_ptr<StateAbstract> PlantStateGrowing::update(std::shared_ptr<FieldOb
         object->setFoodPoints(foodPoints+1);
         return std::shared_ptr<StateAbstract>();
     }
-    else
-    {
-        return std::make_shared<PlantStateNotGrowing>();
-    }
+    return std::make_shared<PlantStateNotGrowing>();
 }

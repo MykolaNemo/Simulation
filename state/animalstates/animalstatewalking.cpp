@@ -7,8 +7,7 @@
 #include <QGraphicsItem>
 
 #include <iostream>
-#define _USE_MATH_DEFINES
-#include <math.h>
+#include <cmath>
 
 const double AnimalStateWalking::velocity = 10.0;
 
@@ -18,16 +17,16 @@ namespace {
     {
         assert(animalObject && foodObject);
 
-        QGraphicsItem* animalGraphics = animalObject->getGraphics();
-        QGraphicsItem* foodGraphics = foodObject->getGraphics();
+        const QGraphicsItem* animalGraphics = animalObject->getGraphics();
+        const QGraphicsItem* foodGraphics = foodObject->getGraphics();
         assert(animalGraphics && foodGraphics);
 
-        QSize animalSize = animalGraphics->boundingRect().size().toSize();
-        Position animalCenterPoint = animalObject->getPosition() +
+        const QSize animalSize = animalGraphics->boundingRect().size().toSize();
+        const Position animalCenterPoint = animalObject->getPosition() +
                                         Position(animalSize.width()/2, animalSize.height()/2);
 
-        QSize foodSize = foodGraphics->boundingRect().size().toSize();
-        Position foodCenterPoint = foodObject->getPosition() +
+        const QSize foodSize = foodGraphics->boundingRect().size().toSize();
+        const Position foodCenterPoint = foodObject->getPosition() +
                                         Position(foodSize.width()/2, foodSize.height()/2);
 
         double distance = sqrt(pow(abs(foodCenterPoint.x - animalCenterPoint.x),2) +
@@ -44,8 +43,12 @@ namespace {
             }
         }
 
-        int x = foodCenterPoint.x + static_cast<double>(foodSize.width()/2+animalSize.width()/2)*cos(angle) - animalSize.width()/2;
-        int y = foodCenterPoint.y + static_cast<double>(foodSize.height()/2+animalSize.height()/2)*sin(angle) - animalSize.height()/2;
+        const auto foodWidth = static_cast<double>(foodSize.width());
+        const auto foodHeight = static_cast<double>(foodSize.height());
+        const auto animalWidth = static_cast<double>(animalSize.width());
+        const auto animalHeight = static_cast<double>(animalSize.height());
+        const auto x = static_cast<int>(foodCenterPoint.x + (foodWidth/2.0 + animalWidth/2.0) * cos(angle) - animalWidth/2.0);
+        const auto y = static_cast<int>(foodCenterPoint.y + (foodHeight/2.0 + animalHeight/2.0) * sin(angle) - animalHeight/2.0);
 
         return Position(x,y);
     }
@@ -55,39 +58,37 @@ namespace {
     {
         assert(animalObject && foodObject);
 
-        QGraphicsItem* animalGraphics = animalObject->getGraphics();
-        QGraphicsItem* foodGraphics = foodObject->getGraphics();
+        const QGraphicsItem* animalGraphics = animalObject->getGraphics();
+        const QGraphicsItem* foodGraphics = foodObject->getGraphics();
         assert(animalGraphics && foodGraphics);
 
-        QSize animalSize = animalGraphics->boundingRect().size().toSize();
-        Position animalCenterPoint = animalObject->getPosition() +
+        const QSize animalSize = animalGraphics->boundingRect().size().toSize();
+        const Position animalCenterPoint = animalObject->getPosition() +
                                         Position(animalSize.width()/2, animalSize.height()/2);
 
-        QSize foodSize = foodGraphics->boundingRect().size().toSize();
-        Position foodCenterPoint = foodObject->getPosition() +
+        const QSize foodSize = foodGraphics->boundingRect().size().toSize();
+        const Position foodCenterPoint = foodObject->getPosition() +
                                         Position(foodSize.width()/2, foodSize.height()/2);
 
-        int x,y;
         if(animalCenterPoint.x <= foodCenterPoint.x)
         {
-            x = foodObject->getPosition().x - animalSize.width();
-            y = foodCenterPoint.y - animalSize.height()/2;
+            const int x = foodObject->getPosition().x - animalSize.width();
+            const int y = foodCenterPoint.y - animalSize.height()/2;
+            return Position(x,y);
         }
         else
         {
-            x = foodObject->getPosition().x + foodSize.width();
-            y = foodCenterPoint.y - animalSize.height()/2;
+            const int x = foodObject->getPosition().x + foodSize.width();
+            const int y = foodCenterPoint.y - animalSize.height()/2;
+            return Position(x,y);
         }
-        return Position(x,y);
     }
 }
 
 
-AnimalStateWalking::AnimalStateWalking(const std::shared_ptr<FieldObject> &animalObject,
+AnimalStateWalking::AnimalStateWalking(const std::shared_ptr<FieldObject>& animalObject,
                                        const std::shared_ptr<FieldObject>& destObject):
-    AnimalState(),
     m_startPoint(animalObject ? animalObject->getPosition() : Position()),
-//    m_destinationPoint(destObject ? destObject->getPosition() : m_startPoint),
     m_destinationPoint(calculateDestinationPositionFromTheSide(animalObject, destObject)),
     m_totalDistance(sqrt(pow(abs(m_destinationPoint.x - m_startPoint.x),2) +
                          pow(abs(m_destinationPoint.y - m_startPoint.y),2))),
@@ -105,7 +106,7 @@ AnimalStateWalking::AnimalStateWalking(const std::shared_ptr<FieldObject> &anima
 
 AnimalStateWalking::~AnimalStateWalking()
 {
-    for(auto connection : m_signalConnections)
+    for(const auto& connection : m_signalConnections)
     {
         connection.disconnect();
     }
@@ -141,9 +142,9 @@ void AnimalStateWalking::doWork(std::shared_ptr<FieldObject>& object)
     {
         m_distanceWalked = m_totalDistance;
     }
-    const int x = static_cast<int>(static_cast<double>(m_startPoint.x) -
+    const auto x = static_cast<int>(static_cast<double>(m_startPoint.x) -
                              (m_distanceWalked * static_cast<double>(m_startPoint.x - m_destinationPoint.x))/m_totalDistance);
-    const int y = static_cast<int>(static_cast<double>(m_startPoint.y) -
+    const auto y = static_cast<int>(static_cast<double>(m_startPoint.y) -
                              (m_distanceWalked * static_cast<double>(m_startPoint.y - m_destinationPoint.y))/m_totalDistance);
 
     object->setPosition(Position(x,y));

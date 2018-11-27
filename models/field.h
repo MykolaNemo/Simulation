@@ -26,7 +26,7 @@ public:
 
     std::vector<std::shared_ptr<FieldObject>> getObjects() const;
     std::shared_ptr<FieldObject> getClosestObject(const Position &centralPoint,
-                                                  const type_info &type) const;
+                                                  const std::type_info &type) const;
     std::shared_ptr<FieldObject> getClosestGrass(const Position &centralPoint) const;
 
     Size2D getSize() const;

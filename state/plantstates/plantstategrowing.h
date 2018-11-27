@@ -6,8 +6,8 @@
 class PlantStateGrowing: public PlantState/*State<StateEnum::Plant>*/
 {
 public:
-    PlantStateGrowing();
-    ~PlantStateGrowing(){}
+    PlantStateGrowing() = default;
+    ~PlantStateGrowing() override = default;
     PlantStateGrowing(const PlantStateGrowing& other) = default;
     PlantStateGrowing(PlantStateGrowing&& other) = default;
     PlantStateGrowing& operator =(const PlantStateGrowing& other) = default;

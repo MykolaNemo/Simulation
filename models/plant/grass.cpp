@@ -5,7 +5,7 @@
 class GrassDer:public Grass
 {
 public:
-    GrassDer(Position pos = Position()):Grass(std::move(pos)){}
+    GrassDer(Position pos = Position()):Grass(pos){}
 };
 
 Grass::Grass(const Position& pos):

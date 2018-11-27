@@ -5,9 +5,10 @@
 
 #include <iostream>
 
-static int notGrowingCount = 0;
+//static int notGrowingCount = 0;
 
-std::shared_ptr<StateAbstract> PlantStateNotGrowing::update(std::shared_ptr<FieldObject> &object, const Field &field)
+std::shared_ptr<StateAbstract> PlantStateNotGrowing::update(std::shared_ptr<FieldObject> &object,
+                                                            [[maybe_unused]] const Field &field)
 {
     if(!object->isInUse() && (object->getFoodPoints() <= 0))
     {

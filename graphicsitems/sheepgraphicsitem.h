@@ -2,13 +2,14 @@
 #define SHEEPGRAPHICSITEM_H
 
 #include <QGraphicsEllipseItem>
+#include <memory>
 
 class Sheep;
 
 class SheepGraphicsItem : public QGraphicsEllipseItem
 {
 public:
-    explicit SheepGraphicsItem(const std::shared_ptr<Sheep> sheep, QGraphicsItem* parent = nullptr);
+    explicit SheepGraphicsItem(std::shared_ptr<Sheep> sheep, QGraphicsItem* parent = nullptr);
 
 private:
     void setup();

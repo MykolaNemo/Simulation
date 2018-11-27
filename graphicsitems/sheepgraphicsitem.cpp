@@ -3,7 +3,7 @@
 
 #include <QBrush>
 
-SheepGraphicsItem::SheepGraphicsItem(const std::shared_ptr<Sheep> sheep, QGraphicsItem *parent):
+SheepGraphicsItem::SheepGraphicsItem(std::shared_ptr<Sheep> sheep, QGraphicsItem *parent):
     QGraphicsEllipseItem(parent),
     mSheep(std::move(sheep))
 {
@@ -14,7 +14,7 @@ void SheepGraphicsItem::setup()
 {
     if(!mSheep) return;
 
-    setBrush(QBrush(QColor("#CCCCCC"), Qt::SolidPattern));
+    setBrush(QBrush(QColor(0xCC,0xCC,0xCC), Qt::SolidPattern));
     setRect(0, 0, 20, 15);
     setPos(mSheep->getPosition().x, mSheep->getPosition().y);
 }

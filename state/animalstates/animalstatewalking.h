@@ -15,7 +15,7 @@ class AnimalStateWalking: public AnimalState/*State<StateEnum::Animal>*/
 public:
     AnimalStateWalking(const std::shared_ptr<FieldObject> &animalObject,
                        const std::shared_ptr<FieldObject> &destObject);
-    ~AnimalStateWalking();
+    ~AnimalStateWalking() override;
     AnimalStateWalking(const AnimalStateWalking& other) = default;
     AnimalStateWalking(AnimalStateWalking&& other) = default;
     AnimalStateWalking& operator =(const AnimalStateWalking& other) = default;

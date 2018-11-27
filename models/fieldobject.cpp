@@ -1,4 +1,6 @@
 #include "fieldobject.h"
+#include "fieldobject.h"
+#include "fieldobject.h"
 
 #include <iostream>
 #include "state/state.h"
@@ -6,15 +8,6 @@
 FieldObject::FieldObject(const Position &_position):
     m_position(_position)
 {
-}
-
-FieldObject::~FieldObject()
-{
-}
-
-Position FieldObject::getPosition() const
-{
-    return m_position;
 }
 
 void FieldObject::setPosition(const int x, const int y)
