@@ -1,0 +1,4 @@
+#ifndef ABSTRACTTREE_H
+#define ABSTRACTTREE_H
+
+#endif // ABSTRACTTREE_H
