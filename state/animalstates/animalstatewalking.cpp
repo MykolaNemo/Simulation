@@ -7,7 +7,9 @@
 #include <QGraphicsItem>
 
 #include <iostream>
-#include <cmath>
+#include <chrono>
+#define _USE_MATH_DEFINES
+#include "math.h"
 
 const double AnimalStateWalking::velocity = 10.0;
 

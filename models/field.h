@@ -7,7 +7,7 @@
 
 #include "size2d.h"
 #include "position.h"
-#include <boost/signals2/signal.hpp>
+#include "boost/signals2/signal.hpp"
 
 class FieldObject;
 class Animal;

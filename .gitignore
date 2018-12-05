@@ -1,5 +1,5 @@
 build/*
-boost*
+BehaviourTree/build/*
 *.pro.user
 
 # Prerequisites
@@ -16,9 +16,7 @@ boost*
 *.pch
 
 # Compiled Dynamic libraries
-*.so
 *.dylib
-*.dll
 
 # Fortran module files
 *.mod

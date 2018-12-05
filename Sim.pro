@@ -14,20 +14,22 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 BOOST_VERSION=1_68
-INCLUDEPATH+=boost/$${BOOST_VERSION}/include
 
 win32{
-LIBS+=-Lboost/$${BOOST_VERSION}/win/lib
 QMAKE_CXXFLAGS+=/std:c++17
+INCLUDEPATH+=boost/$${BOOST_VERSION}/win/include
+release:LIBS+=-Lboost/$${BOOST_VERSION}/win/lib/x64/release
+debug:LIBS+=-Lboost/$${BOOST_VERSION}/win/lib/x64/debug
 }
 
 unix{
+QMAKE_CXXFLAGS+=-std=c++17
+INCLUDEPATH+=boost/$${BOOST_VERSION}/include
 # -L     -> buildtime linker search paths
 # -rpath -> runtime linker paths and libraries
 # -Wl    -> comma separated values
 LIBS+=-Lboost/$${BOOST_VERSION}/linux/lib
 LIBS+=-Wl,-rpath=-L/usr/local/gcc-8.2/lib64
-QMAKE_CXXFLAGS+=-std=c++17
 }
 
 SOURCES += \
