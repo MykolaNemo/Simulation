@@ -27,17 +27,21 @@ CONFIG += c++17
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    tree.cpp \
-    behaviourtree.cpp \
-    sequence.cpp \
-    tree.cpp
+    BehaviourNodes/behaviourtree.cpp \
+    BehaviourNodes/sequence.cpp \
+    BehaviourNodes/selector.cpp \
+    BehaviourNodes/leaf.cpp \
+    BehaviourNodes/invertor.cpp \
+    BehaviourNodes/repeater.cpp
 
 HEADERS += \
         mainwindow.h \
-    tree.h \
-    behaviourtree.h \
-    sequence.h \
-    decorator.h
+    BehaviourNodes/behaviourtree.h \
+    BehaviourNodes/sequence.h \
+    BehaviourNodes/selector.h \
+    BehaviourNodes/leaf.h \
+    BehaviourNodes/invertor.h \
+    BehaviourNodes/repeater.h
 
 FORMS += \
         mainwindow.ui

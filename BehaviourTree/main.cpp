@@ -1,36 +1,36 @@
 #include "mainwindow.h"
 #include <QApplication>
 
-#include "tree.h"
+#include "BehaviourNodes/sequence.h"
+#include "BehaviourNodes/selector.h"
+#include "BehaviourNodes/leaf.h"
+#include "BehaviourNodes/repeater.h"
 #include <iostream>
-
-void TraverseTree(Tree* tree)
-{
-    if(!tree) return;
-
-    std::cout<<tree->getValue()<<std::endl;
-    for(Tree* child : tree->getChildren())
-    {
-        TraverseTree(child);
-    }
-}
+#include <thread>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-//    Tree* treeRoot = new Tree();
-//    Tree* firstNode = new Tree(1);
-//    firstNode->addChild(new Tree(5));
-//    treeRoot->addChild(firstNode);
-//    treeRoot->addChild(new Tree(2));
-//    treeRoot->addChild(new Tree(3));
-//    treeRoot->addChild(new Tree(4));
+    BehaviourTree* repeater = new Repeater("Repeater");
+    BehaviourTree* treeRoot = new Sequence("Root");
+    repeater->addChild(treeRoot);
 
-//    TraverseTree(treeRoot);
+    BehaviourTree* firstNode = new Selector("Selector");
+    firstNode->addChild(new Leaf("Leaf_Selector_1"));
+    firstNode->addChild(new Leaf("Leaf_Selector_2"));
+    firstNode->addChild(new Leaf("Leaf_Selector_3"));
+
+    treeRoot->addChild(firstNode);
+    treeRoot->addChild(new Leaf("Leaf_Sequence_1"));
+    treeRoot->addChild(new Leaf("Leaf_Sequence_2"));
+    treeRoot->addChild(new Leaf("Leaf_Sequence_3"));
+
+    repeater->execute();
 
     MainWindow w;
     w.show();
 
+    delete repeater;
     return QApplication::exec();
 }
