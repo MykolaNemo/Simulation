@@ -7,6 +7,9 @@ namespace Ui {
 class MainWindow;
 }
 
+class QGraphicsScene;
+class QGraphicsView;
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
