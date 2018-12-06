@@ -47,11 +47,6 @@ FORMS += \
         mainwindow.ui
 
 unix{
-#LIBS+=-Wl,-rpath=-L/usr/local/gcc-8.2/lib64
 QMAKE_CXXFLAGS+=-std=c++17
+QMAKE_RPATHDIR += /usr/local/gcc-8.2/lib64
 }
-
-# Default rules for deployment.
-qnx: target.path = /tmp/$${TARGET}/bin
-else: unix:!android: target.path = /opt/$${TARGET}/bin
-!isEmpty(target.path): INSTALLS += target

@@ -2,6 +2,7 @@
 #define BEHAVIOURTREE_H
 
 #include <vector>
+#include <string>
 
 class BehaviourTree
 {

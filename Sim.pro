@@ -15,21 +15,18 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 BOOST_VERSION=1_68
 
+INCLUDEPATH+=boost/$${BOOST_VERSION}/include
+
 win32{
 QMAKE_CXXFLAGS+=/std:c++17
-INCLUDEPATH+=boost/$${BOOST_VERSION}/win/include
-release:LIBS+=-Lboost/$${BOOST_VERSION}/win/lib/x64/release
-debug:LIBS+=-Lboost/$${BOOST_VERSION}/win/lib/x64/debug
+release:LIBS+=-Lboost/$${BOOST_VERSION}/lib/win/x64/release
+debug:LIBS+=-Lboost/$${BOOST_VERSION}/lib/win/x64/debug
 }
 
 unix{
 QMAKE_CXXFLAGS+=-std=c++17
-INCLUDEPATH+=boost/$${BOOST_VERSION}/include
-# -L     -> buildtime linker search paths
-# -rpath -> runtime linker paths and libraries
-# -Wl    -> comma separated values
-LIBS+=-Lboost/$${BOOST_VERSION}/linux/lib
-LIBS+=-Wl,-rpath=-L/usr/local/gcc-8.2/lib64
+LIBS+=-Lboost/$${BOOST_VERSION}/lib/linux
+QMAKE_RPATHDIR += /usr/local/gcc-8.2/lib64
 }
 
 SOURCES += \
