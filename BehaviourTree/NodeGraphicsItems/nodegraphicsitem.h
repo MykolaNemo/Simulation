@@ -14,14 +14,12 @@ protected:
     virtual void init();
     void hoverEnterEvent(QGraphicsSceneHoverEvent *event) override;
     void hoverLeaveEvent(QGraphicsSceneHoverEvent *event) override;
-    void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
+    void mousePressEvent(QGraphicsSceneMouseEvent *) override;
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
-    void mouseMoveEvent(QGraphicsSceneMouseEvent *event) override;
-    //    void hoverMoveEvent(QGraphicsSceneHoverEvent *event);
+    QVariant itemChange(QGraphicsItem::GraphicsItemChange change, const QVariant &value) override;
 
 private:
-    bool mPressed = false;
-    QPointF mPressedPoint = QPointF();
+    QGraphicsEllipseItem* mArrowAnchorItem;
 };
 
 #endif // NODEGRAPHICSITEM_H

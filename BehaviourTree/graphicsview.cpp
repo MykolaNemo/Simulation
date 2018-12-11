@@ -11,6 +11,7 @@
 GraphicsView::GraphicsView(QWidget *parent)
     :QGraphicsView(parent)
 {
+    setRenderHints(QPainter::Antialiasing);
     setScene(new QGraphicsScene);
 }
 

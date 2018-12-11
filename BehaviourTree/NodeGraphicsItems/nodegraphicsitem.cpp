@@ -25,6 +25,13 @@ NodeGraphicsItem::NodeGraphicsItem(qreal x, qreal y, qreal w, qreal h, QGraphics
 
 void NodeGraphicsItem::init()
 {
+    setFlag(QGraphicsItem::ItemIsMovable, true);
+    setFlag(QGraphicsItem::ItemSendsGeometryChanges, true);
+    mArrowAnchorItem = new QGraphicsEllipseItem(0,0,10,10,this);
+    QPen pen(Qt::blue);
+    QBrush brush(Qt::blue, Qt::SolidPattern);
+    mArrowAnchorItem->setPen(pen);
+    mArrowAnchorItem->setBrush(brush);
     setAcceptHoverEvents(true);
 }
 
@@ -40,10 +47,8 @@ void NodeGraphicsItem::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
     QGraphicsRectItem::hoverLeaveEvent(event);
 }
 
-void NodeGraphicsItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
+void NodeGraphicsItem::mousePressEvent(QGraphicsSceneMouseEvent* /*event*/)
 {
-    mPressed = true;
-    mPressedPoint = event->pos();
     setCursor(QCursor(Qt::ClosedHandCursor));
     //do not use base class, because we want to receive mouseReleaseEvent
 //    QGraphicsRectItem::mousePressEvent(event);
@@ -51,18 +56,24 @@ void NodeGraphicsItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
 void NodeGraphicsItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
-    mPressed = false;
-    mPressedPoint = QPoint();
     setCursor(QCursor(Qt::OpenHandCursor));
     QGraphicsRectItem::mouseReleaseEvent(event);
 }
 
-void NodeGraphicsItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
+QVariant NodeGraphicsItem::itemChange(QGraphicsItem::GraphicsItemChange change, const QVariant &value)
 {
-    if(mPressed)
+    switch (change)
     {
-        QPointF delta = event->pos() - mPressedPoint;
-        moveBy(delta.x(), delta.y());
+    case QGraphicsItem::ItemTransformHasChanged:
+    case QGraphicsItem::ItemVisibleHasChanged:
+    {
+        const auto size = boundingRect().size();
+        const auto anchorItemSize = mArrowAnchorItem->boundingRect().size();
+        mArrowAnchorItem->setPos((size.width() - anchorItemSize.width())/2.0,
+                                 size.height() - (anchorItemSize.height())/2.0);
     }
-    QGraphicsRectItem::mouseMoveEvent(event);
+    default:
+        break;
+    }
+    return value;
 }
