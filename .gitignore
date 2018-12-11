@@ -2,6 +2,9 @@ build/*
 BehaviourTree/build/*
 *.pro.user
 
+# Qt moc files
+ui_*.h
+
 # Prerequisites
 *.d
 

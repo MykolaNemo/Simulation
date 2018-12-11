@@ -32,7 +32,14 @@ SOURCES += \
     BehaviourNodes/selector.cpp \
     BehaviourNodes/leaf.cpp \
     BehaviourNodes/invertor.cpp \
-    BehaviourNodes/repeater.cpp
+    BehaviourNodes/repeater.cpp \
+    NodeLabels/nodelabel.cpp \
+    graphicsview.cpp \
+    NodeLabels/sequencenodelabel.cpp \
+    NodeLabels/fallbacknodelabel.cpp \
+    NodeGraphicsItems/sequencegraphicsitem.cpp \
+    NodeGraphicsItems/fallbackgraphicsitem.cpp \
+    NodeGraphicsItems/nodegraphicsitem.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -41,7 +48,14 @@ HEADERS += \
     BehaviourNodes/selector.h \
     BehaviourNodes/leaf.h \
     BehaviourNodes/invertor.h \
-    BehaviourNodes/repeater.h
+    BehaviourNodes/repeater.h \
+    NodeLabels/nodelabel.h \
+    graphicsview.h \
+    NodeLabels/sequencenodelabel.h \
+    NodeLabels/fallbacknodelabel.h \
+    NodeGraphicsItems/sequencegraphicsitem.h \
+    NodeGraphicsItems/fallbackgraphicsitem.h \
+    NodeGraphicsItems/nodegraphicsitem.h
 
 FORMS += \
         mainwindow.ui
