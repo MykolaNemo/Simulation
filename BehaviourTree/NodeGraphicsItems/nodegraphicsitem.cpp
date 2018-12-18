@@ -6,6 +6,7 @@
 #include <QGraphicsSceneHoverEvent>
 #include <QPainter>
 #include "GraphicsItems/anchoritem.h"
+#include "GraphicsItems/arrowitem.h"
 
 NodeGraphicsItem::NodeGraphicsItem(qreal x, qreal y, qreal w, qreal h, QGraphicsItem *parent):
     QGraphicsRectItem (x,y,w,h,parent)
@@ -20,18 +21,25 @@ QPointF NodeGraphicsItem::getAnchorPoint() const
 
 void NodeGraphicsItem::addOutArrow(ArrowItem *arrowItem)
 {
+    if(!arrowItem) return;
+
     if(std::find(mArrowsOutList.begin(), mArrowsOutList.end(), arrowItem) == mArrowsOutList.end())
     {
         mArrowsOutList.push_back(arrowItem);
     }
+    arrowItem->setPos(getAnchorPoint());
 }
 
 void NodeGraphicsItem::addInArrow(ArrowItem *arrowItem)
 {
+    if(!arrowItem) return;
+
     if(std::find(mArrowsInList.begin(), mArrowsInList.end(), arrowItem) == mArrowsInList.end())
     {
         mArrowsInList.push_back(arrowItem);
     }
+
+    arrowItem->setEndPoint(mapToScene(QPointF(boundingRect().width()/2.0f, 0.0f)));
 }
 
 void NodeGraphicsItem::removeOutArrow(ArrowItem* arrowItem)
@@ -103,6 +111,18 @@ QVariant NodeGraphicsItem::itemChange(QGraphicsItem::GraphicsItemChange change, 
         const auto anchorItemSize = mArrowAnchorItem->boundingRect().size();
         mArrowAnchorItem->setPos((size.width() - anchorItemSize.width())/2.0,
                                  size.height() - (anchorItemSize.height())/2.0);
+        break;
+    }
+    case QGraphicsItem::ItemPositionHasChanged:
+    {
+        for(auto outArrow : mArrowsOutList)
+        {
+            outArrow->setPos(getAnchorPoint());
+        }
+        for(auto outArrow : mArrowsInList)
+        {
+            outArrow->setEndPoint(mapToScene(QPointF(boundingRect().width()/2.0f, 0.0f)));
+        }
         break;
     }
     default:

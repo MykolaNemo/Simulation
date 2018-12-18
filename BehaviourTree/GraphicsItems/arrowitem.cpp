@@ -7,18 +7,18 @@
 
 ArrowItem::ArrowItem(NodeGraphicsItem *startItem, NodeGraphicsItem *endItem,
                      QGraphicsItem *parent):
-    QGraphicsRectItem (parent),
-    mStartItem(startItem),
-    mEndItem(endItem)
+    QGraphicsRectItem (parent)
 {
-    if(mStartItem)
-    {
-        setPos(mStartItem->getAnchorPoint());
-    }
-    if(mEndItem)
-    {
-        setEndPoint(mEndItem->getAnchorPoint());
-    }
+    setStartItem(startItem);
+    setEndItem(endItem);
+//    if(mStartItem)
+//    {
+//        setPos(mStartItem->getAnchorPoint());
+//    }
+//    if(mEndItem)
+//    {
+//        setEndPoint(mEndItem->getAnchorPoint());
+//    }
 }
 
 int ArrowItem::getLength() const
@@ -43,7 +43,6 @@ void ArrowItem::setStartItem(NodeGraphicsItem *startNodeItem)
     if(mStartItem)
     {
         mStartItem->addOutArrow(this);
-        setPos(mStartItem->getAnchorPoint());
         update();
     }
 }
@@ -54,7 +53,6 @@ void ArrowItem::setEndItem(NodeGraphicsItem *endNodeItem)
     if(mEndItem)
     {
         mEndItem->addInArrow(this);
-        setEndPoint(mEndItem->getAnchorPoint());
     }
 }
 
