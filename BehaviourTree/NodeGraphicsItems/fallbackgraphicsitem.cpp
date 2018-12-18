@@ -1,4 +1,4 @@
-#include "FallbackGraphicsItem.h"
+#include "fallbackgraphicsitem.h"
 
 #include <QPainter>
 
