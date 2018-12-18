@@ -24,6 +24,5 @@ void AnchorItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
         return;
     }
     QGraphicsEllipseItem::mousePressEvent(event);
-    qDebug()<<"Anchor pressed";
     emit pressed();
 }

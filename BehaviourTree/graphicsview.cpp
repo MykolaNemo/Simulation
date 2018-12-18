@@ -32,17 +32,34 @@ void GraphicsView::mousePressEvent(QMouseEvent *event)
 {
     if(mMode == Mode::Arrow)
     {
-        if((event->buttons().testFlag(Qt::RightButton)) && mArrowForPlacing)
+        if(event->buttons().testFlag(Qt::RightButton))
         {
-            mScene->removeItem(mArrowForPlacing);
-            delete mArrowForPlacing;
+            if(mArrowForPlacing)
+            {
+                mScene->removeItem(mArrowForPlacing);
+                delete mArrowForPlacing;
+            }
             mArrowForPlacing = nullptr;
             setMode(Mode::Normal);
             mScene->update(rect());
         }
-        else
+        else if(event->buttons().testFlag(Qt::LeftButton))
         {
-            event->accept();
+            if(mArrowForPlacing)
+            {
+                auto nodeItemLambda = [](QGraphicsItem* item)->bool{
+                    return qgraphicsitem_cast<NodeGraphicsItem*>(item);
+                };
+                auto itemsList = items(event->pos()).toStdList();
+                auto nodeItemIt = std::find_if(itemsList.begin(), itemsList.end(), nodeItemLambda);
+                if(nodeItemIt != itemsList.end())
+                {
+                    mArrowForPlacing->setEndItem(qgraphicsitem_cast<NodeGraphicsItem*>(*nodeItemIt));
+                    mArrowForPlacing = nullptr;
+                    setMode(Mode::Normal);
+                    mScene->update(rect());
+                }
+            }
             return;
         }
     }

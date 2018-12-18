@@ -61,7 +61,7 @@ void ArrowItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 {
     QGraphicsRectItem::paint(painter, option, widget);
     painter->save();
-    painter->setPen(Qt::green);
+    painter->setPen(QPen(QBrush(Qt::green), 2));
 
     const QRectF& rect = boundingRect();
     const int x = rect.x();
@@ -86,7 +86,7 @@ void ArrowItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     }
 
     painter->drawLine(QPointF(), endPoint);
-    painter->setPen(Qt::red);
+    painter->setPen(QPen(QBrush(Qt::red), 2));
     painter->drawEllipse(endPoint, 3, 3);
 
     painter->restore();
