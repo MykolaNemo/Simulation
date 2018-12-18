@@ -4,8 +4,6 @@
 #include <QGraphicsEllipseItem>
 #include <QObject>
 
-class QMouseEvent;
-
 class AnchorItem: public QObject, public QGraphicsEllipseItem
 {
     Q_OBJECT
@@ -17,8 +15,6 @@ signals:
 
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent* event) override;
-
-//    ArrowItem* mArrowItem = nullptr;
 };
 
 #endif // ANCHORITEM_H

@@ -12,6 +12,7 @@ public:
                        QGraphicsItem *parent = nullptr);
     int getLength() const;
     void setLength(int length);
+    NodeGraphicsItem* getStartItem() const;
     void setStartItem(NodeGraphicsItem* nodeItem);
     void setEndItem(NodeGraphicsItem* nodeItem);
     void setEndPoint(const QPointF& endPoint);

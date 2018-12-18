@@ -5,14 +5,17 @@
 #include "NodeGraphicsItems/fallbackgraphicsitem.h"
 #include "graphicsscene.h"
 #include "GraphicsItems/arrowitem.h"
+#include "graphicsviewnormalmode.h"
+#include "graphicsviewarrowplacemode.h"
 
 #include <QDragEnterEvent>
 #include <QGraphicsPixmapItem>
 #include <QMimeData>
 #include <QDebug>
 
-GraphicsView::GraphicsView(QWidget *parent)
-    :QGraphicsView(parent)
+GraphicsView::GraphicsView(QWidget *parent):
+    QGraphicsView(parent),
+    mMode(new GraphicsViewNormalMode(this))
 {
     if(!mScene)
     {
@@ -30,54 +33,25 @@ void GraphicsView::resizeEvent(QResizeEvent* event)
 
 void GraphicsView::mousePressEvent(QMouseEvent *event)
 {
-    if(mMode == Mode::Arrow)
+    auto nextMode = mMode->mousePress(event);
+    setMode(nextMode);
+    mScene->update(rect());
+    if(mMode->getMode() != GraphicsViewAbstractMode::Mode::ArrowPlace)
     {
-        if(event->buttons().testFlag(Qt::RightButton))
-        {
-            if(mArrowForPlacing)
-            {
-                mScene->removeItem(mArrowForPlacing);
-                delete mArrowForPlacing;
-            }
-            mArrowForPlacing = nullptr;
-            setMode(Mode::Normal);
-            mScene->update(rect());
-        }
-        else if(event->buttons().testFlag(Qt::LeftButton))
-        {
-            if(mArrowForPlacing)
-            {
-                auto nodeItemLambda = [](QGraphicsItem* item)->bool{
-                    return qgraphicsitem_cast<NodeGraphicsItem*>(item);
-                };
-                auto itemsList = items(event->pos()).toStdList();
-                auto nodeItemIt = std::find_if(itemsList.begin(), itemsList.end(), nodeItemLambda);
-                if(nodeItemIt != itemsList.end())
-                {
-                    mArrowForPlacing->setEndItem(qgraphicsitem_cast<NodeGraphicsItem*>(*nodeItemIt));
-                    mArrowForPlacing = nullptr;
-                    setMode(Mode::Normal);
-                    mScene->update(rect());
-                }
-            }
-            return;
-        }
+        QGraphicsView::mousePressEvent(event);
     }
-    QGraphicsView::mousePressEvent(event);
 }
 
 void GraphicsView::mouseMoveEvent(QMouseEvent *event)
 {
-    if((mMode == Mode::Arrow) && mArrowForPlacing)
+    auto nextMode = mMode->mouseMove(event);
+    setMode(nextMode);
+    mScene->update(rect());
+
+    if(mMode->getMode() != GraphicsViewAbstractMode::Mode::ArrowPlace)
     {
-        QPoint cursorPos = QCursor::pos();
-        QPointF scenePoint = mapToScene(mapFromGlobal(cursorPos));
-        mArrowForPlacing->setEndPoint(scenePoint);
-        mScene->update(rect());
-        event->accept();
-        return;
+        QGraphicsView::mouseMoveEvent(event);
     }
-    QGraphicsView::mouseMoveEvent(event);
 }
 
 void GraphicsView::dragEnterEvent(QDragEnterEvent *event)
@@ -148,33 +122,38 @@ void GraphicsView::dropEvent(QDropEvent *event)
 
 void GraphicsView::createArrowSlot(NodeGraphicsItem* nodeItem)
 {
-    if(mMode == Mode::Normal)
+    if(mMode->getMode() == GraphicsViewAbstractMode::Mode::Normal)
     {
-        QPoint cursorPos = QCursor::pos();
-        QPointF scenePoint = mapToScene(mapFromGlobal(cursorPos));
-
-        ArrowItem* arrow = new ArrowItem(nodeItem, nullptr);
-        arrow->setEndPoint(scenePoint);
-        mScene->addItem(arrow);
-
-        mArrowForPlacing = arrow;
-        setMode(Mode::Arrow);
+        setMode(std::move(std::make_unique<GraphicsViewArrowPlaceMode>(this, nodeItem)));
     }
 }
 
-void GraphicsView::setMode(const GraphicsView::Mode &mode)
+void GraphicsView::setMode(std::unique_ptr<GraphicsViewAbstractMode>&& mode)
 {
-    if(mMode != mode)
+    mMode = std::move(mode);
+}
+
+void GraphicsView::setMode(const GraphicsViewAbstractMode::Mode &mode)
+{
+    if((mode == GraphicsViewAbstractMode::Mode::None) || (mMode->getMode() == mode))
     {
-        mMode = mode;
-        if(mMode == Mode::Normal)
-        {
-            setMouseTracking(false);
-        }
-        else if(mMode == Mode::Arrow)
-        {
-            setMouseTracking(true);
-        }
-        update();
+        return;
     }
+
+    switch (mode)
+    {
+    case GraphicsViewAbstractMode::Mode::Normal:
+    {
+        mMode.reset(new GraphicsViewNormalMode(this));
+        break;
+    }
+    case GraphicsViewAbstractMode::Mode::ArrowPlace:
+    {
+        mMode.reset(new GraphicsViewArrowPlaceMode(this, nullptr));
+        break;
+    }
+    default:
+        break;
+    }
+    update();
 }

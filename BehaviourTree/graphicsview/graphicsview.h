@@ -3,6 +3,8 @@
 
 #include <QGraphicsView>
 #include "graphicsscene.h"
+#include "graphicsviewabstractmode.h"
+#include <memory>
 
 class NodeGraphicsItem;
 class ArrowItem;
@@ -10,11 +12,6 @@ class ArrowItem;
 class GraphicsView: public QGraphicsView
 {
     Q_OBJECT
-    enum class Mode
-    {
-        Normal = 0,
-        Arrow
-    };
 public:
     explicit GraphicsView(QWidget *parent = nullptr);
 
@@ -28,11 +25,11 @@ protected:
 
 private:
     void createArrowSlot(NodeGraphicsItem* nodeItem);
-    void setMode(const Mode& mode);
+    void setMode(std::unique_ptr<GraphicsViewAbstractMode>&& mode);
+    void setMode(const GraphicsViewAbstractMode::Mode& mode);
 
     GraphicsScene* mScene = new GraphicsScene();
-    Mode mMode = Mode::Normal;
-    ArrowItem* mArrowForPlacing = nullptr;
+    std::unique_ptr<GraphicsViewAbstractMode> mMode;
 };
 
 #endif // GRAPHICSVIEW_H

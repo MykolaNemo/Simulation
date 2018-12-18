@@ -2,7 +2,9 @@
 #define NODEGRAPHICSITEM_H
 
 #include <QGraphicsRectItem>
+#include <vector>
 
+class ArrowItem;
 class AnchorItem;
 
 class NodeGraphicsItem: public QObject, public QGraphicsRectItem
@@ -19,17 +21,25 @@ public:
 
     QPointF getAnchorPoint() const;
 
+    void addOutArrow(ArrowItem* arrowItem);
+    void addInArrow(ArrowItem* arrowItem);
+    void removeOutArrow(ArrowItem *arrowItem);
+    void removeInArrow(ArrowItem *arrowItem);
+
 signals:
     void requestArrowCreation(NodeGraphicsItem*);
 
 protected:
-    virtual void init();
     void mousePressEvent(QGraphicsSceneMouseEvent *) override;
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
     QVariant itemChange(QGraphicsItem::GraphicsItemChange change, const QVariant &value) override;
 
 private:
+    void init();
+
     AnchorItem* mArrowAnchorItem = nullptr;
+    std::vector<ArrowItem*> mArrowsOutList;
+    std::vector<ArrowItem*> mArrowsInList;
 };
 
 #endif // NODEGRAPHICSITEM_H

@@ -9,7 +9,7 @@ public:
     explicit SequenceGraphicsItem(QGraphicsItem *parent = nullptr);
 
 protected:
-    void init() override;
+    void init();
 };
 
 #endif // SEQUENCEGRAPHICSITEM_H

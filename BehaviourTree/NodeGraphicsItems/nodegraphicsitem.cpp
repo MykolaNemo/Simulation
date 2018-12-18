@@ -18,6 +18,34 @@ QPointF NodeGraphicsItem::getAnchorPoint() const
     return mArrowAnchorItem->mapToScene(mArrowAnchorItem->boundingRect().center());
 }
 
+void NodeGraphicsItem::addOutArrow(ArrowItem *arrowItem)
+{
+    if(std::find(mArrowsOutList.begin(), mArrowsOutList.end(), arrowItem) == mArrowsOutList.end())
+    {
+        mArrowsOutList.push_back(arrowItem);
+    }
+}
+
+void NodeGraphicsItem::addInArrow(ArrowItem *arrowItem)
+{
+    if(std::find(mArrowsInList.begin(), mArrowsInList.end(), arrowItem) == mArrowsInList.end())
+    {
+        mArrowsInList.push_back(arrowItem);
+    }
+}
+
+void NodeGraphicsItem::removeOutArrow(ArrowItem* arrowItem)
+{
+    auto deleteIt = std::remove(mArrowsOutList.begin(), mArrowsOutList.end(), arrowItem);
+    mArrowsOutList.erase(deleteIt, mArrowsOutList.end());
+}
+
+void NodeGraphicsItem::removeInArrow(ArrowItem* arrowItem)
+{
+    auto deleteIt = std::remove(mArrowsInList.begin(), mArrowsInList.end(), arrowItem);
+    mArrowsInList.erase(deleteIt, mArrowsInList.end());
+}
+
 void NodeGraphicsItem::init()
 {
     setCursor(QCursor(Qt::OpenHandCursor));

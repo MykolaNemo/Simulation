@@ -34,7 +34,7 @@ SOURCES += \
     BehaviourNodes/invertor.cpp \
     BehaviourNodes/repeater.cpp \
     NodeLabels/nodelabel.cpp \
-    graphicsview.cpp \
+    graphicsview/graphicsview.cpp \
     NodeLabels/sequencenodelabel.cpp \
     NodeLabels/fallbacknodelabel.cpp \
     NodeGraphicsItems/sequencegraphicsitem.cpp \
@@ -42,7 +42,10 @@ SOURCES += \
     NodeGraphicsItems/nodegraphicsitem.cpp \
     GraphicsItems/arrowitem.cpp \
     GraphicsItems/anchoritem.cpp \
-    graphicsscene.cpp
+    graphicsscene.cpp \
+    graphicsview/graphicsviewnormalmode.cpp \
+    graphicsview/graphicsviewabstractmode.cpp \
+    graphicsview/graphicsviewarrowplacemode.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -53,7 +56,7 @@ HEADERS += \
     BehaviourNodes/invertor.h \
     BehaviourNodes/repeater.h \
     NodeLabels/nodelabel.h \
-    graphicsview.h \
+    graphicsview/graphicsview.h \
     NodeLabels/sequencenodelabel.h \
     NodeLabels/fallbacknodelabel.h \
     NodeGraphicsItems/sequencegraphicsitem.h \
@@ -61,7 +64,10 @@ HEADERS += \
     NodeGraphicsItems/nodegraphicsitem.h \
     GraphicsItems/arrowitem.h \
     GraphicsItems/anchoritem.h \
-    graphicsscene.h
+    graphicsscene.h \
+    graphicsview/graphicsviewnormalmode.h \
+    graphicsview/graphicsviewabstractmode.h \
+    graphicsview/graphicsviewarrowplacemode.h
 
 FORMS += \
         mainwindow.ui

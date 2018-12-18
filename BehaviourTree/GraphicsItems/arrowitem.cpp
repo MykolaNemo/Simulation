@@ -32,11 +32,17 @@ void ArrowItem::setLength(int length)
     update();
 }
 
+NodeGraphicsItem *ArrowItem::getStartItem() const
+{
+    return mStartItem;
+}
+
 void ArrowItem::setStartItem(NodeGraphicsItem *startNodeItem)
 {
     mStartItem = startNodeItem;
     if(mStartItem)
     {
+        mStartItem->addOutArrow(this);
         setPos(mStartItem->getAnchorPoint());
         update();
     }
@@ -47,6 +53,7 @@ void ArrowItem::setEndItem(NodeGraphicsItem *endNodeItem)
     mEndItem = endNodeItem;
     if(mEndItem)
     {
+        mEndItem->addInArrow(this);
         setEndPoint(mEndItem->getAnchorPoint());
     }
 }

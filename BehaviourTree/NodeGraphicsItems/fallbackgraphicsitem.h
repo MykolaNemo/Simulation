@@ -9,7 +9,7 @@ public:
     explicit FallbackGraphicsItem(QGraphicsItem *parent = nullptr);
 
 protected:
-    void init() override;
+    void init();
 };
 
 #endif // FALLBACKGRAPHICSITEM_H
