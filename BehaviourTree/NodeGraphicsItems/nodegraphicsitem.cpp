@@ -3,19 +3,9 @@
 #include <QCursor>
 #include <QDebug>
 #include <QGraphicsSceneMouseEvent>
+#include <QGraphicsSceneHoverEvent>
 #include <QPainter>
-
-NodeGraphicsItem::NodeGraphicsItem(QGraphicsItem *parent):
-    QGraphicsRectItem (parent)
-{
-    init();
-}
-
-NodeGraphicsItem::NodeGraphicsItem(const QRectF &rect, QGraphicsItem *parent):
-    QGraphicsRectItem (rect, parent)
-{
-    init();
-}
+#include "GraphicsItems/anchoritem.h"
 
 NodeGraphicsItem::NodeGraphicsItem(qreal x, qreal y, qreal w, qreal h, QGraphicsItem *parent):
     QGraphicsRectItem (x,y,w,h,parent)
@@ -23,40 +13,48 @@ NodeGraphicsItem::NodeGraphicsItem(qreal x, qreal y, qreal w, qreal h, QGraphics
     init();
 }
 
+QPointF NodeGraphicsItem::getAnchorPoint() const
+{
+    return mArrowAnchorItem->mapToScene(mArrowAnchorItem->boundingRect().center());
+}
+
 void NodeGraphicsItem::init()
 {
+    setCursor(QCursor(Qt::OpenHandCursor));
     setFlag(QGraphicsItem::ItemIsMovable, true);
     setFlag(QGraphicsItem::ItemSendsGeometryChanges, true);
-    mArrowAnchorItem = new QGraphicsEllipseItem(0,0,10,10,this);
-    QPen pen(Qt::blue);
-    QBrush brush(Qt::blue, Qt::SolidPattern);
-    mArrowAnchorItem->setPen(pen);
-    mArrowAnchorItem->setBrush(brush);
     setAcceptHoverEvents(true);
+
+    mArrowAnchorItem = new AnchorItem(this);
+    connect(mArrowAnchorItem, &AnchorItem::pressed, [this](){
+        emit requestArrowCreation(this);
+    });
 }
 
-void NodeGraphicsItem::hoverEnterEvent(QGraphicsSceneHoverEvent *event)
+void NodeGraphicsItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
-    setCursor(QCursor(Qt::OpenHandCursor));
-    QGraphicsRectItem::hoverEnterEvent(event);
-}
-
-void NodeGraphicsItem::hoverLeaveEvent(QGraphicsSceneHoverEvent *event)
-{
-    setCursor(QCursor(Qt::ArrowCursor));
-    QGraphicsRectItem::hoverLeaveEvent(event);
-}
-
-void NodeGraphicsItem::mousePressEvent(QGraphicsSceneMouseEvent* /*event*/)
-{
-    setCursor(QCursor(Qt::ClosedHandCursor));
-    //do not use base class, because we want to receive mouseReleaseEvent
-//    QGraphicsRectItem::mousePressEvent(event);
+    const QRectF rect = mArrowAnchorItem->boundingRect();
+    const QRectF mappedRect(mArrowAnchorItem->mapToItem(this,rect.topLeft()),rect.size());
+    if(!mappedRect.contains(event->pos()))
+    {
+        setCursor(QCursor(Qt::ClosedHandCursor));
+        //do not use base class, because we want to receive mouseReleaseEvent
+    }
+    else
+    {
+        //ignore mouse press to prevent drag with anchor point
+        event->ignore();
+    }
 }
 
 void NodeGraphicsItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
-    setCursor(QCursor(Qt::OpenHandCursor));
+    const QRectF rect = mArrowAnchorItem->boundingRect();
+    const QRectF mappedRect(mArrowAnchorItem->mapToItem(this,rect.topLeft()),rect.size());
+    if(!mappedRect.contains(event->pos()))
+    {
+        setCursor(QCursor(Qt::OpenHandCursor));
+    }
     QGraphicsRectItem::mouseReleaseEvent(event);
 }
 
@@ -71,6 +69,7 @@ QVariant NodeGraphicsItem::itemChange(QGraphicsItem::GraphicsItemChange change, 
         const auto anchorItemSize = mArrowAnchorItem->boundingRect().size();
         mArrowAnchorItem->setPos((size.width() - anchorItemSize.width())/2.0,
                                  size.height() - (anchorItemSize.height())/2.0);
+        break;
     }
     default:
         break;

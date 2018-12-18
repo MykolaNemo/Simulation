@@ -1,18 +1,25 @@
 #include "graphicsview.h"
 
-#include <QDragEnterEvent>
-#include <QGraphicsPixmapItem>
-//#include <QGraphicsPixmapItem>
-#include <QMimeData>
 #include "NodeLabels/nodelabel.h"
 #include "NodeGraphicsItems/sequencegraphicsitem.h"
 #include "NodeGraphicsItems/fallbackgraphicsitem.h"
+#include "graphicsscene.h"
+#include "GraphicsItems/arrowitem.h"
+
+#include <QDragEnterEvent>
+#include <QGraphicsPixmapItem>
+#include <QMimeData>
+#include <QDebug>
 
 GraphicsView::GraphicsView(QWidget *parent)
     :QGraphicsView(parent)
 {
+    if(!mScene)
+    {
+        throw std::logic_error("GraphicsView::GraphicsView -> Graphics scene is null!");
+    }
     setRenderHints(QPainter::Antialiasing);
-    setScene(new QGraphicsScene);
+    setScene(mScene);
 }
 
 void GraphicsView::resizeEvent(QResizeEvent* event)
@@ -21,10 +28,16 @@ void GraphicsView::resizeEvent(QResizeEvent* event)
     setSceneRect(rect());
 }
 
-GraphicsView::GraphicsView(QGraphicsScene *scene, QWidget *parent)
-    :QGraphicsView(scene, parent)
+void GraphicsView::mouseMoveEvent(QMouseEvent *event)
 {
-
+    if((mMode == Mode::Arrow) && mArrowForPlacing)
+    {
+        QPoint cursorPos = QCursor::pos();
+        QPointF scenePoint = mapToScene(mapFromGlobal(cursorPos));
+        mArrowForPlacing->setEndPoint(scenePoint);
+        mScene->update(rect());
+    }
+    QGraphicsView::mouseMoveEvent(event);
 }
 
 void GraphicsView::dragEnterEvent(QDragEnterEvent *event)
@@ -53,47 +66,73 @@ void GraphicsView::dragMoveEvent(QDragMoveEvent *event)
 
 void GraphicsView::dropEvent(QDropEvent *event)
 {
-    if(!scene())
+    const QMimeData* mimeData = event->mimeData();
+    if (!mimeData->hasFormat("application/x-dndNode"))
     {
         event->ignore();
         return;
     }
 
-    if (event->mimeData()->hasFormat("application/x-dndNode"))
+    event->acceptProposedAction();
+
+    QByteArray itemData = mimeData->data("application/x-dndNode");
+    QDataStream dataStream(&itemData, QIODevice::ReadOnly);
+
+    int nodeTypeInt = 0;
+    dataStream >> nodeTypeInt;
+    NodeType nodeType = static_cast<NodeType>(nodeTypeInt);
+
+    NodeGraphicsItem* item = nullptr;
+    switch (nodeType)
     {
-        QByteArray itemData = event->mimeData()->data("application/x-dndNode");
-        QDataStream dataStream(&itemData, QIODevice::ReadOnly);
-
-        int nodeTypeInt = 0;
-        dataStream >> nodeTypeInt;
-        NodeType nodeType = static_cast<NodeType>(nodeTypeInt);
-
-        QGraphicsItem* item = nullptr;
-        switch (nodeType)
-        {
-        case NodeType::Sequence:
-        {
-            item = new SequenceGraphicsItem();
-            break;
-        }
-        case NodeType::Fallback:
-        {
-            item = new FallbackGraphicsItem();
-            break;
-        }
-        }
-
-        if(scene())
-        {
-            scene()->addItem(item);
-            QPointF pos = event->pos();
-            QSizeF size = item->boundingRect().size();
-            item->setPos(pos.x() - size.width()/2.0, pos.y() - size.height()/2.0);
-        }
-        event->acceptProposedAction();
+    case NodeType::Sequence:
+    {
+        item = new SequenceGraphicsItem();
+        break;
     }
-    else
+    case NodeType::Fallback:
     {
-        event->ignore();
+        item = new FallbackGraphicsItem();
+        break;
+    }
+    }
+
+    connect(item, &NodeGraphicsItem::requestArrowCreation, [this](NodeGraphicsItem* nodeItem){
+        createArrowSlot(nodeItem);
+    });
+    mScene->addItem(item);
+    const QPointF pos = event->pos();
+    const QSizeF size = item->boundingRect().size();
+    item->setPos(pos.x() - size.width()/2.0, pos.y() - size.height()/2.0);
+}
+
+void GraphicsView::createArrowSlot(NodeGraphicsItem* nodeItem)
+{
+    QPoint cursorPos = QCursor::pos();
+    QPointF scenePoint = mapToScene(mapFromGlobal(cursorPos));
+
+    ArrowItem* arrow = new ArrowItem(nodeItem, nullptr);
+    arrow->setEndPoint(scenePoint);
+    mScene->addItem(arrow);
+
+    mArrowForPlacing = arrow;
+    setMode(Mode::Arrow);
+}
+
+void GraphicsView::setMode(const GraphicsView::Mode &mode)
+{
+    if(mMode != mode)
+    {
+        mMode = mode;
+        if(mMode == Mode::Normal)
+        {
+            mArrowForPlacing = nullptr;
+            setMouseTracking(false);
+        }
+        else if(mMode == Mode::Arrow)
+        {
+            setMouseTracking(true);
+        }
+        update();
     }
 }

@@ -39,7 +39,10 @@ SOURCES += \
     NodeLabels/fallbacknodelabel.cpp \
     NodeGraphicsItems/sequencegraphicsitem.cpp \
     NodeGraphicsItems/fallbackgraphicsitem.cpp \
-    NodeGraphicsItems/nodegraphicsitem.cpp
+    NodeGraphicsItems/nodegraphicsitem.cpp \
+    GraphicsItems/arrowitem.cpp \
+    GraphicsItems/anchoritem.cpp \
+    graphicsscene.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -55,7 +58,10 @@ HEADERS += \
     NodeLabels/fallbacknodelabel.h \
     NodeGraphicsItems/sequencegraphicsitem.h \
     NodeGraphicsItems/fallbackgraphicsitem.h \
-    NodeGraphicsItems/nodegraphicsitem.h
+    NodeGraphicsItems/nodegraphicsitem.h \
+    GraphicsItems/arrowitem.h \
+    GraphicsItems/anchoritem.h \
+    graphicsscene.h
 
 FORMS += \
         mainwindow.ui
