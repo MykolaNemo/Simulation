@@ -11,6 +11,7 @@ FallbackGraphicsItem::FallbackGraphicsItem(QGraphicsItem *parent):
 void FallbackGraphicsItem::init()
 {
     QPen pen;
+    pen.setWidth(2);
     pen.setColor(QColor(0xcc,0xcc,0x55));
     setPen(pen);
 

@@ -5,7 +5,8 @@
 
 enum class NodeType
 {
-    Sequence = 0,
+    Root,
+    Sequence,
     Fallback
 };
 

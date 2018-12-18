@@ -21,10 +21,10 @@ public:
 
     QPointF getAnchorPoint() const;
 
-    void addOutArrow(ArrowItem* arrowItem);
-    void addInArrow(ArrowItem* arrowItem);
-    void removeOutArrow(ArrowItem *arrowItem);
-    void removeInArrow(ArrowItem *arrowItem);
+    void addOutcomeArrow(ArrowItem* arrowItem);
+    void addIncomeArrow(ArrowItem* arrowItem);
+    void removeOutcomeArrow(ArrowItem *arrowItem);
+    void removeIncomeArrow(ArrowItem *arrowItem);
 
 signals:
     void requestArrowCreation(NodeGraphicsItem*);
@@ -38,8 +38,8 @@ private:
     void init();
 
     AnchorItem* mArrowAnchorItem = nullptr;
-    std::vector<ArrowItem*> mArrowsOutList;
-    std::vector<ArrowItem*> mArrowsInList;
+    std::vector<ArrowItem*> mOutcomeArrows;
+    ArrowItem* mIncomeArrow = nullptr;
 };
 
 #endif // NODEGRAPHICSITEM_H

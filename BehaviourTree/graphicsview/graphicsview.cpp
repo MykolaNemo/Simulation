@@ -3,6 +3,7 @@
 #include "NodeLabels/nodelabel.h"
 #include "NodeGraphicsItems/sequencegraphicsitem.h"
 #include "NodeGraphicsItems/fallbackgraphicsitem.h"
+#include "NodeGraphicsItems/rootgraphicsitem.h"
 #include "graphicsscene.h"
 #include "GraphicsItems/arrowitem.h"
 #include "graphicsviewnormalmode.h"
@@ -107,6 +108,11 @@ void GraphicsView::dropEvent(QDropEvent *event)
     case NodeType::Fallback:
     {
         item = new FallbackGraphicsItem();
+        break;
+    }
+    case NodeType::Root:
+    {
+        item = new RootGraphicsItem();
         break;
     }
     }

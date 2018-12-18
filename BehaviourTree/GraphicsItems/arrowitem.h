@@ -10,6 +10,7 @@ class ArrowItem: public QGraphicsRectItem
 public:
     explicit ArrowItem(NodeGraphicsItem* startItem, NodeGraphicsItem* endItem,
                        QGraphicsItem *parent = nullptr);
+    ~ArrowItem();
     int getLength() const;
     void setLength(int length);
     NodeGraphicsItem* getStartItem() const;

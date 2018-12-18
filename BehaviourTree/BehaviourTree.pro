@@ -45,7 +45,9 @@ SOURCES += \
     graphicsscene.cpp \
     graphicsview/graphicsviewnormalmode.cpp \
     graphicsview/graphicsviewabstractmode.cpp \
-    graphicsview/graphicsviewarrowplacemode.cpp
+    graphicsview/graphicsviewarrowplacemode.cpp \
+    NodeLabels/rootnodelabel.cpp \
+    NodeGraphicsItems/rootgraphicsitem.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -67,7 +69,9 @@ HEADERS += \
     graphicsscene.h \
     graphicsview/graphicsviewnormalmode.h \
     graphicsview/graphicsviewabstractmode.h \
-    graphicsview/graphicsviewarrowplacemode.h
+    graphicsview/graphicsviewarrowplacemode.h \
+    NodeLabels/rootnodelabel.h \
+    NodeGraphicsItems/rootgraphicsitem.h
 
 FORMS += \
         mainwindow.ui

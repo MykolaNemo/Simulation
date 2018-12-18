@@ -19,39 +19,36 @@ QPointF NodeGraphicsItem::getAnchorPoint() const
     return mArrowAnchorItem->mapToScene(mArrowAnchorItem->boundingRect().center());
 }
 
-void NodeGraphicsItem::addOutArrow(ArrowItem *arrowItem)
+void NodeGraphicsItem::addOutcomeArrow(ArrowItem *arrowItem)
 {
     if(!arrowItem) return;
 
-    if(std::find(mArrowsOutList.begin(), mArrowsOutList.end(), arrowItem) == mArrowsOutList.end())
+    if(std::find(mOutcomeArrows.begin(), mOutcomeArrows.end(), arrowItem) == mOutcomeArrows.end())
     {
-        mArrowsOutList.push_back(arrowItem);
+        mOutcomeArrows.push_back(arrowItem);
+        arrowItem->setPos(getAnchorPoint());
     }
-    arrowItem->setPos(getAnchorPoint());
 }
 
-void NodeGraphicsItem::addInArrow(ArrowItem *arrowItem)
+void NodeGraphicsItem::addIncomeArrow(ArrowItem *arrowItem)
 {
-    if(!arrowItem) return;
+    if(!arrowItem || mIncomeArrow) return;
 
-    if(std::find(mArrowsInList.begin(), mArrowsInList.end(), arrowItem) == mArrowsInList.end())
-    {
-        mArrowsInList.push_back(arrowItem);
-    }
-
+    mIncomeArrow = arrowItem;
     arrowItem->setEndPoint(mapToScene(QPointF(boundingRect().width()/2.0f, 0.0f)));
 }
 
-void NodeGraphicsItem::removeOutArrow(ArrowItem* arrowItem)
+void NodeGraphicsItem::removeOutcomeArrow(ArrowItem* arrowItem)
 {
-    auto deleteIt = std::remove(mArrowsOutList.begin(), mArrowsOutList.end(), arrowItem);
-    mArrowsOutList.erase(deleteIt, mArrowsOutList.end());
+    auto deleteIt = std::remove(mOutcomeArrows.begin(), mOutcomeArrows.end(), arrowItem);
+    mOutcomeArrows.erase(deleteIt, mOutcomeArrows.end());
 }
 
-void NodeGraphicsItem::removeInArrow(ArrowItem* arrowItem)
+void NodeGraphicsItem::removeIncomeArrow(ArrowItem* arrowItem)
 {
-    auto deleteIt = std::remove(mArrowsInList.begin(), mArrowsInList.end(), arrowItem);
-    mArrowsInList.erase(deleteIt, mArrowsInList.end());
+    if(!arrowItem || (mIncomeArrow != arrowItem)) return;
+
+    mIncomeArrow = nullptr;
 }
 
 void NodeGraphicsItem::init()
@@ -115,13 +112,13 @@ QVariant NodeGraphicsItem::itemChange(QGraphicsItem::GraphicsItemChange change, 
     }
     case QGraphicsItem::ItemPositionHasChanged:
     {
-        for(auto outArrow : mArrowsOutList)
+        for(auto outArrow : mOutcomeArrows)
         {
             outArrow->setPos(getAnchorPoint());
         }
-        for(auto outArrow : mArrowsInList)
+        if(mIncomeArrow)
         {
-            outArrow->setEndPoint(mapToScene(QPointF(boundingRect().width()/2.0f, 0.0f)));
+            mIncomeArrow->setEndPoint(mapToScene(QPointF(boundingRect().width()/2.0f, 0.0f)));
         }
         break;
     }

@@ -18,7 +18,19 @@ ArrowItem::ArrowItem(NodeGraphicsItem *startItem, NodeGraphicsItem *endItem,
 //    if(mEndItem)
 //    {
 //        setEndPoint(mEndItem->getAnchorPoint());
-//    }
+    //    }
+}
+
+ArrowItem::~ArrowItem()
+{
+    if(mStartItem)
+    {
+        mStartItem->removeOutcomeArrow(this);
+    }
+    if(mEndItem)
+    {
+        mEndItem->removeIncomeArrow(this);
+    }
 }
 
 int ArrowItem::getLength() const
@@ -42,7 +54,7 @@ void ArrowItem::setStartItem(NodeGraphicsItem *startNodeItem)
     mStartItem = startNodeItem;
     if(mStartItem)
     {
-        mStartItem->addOutArrow(this);
+        mStartItem->addOutcomeArrow(this);
         update();
     }
 }
@@ -52,7 +64,7 @@ void ArrowItem::setEndItem(NodeGraphicsItem *endNodeItem)
     mEndItem = endNodeItem;
     if(mEndItem)
     {
-        mEndItem->addInArrow(this);
+        mEndItem->addIncomeArrow(this);
     }
 }
 

@@ -1,21 +1,21 @@
-#include "sequencegraphicsitem.h"
+#include "rootgraphicsitem.h"
 
 #include <QPainter>
 
-SequenceGraphicsItem::SequenceGraphicsItem(QGraphicsItem *parent):
+RootGraphicsItem::RootGraphicsItem(QGraphicsItem *parent):
     NodeGraphicsItem (0,0,130,55,parent)
 {
     init();
 }
 
-void SequenceGraphicsItem::init()
+void RootGraphicsItem::init()
 {
     QPen pen;
     pen.setWidth(2);
-    pen.setColor(QColor(0x99,0xcc,0xcc));
+    pen.setColor(QColor(0xcc,0x55,0x55));
     setPen(pen);
 
-    QGraphicsSimpleTextItem *textItem = new QGraphicsSimpleTextItem("Sequence", this);
+    QGraphicsSimpleTextItem *textItem = new QGraphicsSimpleTextItem("Root", this);
     const auto size = boundingRect().size();
     const auto textItemSize = textItem->boundingRect().size();
     textItem->setPos((size.width() - textItemSize.width())/2.0,
