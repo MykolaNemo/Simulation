@@ -28,6 +28,27 @@ void GraphicsView::resizeEvent(QResizeEvent* event)
     setSceneRect(rect());
 }
 
+void GraphicsView::mousePressEvent(QMouseEvent *event)
+{
+    if(mMode == Mode::Arrow)
+    {
+        if((event->buttons().testFlag(Qt::RightButton)) && mArrowForPlacing)
+        {
+            mScene->removeItem(mArrowForPlacing);
+            delete mArrowForPlacing;
+            mArrowForPlacing = nullptr;
+            setMode(Mode::Normal);
+            mScene->update(rect());
+        }
+        else
+        {
+            event->accept();
+            return;
+        }
+    }
+    QGraphicsView::mousePressEvent(event);
+}
+
 void GraphicsView::mouseMoveEvent(QMouseEvent *event)
 {
     if((mMode == Mode::Arrow) && mArrowForPlacing)
@@ -36,6 +57,8 @@ void GraphicsView::mouseMoveEvent(QMouseEvent *event)
         QPointF scenePoint = mapToScene(mapFromGlobal(cursorPos));
         mArrowForPlacing->setEndPoint(scenePoint);
         mScene->update(rect());
+        event->accept();
+        return;
     }
     QGraphicsView::mouseMoveEvent(event);
 }
@@ -108,15 +131,18 @@ void GraphicsView::dropEvent(QDropEvent *event)
 
 void GraphicsView::createArrowSlot(NodeGraphicsItem* nodeItem)
 {
-    QPoint cursorPos = QCursor::pos();
-    QPointF scenePoint = mapToScene(mapFromGlobal(cursorPos));
+    if(mMode == Mode::Normal)
+    {
+        QPoint cursorPos = QCursor::pos();
+        QPointF scenePoint = mapToScene(mapFromGlobal(cursorPos));
 
-    ArrowItem* arrow = new ArrowItem(nodeItem, nullptr);
-    arrow->setEndPoint(scenePoint);
-    mScene->addItem(arrow);
+        ArrowItem* arrow = new ArrowItem(nodeItem, nullptr);
+        arrow->setEndPoint(scenePoint);
+        mScene->addItem(arrow);
 
-    mArrowForPlacing = arrow;
-    setMode(Mode::Arrow);
+        mArrowForPlacing = arrow;
+        setMode(Mode::Arrow);
+    }
 }
 
 void GraphicsView::setMode(const GraphicsView::Mode &mode)
@@ -126,7 +152,6 @@ void GraphicsView::setMode(const GraphicsView::Mode &mode)
         mMode = mode;
         if(mMode == Mode::Normal)
         {
-            mArrowForPlacing = nullptr;
             setMouseTracking(false);
         }
         else if(mMode == Mode::Arrow)

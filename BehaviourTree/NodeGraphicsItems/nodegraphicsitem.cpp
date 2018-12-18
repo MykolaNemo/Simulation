@@ -33,6 +33,12 @@ void NodeGraphicsItem::init()
 
 void NodeGraphicsItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
+    if(!event->buttons().testFlag(Qt::LeftButton))
+    {
+        event->accept();
+        return;
+    }
+
     const QRectF rect = mArrowAnchorItem->boundingRect();
     const QRectF mappedRect(mArrowAnchorItem->mapToItem(this,rect.topLeft()),rect.size());
     if(!mappedRect.contains(event->pos()))
@@ -42,7 +48,7 @@ void NodeGraphicsItem::mousePressEvent(QGraphicsSceneMouseEvent* event)
     }
     else
     {
-        //ignore mouse press to prevent drag with anchor point
+        //ignore mouse press to prevent drag at anchor point
         event->ignore();
     }
 }
