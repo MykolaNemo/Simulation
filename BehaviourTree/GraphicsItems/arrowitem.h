@@ -15,7 +15,7 @@ public:
     void setLength(int length);
     NodeGraphicsItem* getStartItem() const;
     void setStartItem(NodeGraphicsItem* nodeItem);
-    void setEndItem(NodeGraphicsItem* nodeItem);
+    bool setEndItem(NodeGraphicsItem* nodeItem);
     void setEndPoint(const QPointF& endPoint);
 
 protected:

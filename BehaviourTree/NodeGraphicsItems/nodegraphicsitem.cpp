@@ -30,12 +30,16 @@ void NodeGraphicsItem::addOutcomeArrow(ArrowItem *arrowItem)
     }
 }
 
-void NodeGraphicsItem::addIncomeArrow(ArrowItem *arrowItem)
+bool NodeGraphicsItem::addIncomeArrow(ArrowItem *arrowItem)
 {
-    if(!arrowItem || mIncomeArrow) return;
+    if(!arrowItem || mIncomeArrow)
+    {
+        return false;
+    }
 
     mIncomeArrow = arrowItem;
     arrowItem->setEndPoint(mapToScene(QPointF(boundingRect().width()/2.0f, 0.0f)));
+    return true;
 }
 
 void NodeGraphicsItem::removeOutcomeArrow(ArrowItem* arrowItem)

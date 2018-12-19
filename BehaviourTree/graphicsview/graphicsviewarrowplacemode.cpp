@@ -56,9 +56,11 @@ GraphicsViewAbstractMode::Mode GraphicsViewArrowPlaceMode::mousePress(QMouseEven
                 auto nodeItem = qgraphicsitem_cast<NodeGraphicsItem*>(*nodeItemIt);
                 if(nodeItem != mArrow->getStartItem())
                 {
-                    mArrow->setEndItem(nodeItem);
-                    mArrow = nullptr;
-                    return GraphicsViewAbstractMode::Mode::Normal;
+                    if(mArrow->setEndItem(nodeItem))
+                    {
+                        mArrow = nullptr;
+                        return GraphicsViewAbstractMode::Mode::Normal;
+                    }
                 }
                 event->accept();
             }

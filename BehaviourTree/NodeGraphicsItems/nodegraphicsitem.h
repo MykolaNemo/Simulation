@@ -22,7 +22,7 @@ public:
     QPointF getAnchorPoint() const;
 
     void addOutcomeArrow(ArrowItem* arrowItem);
-    void addIncomeArrow(ArrowItem* arrowItem);
+    bool addIncomeArrow(ArrowItem* arrowItem);
     void removeOutcomeArrow(ArrowItem *arrowItem);
     void removeIncomeArrow(ArrowItem *arrowItem);
 

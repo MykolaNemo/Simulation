@@ -59,13 +59,21 @@ void ArrowItem::setStartItem(NodeGraphicsItem *startNodeItem)
     }
 }
 
-void ArrowItem::setEndItem(NodeGraphicsItem *endNodeItem)
+bool ArrowItem::setEndItem(NodeGraphicsItem *endNodeItem)
 {
-    mEndItem = endNodeItem;
-    if(mEndItem)
+    if(endNodeItem)
     {
-        mEndItem->addIncomeArrow(this);
+        if(endNodeItem->addIncomeArrow(this))
+        {
+            mEndItem = endNodeItem;
+            return true;
+        }
     }
+    else
+    {
+        mEndItem = endNodeItem;
+    }
+    return false;
 }
 
 void ArrowItem::setEndPoint(const QPointF &endPoint)
