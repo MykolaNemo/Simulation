@@ -7,13 +7,13 @@ Invertor::Invertor(BehaviourTree *parent):
 }
 
 Invertor::Invertor(std::string name, BehaviourTree *parent):
-    Invertor(0, name, parent)
+    Invertor(0, std::move(name), parent)
 {
 
 }
 
 Invertor::Invertor(int value, std::string name, BehaviourTree *parent):
-    BehaviourTree(value, name, parent)
+    BehaviourTree(value, std::move(name), parent)
 {
 
 }
@@ -44,7 +44,7 @@ BehaviourTree::ExecuteResult Invertor::execute()
 
 void Invertor::addChild(BehaviourTree *child)
 {
-    if(mChildren.size() == 0)
+    if(mChildren.empty())
     {
         mChildren.push_back(child);
     }

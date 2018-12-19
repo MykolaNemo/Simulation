@@ -10,12 +10,12 @@ Sequence::Sequence(BehaviourTree *parent)
 }
 
 Sequence::Sequence(std::string name, BehaviourTree *parent)
-    : Sequence(0,name,parent)
+    : Sequence(0,std::move(name),parent)
 {
 }
 
 Sequence::Sequence(int value, std::string name, BehaviourTree *parent)
-    : BehaviourTree(value, name, parent)
+    : BehaviourTree(value, std::move(name), parent)
 {
 }
 

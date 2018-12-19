@@ -9,12 +9,12 @@ Selector::Selector(BehaviourTree *parent)
 }
 
 Selector::Selector(std::string name, BehaviourTree *parent)
-    : Selector(0,name,parent)
+    : Selector(0,std::move(name),parent)
 {
 }
 
 Selector::Selector(int value, std::string name, BehaviourTree *parent)
-    : BehaviourTree(value, name, parent)
+    : BehaviourTree(value, std::move(name), parent)
 {
 }
 

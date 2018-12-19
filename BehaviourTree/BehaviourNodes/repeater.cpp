@@ -10,12 +10,12 @@ Repeater::Repeater(BehaviourTree *parent):
 }
 
 Repeater::Repeater(std::string name, BehaviourTree *parent)
-    : Repeater(0,name,parent)
+    : Repeater(0,std::move(name),parent)
 {
 }
 
 Repeater::Repeater(int value, std::string name, BehaviourTree *parent)
-    : BehaviourTree(value, name, parent),
+    : BehaviourTree(value, std::move(name), parent),
       mInterrupt(false)
 {
 }
@@ -47,7 +47,7 @@ void Repeater::executeAsync()
 
 void Repeater::addChild(BehaviourTree *child)
 {
-    if(mChildren.size() == 0 && child)
+    if(mChildren.empty() && child)
     {
         mChildren.push_back(child);
     }

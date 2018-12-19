@@ -3,7 +3,7 @@
 
 #include <QPainter>
 #include <QDebug>
-#include <math.h>
+#include <cmath>
 
 ArrowItem::ArrowItem(NodeGraphicsItem *startItem, NodeGraphicsItem *endItem,
                      QGraphicsItem *parent):
@@ -86,7 +86,7 @@ void ArrowItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 {
     QGraphicsRectItem::paint(painter, option, widget);
     painter->save();
-    painter->setPen(QPen(QBrush(Qt::green), 2));
+    painter->setPen(QPen(QBrush(QColor(0x99,0xcc,0x99)), 2));
 
     const QRectF& rect = boundingRect();
     const int x = rect.x();

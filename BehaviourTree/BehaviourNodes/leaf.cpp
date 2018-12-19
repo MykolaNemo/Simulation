@@ -8,12 +8,12 @@ Leaf::Leaf(BehaviourTree *parent)
 }
 
 Leaf::Leaf(std::string name, BehaviourTree *parent)
-    : Leaf(0,name,parent)
+    : Leaf(0,std::move(name),parent)
 {
 }
 
 Leaf::Leaf(int value, std::string name, BehaviourTree *parent)
-    : BehaviourTree(value, name, parent)
+    : BehaviourTree(value, std::move(name), parent)
 {
 }
 

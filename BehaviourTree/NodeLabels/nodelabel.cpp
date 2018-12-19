@@ -22,10 +22,10 @@ void NodeLabel::mousePressEvent(QMouseEvent *event)
     QDataStream dataStream(&itemData, QIODevice::WriteOnly);
     dataStream << static_cast<int>(this->getNodeType());
 
-    QMimeData *mimeData = new QMimeData;
+    auto mimeData = new QMimeData;
     mimeData->setData("application/x-dndNode", itemData);
 
-    QDrag *drag = new QDrag(this);
+    auto drag = new QDrag(this);
     drag->setMimeData(mimeData);
     if(this->pixmap())
     {

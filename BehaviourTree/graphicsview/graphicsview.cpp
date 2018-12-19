@@ -22,8 +22,9 @@ GraphicsView::GraphicsView(QWidget *parent):
     {
         throw std::logic_error("GraphicsView::GraphicsView -> Graphics scene is null!");
     }
-    setRenderHints(QPainter::Antialiasing);
     setScene(mScene);
+    setBackgroundBrush(QBrush(QColor(0xdd,0xdd,0xdd)));
+    setRenderHints(QPainter::Antialiasing);
 }
 
 void GraphicsView::resizeEvent(QResizeEvent* event)
@@ -95,7 +96,7 @@ void GraphicsView::dropEvent(QDropEvent *event)
 
     int nodeTypeInt = 0;
     dataStream >> nodeTypeInt;
-    NodeType nodeType = static_cast<NodeType>(nodeTypeInt);
+    auto nodeType = static_cast<NodeType>(nodeTypeInt);
 
     NodeGraphicsItem* item = nullptr;
     switch (nodeType)
@@ -150,12 +151,12 @@ void GraphicsView::setMode(const GraphicsViewAbstractMode::Mode &mode)
     {
     case GraphicsViewAbstractMode::Mode::Normal:
     {
-        mMode.reset(new GraphicsViewNormalMode(this));
+        mMode = std::make_unique<GraphicsViewNormalMode>(this);
         break;
     }
     case GraphicsViewAbstractMode::Mode::ArrowPlace:
     {
-        mMode.reset(new GraphicsViewArrowPlaceMode(this, nullptr));
+        mMode = std::make_unique<GraphicsViewArrowPlaceMode>(this, nullptr);
         break;
     }
     default:
