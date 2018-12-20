@@ -19,6 +19,7 @@ public:
         NodeGraphicsItem (rect.x(),rect.y(), rect.width(), rect.height(), parent){}
 
     explicit NodeGraphicsItem(qreal x, qreal y, qreal w, qreal h, QGraphicsItem *parent = nullptr);
+    ~NodeGraphicsItem() override;
 
     QPointF getAnchorPoint() const;
 
@@ -36,6 +37,7 @@ protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *) override;
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event) override;
     QVariant itemChange(QGraphicsItem::GraphicsItemChange change, const QVariant &value) override;
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr) override;
 
 private:
     void init();

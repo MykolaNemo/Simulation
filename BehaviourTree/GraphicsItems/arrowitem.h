@@ -5,14 +5,12 @@
 
 class NodeGraphicsItem;
 
-class ArrowItem: public QGraphicsRectItem
+class ArrowItem: public QGraphicsItem
 {
 public:
     explicit ArrowItem(NodeGraphicsItem* startItem, NodeGraphicsItem* endItem,
                        QGraphicsItem *parent = nullptr);
     ~ArrowItem();
-    int getLength() const;
-    void setLength(int length);
     NodeGraphicsItem* getStartItem() const;
     void setStartItem(NodeGraphicsItem* nodeItem);
     bool setEndItem(NodeGraphicsItem* nodeItem);
@@ -26,8 +24,6 @@ private:
     NodeGraphicsItem* mStartItem = nullptr;
     NodeGraphicsItem* mEndItem = nullptr;
     QPointF mEndPoint = QPointF();
-
-    int mLength = 0;
 };
 
 #endif // ARROWITEM_H

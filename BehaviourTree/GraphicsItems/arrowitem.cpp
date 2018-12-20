@@ -3,22 +3,16 @@
 
 #include <QPainter>
 #include <QDebug>
+#include <QEvent>
 #include <cmath>
 
 ArrowItem::ArrowItem(NodeGraphicsItem *startItem, NodeGraphicsItem *endItem,
                      QGraphicsItem *parent):
-    QGraphicsRectItem (parent)
+    QGraphicsItem (parent)
 {
     setStartItem(startItem);
     setEndItem(endItem);
-//    if(mStartItem)
-//    {
-//        setPos(mStartItem->getAnchorPoint());
-//    }
-//    if(mEndItem)
-//    {
-//        setEndPoint(mEndItem->getAnchorPoint());
-    //    }
+    setFlag(QGraphicsItem::ItemIsSelectable, true);
 }
 
 ArrowItem::~ArrowItem()
@@ -31,17 +25,6 @@ ArrowItem::~ArrowItem()
     {
         mEndItem->removeIncomeArrow(this);
     }
-}
-
-int ArrowItem::getLength() const
-{
-    return mLength;
-}
-
-void ArrowItem::setLength(int length)
-{
-    mLength = length;
-    update();
 }
 
 NodeGraphicsItem* ArrowItem::getStartItem() const
@@ -66,6 +49,7 @@ bool ArrowItem::setEndItem(NodeGraphicsItem *endNodeItem)
         if(endNodeItem->addIncomeArrow(this))
         {
             mEndItem = endNodeItem;
+            update();
             return true;
         }
     }
@@ -73,6 +57,7 @@ bool ArrowItem::setEndItem(NodeGraphicsItem *endNodeItem)
     {
         mEndItem = endNodeItem;
     }
+    update();
     return false;
 }
 
@@ -84,9 +69,15 @@ void ArrowItem::setEndPoint(const QPointF &endPoint)
 
 void ArrowItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    QGraphicsRectItem::paint(painter, option, widget);
     painter->save();
-    painter->setPen(QPen(QBrush(QColor(0x99,0xcc,0x99)), 2));
+    if(isSelected())
+    {
+        painter->setPen(QPen(QBrush(Qt::blue), 2));
+    }
+    else
+    {
+        painter->setPen(QPen(QBrush(QColor(0x99,0xcc,0x99)), 2));
+    }
 
     const QRectF& rect = boundingRect();
     const int x = rect.x();

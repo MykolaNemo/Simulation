@@ -5,6 +5,7 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QGraphicsSceneHoverEvent>
 #include <QPainter>
+#include <QGraphicsScene>
 #include "GraphicsItems/anchoritem.h"
 #include "GraphicsItems/arrowitem.h"
 
@@ -12,6 +13,24 @@ NodeGraphicsItem::NodeGraphicsItem(qreal x, qreal y, qreal w, qreal h, QGraphics
     QGraphicsRectItem (x,y,w,h,parent)
 {
     init();
+}
+
+NodeGraphicsItem::~NodeGraphicsItem()
+{
+    auto it = mOutcomeArrows.begin();
+    while(it != mOutcomeArrows.end())
+    {
+        auto arrow = *it;
+        it = mOutcomeArrows.erase(it);
+        arrow->scene()->removeItem(arrow);
+        delete arrow;
+    }
+    if(mIncomeArrow)
+    {
+        mIncomeArrow->scene()->removeItem(mIncomeArrow);
+        delete mIncomeArrow;
+        mIncomeArrow = nullptr;
+    }
 }
 
 QPointF NodeGraphicsItem::getAnchorPoint() const
@@ -46,6 +65,7 @@ void NodeGraphicsItem::removeOutcomeArrow(ArrowItem* arrowItem)
 {
     auto deleteIt = std::remove(mOutcomeArrows.begin(), mOutcomeArrows.end(), arrowItem);
     mOutcomeArrows.erase(deleteIt, mOutcomeArrows.end());
+    update();
 }
 
 void NodeGraphicsItem::removeIncomeArrow(ArrowItem* arrowItem)
@@ -53,12 +73,14 @@ void NodeGraphicsItem::removeIncomeArrow(ArrowItem* arrowItem)
     if(!arrowItem || (mIncomeArrow != arrowItem)) return;
 
     mIncomeArrow = nullptr;
+    update();
 }
 
 void NodeGraphicsItem::init()
 {
     setCursor(QCursor(Qt::OpenHandCursor));
     setFlag(QGraphicsItem::ItemIsMovable, true);
+    setFlag(QGraphicsItem::ItemIsSelectable, true);
     setFlag(QGraphicsItem::ItemSendsGeometryChanges, true);
     setAcceptHoverEvents(true);
 
@@ -130,4 +152,17 @@ QVariant NodeGraphicsItem::itemChange(QGraphicsItem::GraphicsItemChange change, 
         break;
     }
     return value;
+}
+
+void NodeGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+{
+    QGraphicsRectItem::paint(painter, option, widget);
+    if(isSelected())
+    {
+        painter->save();
+        QRectF rect = boundingRect();
+        rect.adjust(2,2,-2,-2);
+        painter->fillRect(rect, QColor(0xaa,0xaa,0xff));
+        painter->restore();
+    }
 }

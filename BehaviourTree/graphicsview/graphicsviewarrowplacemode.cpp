@@ -56,17 +56,16 @@ GraphicsViewAbstractMode::Mode GraphicsViewArrowPlaceMode::mousePress(QMouseEven
             {
                 auto endNodeItem = qgraphicsitem_cast<NodeGraphicsItem*>(*nodeItemIt);
                 auto startNodeItem = mArrow->getStartItem();
-                if(endNodeItem != startNodeItem)
+
+                if ((endNodeItem != startNodeItem) &&
+                    (endNodeItem->getTreeModel()->getType() != Tree::NodeType::TickGenerator))
                 {
                     if(mArrow->setEndItem(endNodeItem))
                     {
                         mArrow = nullptr;
                         std::shared_ptr<Tree> parentTreeModel = startNodeItem->getTreeModel();
                         std::shared_ptr<Tree> childTreeModel = endNodeItem->getTreeModel();
-//                        if(parentTreeModel && childTreeModel)
-//                        {
-                            parentTreeModel->addChild(childTreeModel);
-//                        }
+                        parentTreeModel->addChild(childTreeModel);
                         return GraphicsViewAbstractMode::Mode::Normal;
                     }
                 }
