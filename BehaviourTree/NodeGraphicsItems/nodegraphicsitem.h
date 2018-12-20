@@ -4,6 +4,7 @@
 #include <QGraphicsRectItem>
 #include <vector>
 
+class Tree;
 class ArrowItem;
 class AnchorItem;
 
@@ -25,6 +26,8 @@ public:
     bool addIncomeArrow(ArrowItem* arrowItem);
     void removeOutcomeArrow(ArrowItem *arrowItem);
     void removeIncomeArrow(ArrowItem *arrowItem);
+
+    virtual std::shared_ptr<Tree> getTreeModel() const = 0;
 
 signals:
     void requestArrowCreation(NodeGraphicsItem*);

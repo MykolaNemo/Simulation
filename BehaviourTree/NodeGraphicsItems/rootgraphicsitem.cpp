@@ -1,6 +1,7 @@
 #include "rootgraphicsitem.h"
 
 #include <QPainter>
+#include "tree.h"
 
 RootGraphicsItem::RootGraphicsItem(QGraphicsItem *parent):
     NodeGraphicsItem (0,0,130,55,parent)
@@ -8,8 +9,15 @@ RootGraphicsItem::RootGraphicsItem(QGraphicsItem *parent):
     init();
 }
 
+std::shared_ptr<Tree> RootGraphicsItem::getTreeModel() const
+{
+    return mTreeModel;
+}
+
 void RootGraphicsItem::init()
 {
+    mTreeModel = std::make_shared<Tree>(Tree::NodeType::TickGenerator);
+
     QPen pen;
     pen.setWidth(2);
     pen.setColor(QColor(0xcc,0x55,0x55));

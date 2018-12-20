@@ -2,6 +2,7 @@
 #include "NodeGraphicsItems/nodegraphicsitem.h"
 #include "graphicsview.h"
 #include "GraphicsItems/arrowitem.h"
+#include "tree.h"
 
 #include <QMouseEvent>
 #include <QGraphicsView>
@@ -10,7 +11,7 @@
 GraphicsViewArrowPlaceMode::GraphicsViewArrowPlaceMode(GraphicsView* view, NodeGraphicsItem* startNodeItem):
     mView(view)
 {
-    if(!mView && !mView->scene()) return;
+    if(!mView || !mView->scene()) return;
 
     mView->setMouseTracking(true);
     QPoint cursorPos = QCursor::pos();
@@ -53,12 +54,19 @@ GraphicsViewAbstractMode::Mode GraphicsViewArrowPlaceMode::mousePress(QMouseEven
             auto nodeItemIt = std::find_if(itemsList.begin(), itemsList.end(), nodeItemLambda);
             if(nodeItemIt != itemsList.end())
             {
-                auto nodeItem = qgraphicsitem_cast<NodeGraphicsItem*>(*nodeItemIt);
-                if(nodeItem != mArrow->getStartItem())
+                auto endNodeItem = qgraphicsitem_cast<NodeGraphicsItem*>(*nodeItemIt);
+                auto startNodeItem = mArrow->getStartItem();
+                if(endNodeItem != startNodeItem)
                 {
-                    if(mArrow->setEndItem(nodeItem))
+                    if(mArrow->setEndItem(endNodeItem))
                     {
                         mArrow = nullptr;
+                        std::shared_ptr<Tree> parentTreeModel = startNodeItem->getTreeModel();
+                        std::shared_ptr<Tree> childTreeModel = endNodeItem->getTreeModel();
+//                        if(parentTreeModel && childTreeModel)
+//                        {
+                            parentTreeModel->addChild(childTreeModel);
+//                        }
                         return GraphicsViewAbstractMode::Mode::Normal;
                     }
                 }

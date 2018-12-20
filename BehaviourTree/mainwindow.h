@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 
+class Tree;
+
 namespace Ui {
 class MainWindow;
 }
@@ -19,7 +21,12 @@ public:
     ~MainWindow();
 
 private:
+    void generateTree();
+    void onRootChanged(const std::shared_ptr<Tree>& treeRoot);
+    void traverseTree(const std::shared_ptr<Tree> &tree);
+
     Ui::MainWindow *ui;
+    std::shared_ptr<Tree> mTreeRoot;
 };
 
 #endif // MAINWINDOW_H

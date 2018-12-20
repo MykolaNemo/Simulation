@@ -44,7 +44,7 @@ void ArrowItem::setLength(int length)
     update();
 }
 
-NodeGraphicsItem *ArrowItem::getStartItem() const
+NodeGraphicsItem* ArrowItem::getStartItem() const
 {
     return mStartItem;
 }
@@ -122,5 +122,5 @@ QRectF ArrowItem::boundingRect() const
     const QPointF point = mapFromScene(mEndPoint);
     const QPoint leftTop(qMin<float>(0.0f, point.x()), qMin<float>(0.0f, point.y()));
     const QPoint bottomRight(qMax<float>(0.0f, point.x()), qMax<float>(0.0f, point.y()));
-    return QRectF(leftTop, bottomRight);
+    return {leftTop, bottomRight};
 }

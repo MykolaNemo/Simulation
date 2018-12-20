@@ -30,7 +30,7 @@ BehaviourTree::ExecuteResult Repeater::execute()
 {
     if(!mThread)
     {
-        mThread = new std::thread(&Repeater::executeAsync, this);
+        mThread = std::make_shared<std::thread>(&Repeater::executeAsync, this);
     }
     return ExecuteResult::RUNNING;
 }

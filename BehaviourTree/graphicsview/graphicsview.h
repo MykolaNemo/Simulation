@@ -8,12 +8,16 @@
 
 class NodeGraphicsItem;
 class ArrowItem;
+class Tree;
 
 class GraphicsView: public QGraphicsView
 {
     Q_OBJECT
 public:
     explicit GraphicsView(QWidget *parent = nullptr);
+
+signals:
+    void rootWasChanged(const std::shared_ptr<Tree>& treeRoot);
 
 protected:
     void dragEnterEvent(QDragEnterEvent *event) override;

@@ -32,7 +32,7 @@ private:
     std::vector<BehaviourTree*> mChildren;
     int mRepeatCount = -1;
     std::atomic_bool mInterrupt;
-    std::thread* mThread = nullptr;
+    std::shared_ptr<std::thread> mThread;
 };
 
 #endif // REPEATER_H

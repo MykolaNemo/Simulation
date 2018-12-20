@@ -114,6 +114,7 @@ void GraphicsView::dropEvent(QDropEvent *event)
     case NodeType::Root:
     {
         item = new RootGraphicsItem();
+        emit rootWasChanged(item->getTreeModel());
         break;
     }
     }

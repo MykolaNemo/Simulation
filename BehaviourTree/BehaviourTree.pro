@@ -71,7 +71,8 @@ HEADERS += \
     graphicsview/graphicsviewabstractmode.h \
     graphicsview/graphicsviewarrowplacemode.h \
     NodeLabels/rootnodelabel.h \
-    NodeGraphicsItems/rootgraphicsitem.h
+    NodeGraphicsItems/rootgraphicsitem.h \
+    tree.h
 
 FORMS += \
         mainwindow.ui

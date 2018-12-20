@@ -1,6 +1,7 @@
 #include "sequencegraphicsitem.h"
 
 #include <QPainter>
+#include "tree.h"
 
 SequenceGraphicsItem::SequenceGraphicsItem(QGraphicsItem *parent):
     NodeGraphicsItem (0,0,130,55,parent)
@@ -8,8 +9,15 @@ SequenceGraphicsItem::SequenceGraphicsItem(QGraphicsItem *parent):
     init();
 }
 
+std::shared_ptr<Tree> SequenceGraphicsItem::getTreeModel() const
+{
+    return mTreeModel;
+}
+
 void SequenceGraphicsItem::init()
 {
+    mTreeModel = std::make_shared<Tree>(Tree::NodeType::Sequence);
+
     QPen pen;
     pen.setWidth(2);
     pen.setColor(QColor(0x99,0xcc,0xcc));
