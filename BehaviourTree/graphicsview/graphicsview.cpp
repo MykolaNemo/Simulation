@@ -44,6 +44,14 @@ void GraphicsView::mousePressEvent(QMouseEvent *event)
     }
 }
 
+void GraphicsView::mouseReleaseEvent(QMouseEvent *event)
+{
+    if(mMode->getMode() != GraphicsViewAbstractMode::Mode::ArrowPlace)
+    {
+        QGraphicsView::mouseReleaseEvent(event);
+    }
+}
+
 void GraphicsView::mouseMoveEvent(QMouseEvent *event)
 {
     auto nextMode = mMode->mouseMove(event);

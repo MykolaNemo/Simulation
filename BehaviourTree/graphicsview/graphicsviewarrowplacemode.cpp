@@ -4,6 +4,7 @@
 #include "GraphicsItems/arrowitem.h"
 #include "tree.h"
 
+#include <QDebug>
 #include <QMouseEvent>
 #include <QGraphicsView>
 #include <QGraphicsItem>
@@ -11,14 +12,17 @@
 GraphicsViewArrowPlaceMode::GraphicsViewArrowPlaceMode(GraphicsView* view, NodeGraphicsItem* startNodeItem):
     mView(view)
 {
-    if(!mView || !mView->scene()) return;
-
+    if(!mView || !mView->scene())
+    {
+        throw std::logic_error("GraphicsViewArrowPlaceMode::GraphicsViewArrowPlaceMode -> view or scene is null!");
+    }
     mView->setMouseTracking(true);
-    QPoint cursorPos = QCursor::pos();
-    QPointF scenePoint = mView->mapToScene(mView->mapFromGlobal(cursorPos));
+
+    auto scene = mView->scene();
     mArrow = new ArrowItem(startNodeItem, nullptr);
-    mArrow->setEndPoint(scenePoint);
-    mView->scene()->addItem(mArrow);
+    scene->addItem(mArrow);
+
+    mArrow->setEndPoint(mArrow->mapFromScene(mView->mapToScene(mView->mapFromGlobal(QCursor::pos()))));
 }
 
 GraphicsViewAbstractMode::Mode GraphicsViewArrowPlaceMode::getMode() const
@@ -52,25 +56,25 @@ GraphicsViewAbstractMode::Mode GraphicsViewArrowPlaceMode::mousePress(QMouseEven
             };
             auto itemsList = mView->items(event->pos()).toStdList();
             auto nodeItemIt = std::find_if(itemsList.begin(), itemsList.end(), nodeItemLambda);
-            if(nodeItemIt != itemsList.end())
+            if(nodeItemIt == itemsList.end())
             {
-                auto endNodeItem = qgraphicsitem_cast<NodeGraphicsItem*>(*nodeItemIt);
-                auto startNodeItem = mArrow->getStartItem();
-
-                if ((endNodeItem != startNodeItem) &&
-                    (endNodeItem->getTreeModel()->getType() != Tree::NodeType::TickGenerator))
-                {
-                    if(mArrow->setEndItem(endNodeItem))
-                    {
-                        mArrow = nullptr;
-                        std::shared_ptr<Tree> parentTreeModel = startNodeItem->getTreeModel();
-                        std::shared_ptr<Tree> childTreeModel = endNodeItem->getTreeModel();
-                        parentTreeModel->addChild(childTreeModel);
-                        return GraphicsViewAbstractMode::Mode::Normal;
-                    }
-                }
                 event->accept();
+                return GraphicsViewAbstractMode::Mode::None;
             }
+
+            auto endNodeItem = qgraphicsitem_cast<NodeGraphicsItem*>(*nodeItemIt);
+            const auto startNodeItem = mArrow->getStartItem();
+            if (endNodeItem &&
+               (endNodeItem != startNodeItem) &&
+               (endNodeItem->getTreeModel()->getType() != Tree::NodeType::TickGenerator))
+            {
+                if(mArrow->setEndItem(endNodeItem))
+                {
+                    mArrow = nullptr;
+                    return GraphicsViewAbstractMode::Mode::Normal;
+                }
+            }
+            event->accept();
         }
     }
     return GraphicsViewAbstractMode::Mode::None;
@@ -80,7 +84,7 @@ GraphicsViewAbstractMode::Mode GraphicsViewArrowPlaceMode::mouseMove(QMouseEvent
 {
     if(mArrow)
     {
-        mArrow->setEndPoint(mView->mapToScene(mView->mapFromGlobal(QCursor::pos())));
+        mArrow->setEndPoint(mArrow->mapFromScene(mView->mapToScene(mView->mapFromGlobal(QCursor::pos()))));
         event->accept();
     }
     return GraphicsViewAbstractMode::Mode::None;

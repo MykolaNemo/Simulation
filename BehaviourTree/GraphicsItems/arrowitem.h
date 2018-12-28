@@ -14,16 +14,16 @@ public:
     NodeGraphicsItem* getStartItem() const;
     void setStartItem(NodeGraphicsItem* nodeItem);
     bool setEndItem(NodeGraphicsItem* nodeItem);
-    void setEndPoint(const QPointF& endPoint);
+    void setEndPoint(const QPointF& endPointItemCoord);
+    QRectF boundingRect() const override;
 
 protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr) override;
-    QRectF boundingRect() const override;
 
 private:
     NodeGraphicsItem* mStartItem = nullptr;
     NodeGraphicsItem* mEndItem = nullptr;
-    QPointF mEndPoint = QPointF();
+    QPointF mEndPoint = QPointF(); //local coordinates
 };
 
 #endif // ARROWITEM_H

@@ -1,5 +1,6 @@
 #include "arrowitem.h"
 #include "NodeGraphicsItems/nodegraphicsitem.h"
+#include "tree.h"
 
 #include <QPainter>
 #include <QDebug>
@@ -25,6 +26,11 @@ ArrowItem::~ArrowItem()
     {
         mEndItem->removeIncomeArrow(this);
     }
+    if(mStartItem && mEndItem)
+    {
+        auto parentTreeModel = mStartItem->getTreeModel();
+        parentTreeModel->removeChild(mEndItem->getTreeModel());
+    }
 }
 
 NodeGraphicsItem* ArrowItem::getStartItem() const
@@ -49,6 +55,11 @@ bool ArrowItem::setEndItem(NodeGraphicsItem *endNodeItem)
         if(endNodeItem->addIncomeArrow(this))
         {
             mEndItem = endNodeItem;
+            if(mStartItem)
+            {
+                auto parentTreeModel = mStartItem->getTreeModel();
+                parentTreeModel->addChild(mEndItem->getTreeModel());
+            }
             update();
             return true;
         }
@@ -61,13 +72,13 @@ bool ArrowItem::setEndItem(NodeGraphicsItem *endNodeItem)
     return false;
 }
 
-void ArrowItem::setEndPoint(const QPointF &endPoint)
+void ArrowItem::setEndPoint(const QPointF &endPointItemCoord)
 {
-    mEndPoint = endPoint;
+    mEndPoint = endPointItemCoord;
     update();
 }
 
-void ArrowItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
+void ArrowItem::paint(QPainter *painter, const QStyleOptionGraphicsItem* /*option*/, QWidget* /*widget*/)
 {
     painter->save();
     if(isSelected())
@@ -110,8 +121,7 @@ void ArrowItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 
 QRectF ArrowItem::boundingRect() const
 {
-    const QPointF point = mapFromScene(mEndPoint);
-    const QPoint leftTop(qMin<float>(0.0f, point.x()), qMin<float>(0.0f, point.y()));
-    const QPoint bottomRight(qMax<float>(0.0f, point.x()), qMax<float>(0.0f, point.y()));
+    const QPoint leftTop(qMin<float>(0.0f, mEndPoint.x()), qMin<float>(0.0f, mEndPoint.y()));
+    const QPoint bottomRight(qMax<float>(0.0f, mEndPoint.x()), qMax<float>(0.0f, mEndPoint.y()));
     return {leftTop, bottomRight};
 }

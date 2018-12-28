@@ -57,7 +57,7 @@ bool NodeGraphicsItem::addIncomeArrow(ArrowItem *arrowItem)
     }
 
     mIncomeArrow = arrowItem;
-    arrowItem->setEndPoint(mapToScene(QPointF(boundingRect().width()/2.0f, 0.0f)));
+    arrowItem->setEndPoint(mapToItem(arrowItem, QPointF(boundingRect().width()/2.0f, 0.0f)));
     return true;
 }
 
@@ -144,7 +144,7 @@ QVariant NodeGraphicsItem::itemChange(QGraphicsItem::GraphicsItemChange change, 
         }
         if(mIncomeArrow)
         {
-            mIncomeArrow->setEndPoint(mapToScene(QPointF(boundingRect().width()/2.0f, 0.0f)));
+            mIncomeArrow->setEndPoint(mapToItem(mIncomeArrow, QPointF(boundingRect().width()/2.0f, 0.0f)));
         }
         break;
     }
