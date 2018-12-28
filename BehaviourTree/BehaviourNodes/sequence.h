@@ -12,7 +12,7 @@ public:
     void addChild(BehaviourTree* child) override;
     void removeChild(BehaviourTree* child) override;
     std::vector<BehaviourTree*> getChildren() const override;
-    ExecuteResult execute() override;
+    ExecuteResult execute(const std::chrono::milliseconds& tick) override;
 
 private:
     std::vector<BehaviourTree*> mChildren;

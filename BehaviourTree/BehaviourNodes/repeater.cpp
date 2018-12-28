@@ -26,7 +26,7 @@ Repeater::~Repeater()
     mThread->join();
 }
 
-BehaviourTree::ExecuteResult Repeater::execute()
+BehaviourTree::ExecuteResult Repeater::execute(const std::chrono::milliseconds &tick)
 {
     if(!mThread)
     {
@@ -40,7 +40,7 @@ void Repeater::executeAsync()
     std::cout<<getName()<<std::endl;
     while((mRepeatCount > 0 || mRepeatCount == -1) && !mChildren.empty() && !mInterrupt.load())
     {
-        mChildren.front()->execute();
+//        mChildren.front()->execute();
         std::this_thread::sleep_for(std::chrono::milliseconds(50));
     }
 }

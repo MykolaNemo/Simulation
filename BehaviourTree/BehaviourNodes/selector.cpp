@@ -33,13 +33,13 @@ std::vector<BehaviourTree *> Selector::getChildren() const
     return mChildren;
 }
 
-BehaviourTree::ExecuteResult Selector::execute()
+BehaviourTree::ExecuteResult Selector::execute(const std::chrono::milliseconds &tick)
 {
     std::cout<<getName()<<std::endl;
     for(BehaviourTree* child : mChildren)
     {
         if(!child) continue;
-        ExecuteResult result = child->execute();
+        ExecuteResult result = child->execute(tick);
         switch (result) {
         case ExecuteResult::FAILURE:
             continue;

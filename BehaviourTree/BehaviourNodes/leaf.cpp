@@ -17,7 +17,7 @@ Leaf::Leaf(int value, std::string name, BehaviourTree *parent)
 {
 }
 
-BehaviourTree::ExecuteResult Leaf::execute()
+BehaviourTree::ExecuteResult Leaf::execute(const std::chrono::milliseconds &tick)
 {
     std::cout<<getName()<<std::endl;
     return ExecuteResult::SUCCESS;

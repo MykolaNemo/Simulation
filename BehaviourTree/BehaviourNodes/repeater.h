@@ -20,7 +20,7 @@ public:
     Repeater& operator=(const Repeater&) = default;
     Repeater& operator=(Repeater&&) = default;
 
-    ExecuteResult execute() override;
+    ExecuteResult execute(const std::chrono::milliseconds& tick) override;
     void executeAsync();
 
 private:

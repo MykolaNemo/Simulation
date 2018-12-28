@@ -5,6 +5,8 @@
 #include "BehaviourNodes/selector.h"
 #include "BehaviourNodes/leaf.h"
 #include "BehaviourNodes/repeater.h"
+#include "BehaviourNodes/tickgenerator.h"
+
 #include <iostream>
 #include <thread>
 
@@ -12,9 +14,8 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    BehaviourTree* repeater = new Repeater("Repeater");
     BehaviourTree* treeRoot = new Sequence("Root");
-    repeater->addChild(treeRoot);
+    BehaviourTree* treeRoot2 = treeRoot;
 
     BehaviourTree* firstNode = new Selector("Selector");
     firstNode->addChild(new Leaf("Leaf_Selector_1"));
@@ -26,11 +27,13 @@ int main(int argc, char *argv[])
     treeRoot->addChild(new Leaf("Leaf_Sequence_2"));
     treeRoot->addChild(new Leaf("Leaf_Sequence_3"));
 
-    repeater->execute();
+    TickGenerator generator;
+    generator.addTree(std::shared_ptr<BehaviourTree>(treeRoot));
 
-    MainWindow w;
-    w.show();
+    generator.start();
 
-    delete repeater;
+//    MainWindow w;
+//    w.show();
+
     return QApplication::exec();
 }

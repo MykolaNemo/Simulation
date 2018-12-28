@@ -47,7 +47,8 @@ SOURCES += \
     graphicsview/graphicsviewabstractmode.cpp \
     graphicsview/graphicsviewarrowplacemode.cpp \
     NodeLabels/rootnodelabel.cpp \
-    NodeGraphicsItems/rootgraphicsitem.cpp
+    NodeGraphicsItems/rootgraphicsitem.cpp \
+    BehaviourNodes/tickgenerator.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -72,7 +73,8 @@ HEADERS += \
     graphicsview/graphicsviewarrowplacemode.h \
     NodeLabels/rootnodelabel.h \
     NodeGraphicsItems/rootgraphicsitem.h \
-    tree.h
+    tree.h \
+    BehaviourNodes/tickgenerator.h
 
 FORMS += \
         mainwindow.ui

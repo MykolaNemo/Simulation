@@ -9,7 +9,7 @@ public:
     explicit Invertor(BehaviourTree *parent = nullptr);
     explicit Invertor(std::string name, BehaviourTree *parent = nullptr);
     explicit Invertor(int value, std::string name = "", BehaviourTree* parent = nullptr);
-    ExecuteResult execute() override;
+    ExecuteResult execute(const std::chrono::milliseconds& tick) override;
 
 private:
     void addChild(BehaviourTree* child) override;

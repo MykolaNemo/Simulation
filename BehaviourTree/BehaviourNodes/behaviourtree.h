@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+#include <chrono>
 
 class BehaviourTree
 {
@@ -22,7 +23,7 @@ public:
     virtual void addChild(BehaviourTree* child) = 0;
     virtual void removeChild(BehaviourTree* child) = 0;
     virtual std::vector<BehaviourTree*> getChildren() const = 0;
-    virtual ExecuteResult execute() = 0;
+    virtual ExecuteResult execute(const std::chrono::milliseconds& tick) = 0;
 
 protected:
     BehaviourTree(int value, std::string name, BehaviourTree* parent);
