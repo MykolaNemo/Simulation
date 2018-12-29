@@ -29,7 +29,6 @@ SOURCES += \
         mainwindow.cpp \
     BehaviourNodes/behaviourtree.cpp \
     BehaviourNodes/sequence.cpp \
-    BehaviourNodes/selector.cpp \
     BehaviourNodes/leaf.cpp \
     BehaviourNodes/invertor.cpp \
     BehaviourNodes/repeater.cpp \
@@ -48,13 +47,13 @@ SOURCES += \
     graphicsview/graphicsviewarrowplacemode.cpp \
     NodeLabels/rootnodelabel.cpp \
     NodeGraphicsItems/rootgraphicsitem.cpp \
-    BehaviourNodes/tickgenerator.cpp
+    BehaviourNodes/tickgenerator.cpp \
+    BehaviourNodes/fallback.cpp
 
 HEADERS += \
         mainwindow.h \
     BehaviourNodes/behaviourtree.h \
     BehaviourNodes/sequence.h \
-    BehaviourNodes/selector.h \
     BehaviourNodes/leaf.h \
     BehaviourNodes/invertor.h \
     BehaviourNodes/repeater.h \
@@ -74,7 +73,8 @@ HEADERS += \
     NodeLabels/rootnodelabel.h \
     NodeGraphicsItems/rootgraphicsitem.h \
     tree.h \
-    BehaviourNodes/tickgenerator.h
+    BehaviourNodes/tickgenerator.h \
+    BehaviourNodes/fallback.h
 
 FORMS += \
         mainwindow.ui

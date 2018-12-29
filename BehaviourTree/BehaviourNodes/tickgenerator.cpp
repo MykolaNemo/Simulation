@@ -8,8 +8,11 @@ TickGenerator::TickGenerator():
 
 TickGenerator::~TickGenerator()
 {
-    stop();
-    mThread->join();
+    if(mThread)
+    {
+        stop();
+        mThread->join();
+    }
 }
 
 void TickGenerator::start()

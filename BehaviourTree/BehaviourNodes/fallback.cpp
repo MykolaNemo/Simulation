@@ -1,39 +1,39 @@
-#include "selector.h"
+#include "fallback.h"
 #include <algorithm>
 #include <iostream>
 #include <string>
 
-Selector::Selector(BehaviourTree *parent)
-    : Selector(0,"",parent)
+Fallback::Fallback(BehaviourTree *parent)
+    : Fallback(0,"",parent)
 {
 }
 
-Selector::Selector(std::string name, BehaviourTree *parent)
-    : Selector(0,std::move(name),parent)
+Fallback::Fallback(std::string name, BehaviourTree *parent)
+    : Fallback(0,std::move(name),parent)
 {
 }
 
-Selector::Selector(int value, std::string name, BehaviourTree *parent)
+Fallback::Fallback(int value, std::string name, BehaviourTree *parent)
     : BehaviourTree(value, std::move(name), parent)
 {
 }
 
-void Selector::addChild(BehaviourTree *child)
+void Fallback::addChild(BehaviourTree *child)
 {
     mChildren.push_back(child);
 }
 
-void Selector::removeChild(BehaviourTree *child)
+void Fallback::removeChild(BehaviourTree *child)
 {
     mChildren.erase(std::remove(mChildren.begin(), mChildren.end(), child), mChildren.end());
 }
 
-std::vector<BehaviourTree *> Selector::getChildren() const
+std::vector<BehaviourTree *> Fallback::getChildren() const
 {
     return mChildren;
 }
 
-BehaviourTree::ExecuteResult Selector::execute(const std::chrono::milliseconds &tick)
+BehaviourTree::ExecuteResult Fallback::execute(const std::chrono::milliseconds &tick)
 {
     std::cout<<getName()<<std::endl;
     for(BehaviourTree* child : mChildren)

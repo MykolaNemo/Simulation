@@ -3,12 +3,12 @@
 
 #include "behaviourtree.h"
 
-class Selector: public BehaviourTree
+class Fallback: public BehaviourTree
 {
 public:
-    explicit Selector(BehaviourTree* parent = nullptr);
-    explicit Selector(std::string name, BehaviourTree* parent = nullptr);
-    explicit Selector(int value, std::string name = "", BehaviourTree* parent = nullptr);
+    explicit Fallback(BehaviourTree* parent = nullptr);
+    explicit Fallback(std::string name, BehaviourTree* parent = nullptr);
+    explicit Fallback(int value, std::string name = "", BehaviourTree* parent = nullptr);
     void addChild(BehaviourTree* child) override;
     void removeChild(BehaviourTree* child) override;
     std::vector<BehaviourTree*> getChildren() const override;
