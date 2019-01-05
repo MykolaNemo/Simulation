@@ -8,6 +8,7 @@
 #include <QGraphicsScene>
 #include "GraphicsItems/anchoritem.h"
 #include "GraphicsItems/arrowitem.h"
+#include "tree.h"
 
 NodeGraphicsItem::NodeGraphicsItem(qreal x, qreal y, qreal w, qreal h, QGraphicsItem *parent):
     QGraphicsRectItem (x,y,w,h,parent)
@@ -57,7 +58,7 @@ bool NodeGraphicsItem::addIncomeArrow(ArrowItem *arrowItem)
     }
 
     mIncomeArrow = arrowItem;
-    arrowItem->setEndPoint(mapToItem(arrowItem, QPointF(boundingRect().width()/2.0f, 0.0f)));
+    arrowItem->setEndPoint(mapToScene(QPointF(boundingRect().width()/2.0f, 0.0f)));
     return true;
 }
 
@@ -86,7 +87,10 @@ void NodeGraphicsItem::init()
 
     mArrowAnchorItem = new AnchorItem(this);
     connect(mArrowAnchorItem, &AnchorItem::pressed, [this](){
-        emit requestArrowCreation(this);
+        if(getTreeModel()->getType() != Tree::NodeType::Leaf)
+        {
+            emit requestArrowCreation(this);
+        }
     });
 }
 
@@ -144,7 +148,7 @@ QVariant NodeGraphicsItem::itemChange(QGraphicsItem::GraphicsItemChange change, 
         }
         if(mIncomeArrow)
         {
-            mIncomeArrow->setEndPoint(mapToItem(mIncomeArrow, QPointF(boundingRect().width()/2.0f, 0.0f)));
+            mIncomeArrow->setEndPoint(mapToScene(QPointF(boundingRect().width()/2.0f, 0.0f)));
         }
         break;
     }
@@ -165,4 +169,9 @@ void NodeGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *
         painter->fillRect(rect, QColor(0xaa,0xaa,0xff));
         painter->restore();
     }
+}
+
+void NodeGraphicsItem::hideAnchorItem()
+{
+    mArrowAnchorItem->hide();
 }

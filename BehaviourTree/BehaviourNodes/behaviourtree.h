@@ -4,6 +4,9 @@
 #include <vector>
 #include <string>
 #include <chrono>
+#include <memory>
+
+class Sheep;
 
 class BehaviourTree
 {
@@ -23,7 +26,8 @@ public:
     virtual void addChild(BehaviourTree* child) = 0;
     virtual void removeChild(BehaviourTree* child) = 0;
     virtual std::vector<BehaviourTree*> getChildren() const = 0;
-    virtual ExecuteResult execute(const std::chrono::milliseconds& tick) = 0;
+    virtual ExecuteResult execute(const std::chrono::milliseconds& tick,
+                                  std::shared_ptr<Sheep>& sheep) = 0;
 
 protected:
     BehaviourTree(int value, std::string name, BehaviourTree* parent);

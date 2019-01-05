@@ -10,7 +10,8 @@ public:
     explicit Leaf(BehaviourTree *parent = nullptr);
     explicit Leaf(std::string name, BehaviourTree *parent = nullptr);
     explicit Leaf(int value, std::string name = "", BehaviourTree* parent = nullptr);
-    ExecuteResult execute(const std::chrono::milliseconds& tick) override;
+    ExecuteResult execute(const std::chrono::milliseconds& tick,
+                          std::shared_ptr<Sheep>& sheep) override;
 
 private:
     void addChild(BehaviourTree* child) override;

@@ -4,6 +4,7 @@
 #include "NodeGraphicsItems/sequencegraphicsitem.h"
 #include "NodeGraphicsItems/fallbackgraphicsitem.h"
 #include "NodeGraphicsItems/rootgraphicsitem.h"
+#include "NodeGraphicsItems/leafgraphicsitem.h"
 #include "graphicsscene.h"
 #include "GraphicsItems/arrowitem.h"
 #include "graphicsviewnormalmode.h"
@@ -123,6 +124,11 @@ void GraphicsView::dropEvent(QDropEvent *event)
     {
         item = new RootGraphicsItem();
         emit rootWasChanged(item->getTreeModel());
+        break;
+    }
+    case NodeType::Leaf:
+    {
+        item = new LeafGraphicsItem();
         break;
     }
     }

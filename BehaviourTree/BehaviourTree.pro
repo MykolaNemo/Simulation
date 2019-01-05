@@ -48,7 +48,9 @@ SOURCES += \
     NodeLabels/rootnodelabel.cpp \
     NodeGraphicsItems/rootgraphicsitem.cpp \
     BehaviourNodes/tickgenerator.cpp \
-    BehaviourNodes/fallback.cpp
+    BehaviourNodes/fallback.cpp \
+    NodeLabels/leafnodelabel.cpp \
+    NodeGraphicsItems/leafgraphicsitem.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -74,7 +76,10 @@ HEADERS += \
     NodeGraphicsItems/rootgraphicsitem.h \
     tree.h \
     BehaviourNodes/tickgenerator.h \
-    BehaviourNodes/fallback.h
+    BehaviourNodes/fallback.h \
+    NodeLabels/leafnodelabel.h \
+    NodeGraphicsItems/leafgraphicsitem.h \
+    sheep.h
 
 FORMS += \
         mainwindow.ui

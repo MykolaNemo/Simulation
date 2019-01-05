@@ -72,9 +72,9 @@ bool ArrowItem::setEndItem(NodeGraphicsItem *endNodeItem)
     return false;
 }
 
-void ArrowItem::setEndPoint(const QPointF &endPointItemCoord)
+void ArrowItem::setEndPoint(const QPointF &endPoint)
 {
-    mEndPoint = endPointItemCoord;
+    mEndPoint = endPoint;
     update();
 }
 
@@ -121,7 +121,8 @@ void ArrowItem::paint(QPainter *painter, const QStyleOptionGraphicsItem* /*optio
 
 QRectF ArrowItem::boundingRect() const
 {
-    const QPoint leftTop(qMin<float>(0.0f, mEndPoint.x()), qMin<float>(0.0f, mEndPoint.y()));
-    const QPoint bottomRight(qMax<float>(0.0f, mEndPoint.x()), qMax<float>(0.0f, mEndPoint.y()));
+    QPointF point = mapFromScene(mEndPoint);
+    const QPoint leftTop(qMin<float>(0.0f, point.x()), qMin<float>(0.0f, point.y()));
+    const QPoint bottomRight(qMax<float>(0.0f, point.x()), qMax<float>(0.0f, point.y()));
     return {leftTop, bottomRight};
 }

@@ -7,7 +7,8 @@ enum class NodeType
 {
     Root,
     Sequence,
-    Fallback
+    Fallback,
+    Leaf
 };
 
 class NodeLabel: public QLabel

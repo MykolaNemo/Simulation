@@ -20,7 +20,8 @@ public:
     Repeater& operator=(const Repeater&) = default;
     Repeater& operator=(Repeater&&) = default;
 
-    ExecuteResult execute(const std::chrono::milliseconds& tick) override;
+    ExecuteResult execute(const std::chrono::milliseconds& tick,
+                          std::shared_ptr<Sheep>& sheep) override;
     void executeAsync();
 
 private:

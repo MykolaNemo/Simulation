@@ -18,11 +18,11 @@ Invertor::Invertor(int value, std::string name, BehaviourTree *parent):
 
 }
 
-BehaviourTree::ExecuteResult Invertor::execute(const std::chrono::milliseconds &tick)
+BehaviourTree::ExecuteResult Invertor::execute(const std::chrono::milliseconds &tick, std::shared_ptr<Sheep> &sheep)
 {
     if(!mChildren.empty())
     {
-        ExecuteResult result = mChildren.front()->execute(tick);
+        ExecuteResult result = mChildren.front()->execute(tick, sheep);
         switch(result)
         {
         case ExecuteResult::SUCCESS:

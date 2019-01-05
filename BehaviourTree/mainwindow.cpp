@@ -42,21 +42,21 @@ std::string MainWindow::tickGeneratorString(const std::string &name) const
 std::string MainWindow::sequenceString(const std::string& name) const
 {
     std::ostringstream stringStream;
-    stringStream << "BehaviourTree* " << name << " = new Sequence();\n";
+    stringStream << "BehaviourTree* " << name << " = new Sequence(\""<<name<<"\");\n";
     return stringStream.str();
 }
 
 std::string MainWindow::fallbackString(const std::string& name) const
 {
     std::ostringstream stringStream;
-    stringStream << "BehaviourTree* " << name << " = new Fallback();\n";
+    stringStream << "BehaviourTree* " << name << " = new Fallback(\""<<name<<"\");\n";
     return stringStream.str();
 }
 
 std::string MainWindow::leafString(const std::string& name) const
 {
     std::ostringstream stringStream;
-    stringStream << "BehaviourTree* " << name << " = new Leaf();\n";
+    stringStream << "BehaviourTree* " << name << " = new Leaf(\""<<name<<"\");\n";
     return stringStream.str();
 }
 

@@ -22,7 +22,7 @@ GraphicsViewArrowPlaceMode::GraphicsViewArrowPlaceMode(GraphicsView* view, NodeG
     mArrow = new ArrowItem(startNodeItem, nullptr);
     scene->addItem(mArrow);
 
-    mArrow->setEndPoint(mArrow->mapFromScene(mView->mapToScene(mView->mapFromGlobal(QCursor::pos()))));
+    mArrow->setEndPoint(mView->mapToScene(mView->mapFromGlobal(QCursor::pos())));
 }
 
 GraphicsViewAbstractMode::Mode GraphicsViewArrowPlaceMode::getMode() const
@@ -84,7 +84,7 @@ GraphicsViewAbstractMode::Mode GraphicsViewArrowPlaceMode::mouseMove(QMouseEvent
 {
     if(mArrow)
     {
-        mArrow->setEndPoint(mArrow->mapFromScene(mView->mapToScene(mView->mapFromGlobal(QCursor::pos()))));
+        mArrow->setEndPoint(mView->mapToScene(mView->mapFromGlobal(QCursor::pos())));
         event->accept();
     }
     return GraphicsViewAbstractMode::Mode::None;

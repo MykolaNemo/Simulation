@@ -1,6 +1,7 @@
 #include "sequencegraphicsitem.h"
 
 #include <QPainter>
+#include <QTextDocument>
 #include "tree.h"
 
 SequenceGraphicsItem::SequenceGraphicsItem(QGraphicsItem *parent):
@@ -23,7 +24,16 @@ void SequenceGraphicsItem::init()
     pen.setColor(QColor(0x99,0xcc,0xcc));
     setPen(pen);
 
-    QGraphicsSimpleTextItem *textItem = new QGraphicsSimpleTextItem("Sequence", this);
+    QGraphicsTextItem *textItem = new QGraphicsTextItem("Sequence", this);
+    textItem->setTextInteractionFlags(Qt::TextEditorInteraction);
+    connect(textItem->document(), &QTextDocument::contentsChange, [this, textItem](int, int, int){
+        textItem->adjustSize();
+        const auto size = this->boundingRect().size();
+        const auto textItemSize = textItem->boundingRect().size();
+        textItem->setPos((size.width() - textItemSize.width())/2.0,
+                         (size.height() - textItemSize.height())/2.0);
+    });
+
     const auto size = boundingRect().size();
     const auto textItemSize = textItem->boundingRect().size();
     textItem->setPos((size.width() - textItemSize.width())/2.0,

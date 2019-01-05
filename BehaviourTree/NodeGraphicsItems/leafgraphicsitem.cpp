@@ -1,30 +1,31 @@
-#include "fallbackgraphicsitem.h"
+#include "leafgraphicsitem.h"
 
 #include <QPainter>
 #include <QTextDocument>
 #include "tree.h"
 
-FallbackGraphicsItem::FallbackGraphicsItem(QGraphicsItem *parent):
+LeafGraphicsItem::LeafGraphicsItem(QGraphicsItem *parent):
     NodeGraphicsItem (0,0,130,55,parent)
 {
     init();
+    hideAnchorItem();
 }
 
-std::shared_ptr<Tree> FallbackGraphicsItem::getTreeModel() const
+std::shared_ptr<Tree> LeafGraphicsItem::getTreeModel() const
 {
     return mTreeModel;
 }
 
-void FallbackGraphicsItem::init()
+void LeafGraphicsItem::init()
 {
-    mTreeModel = std::make_shared<Tree>(Tree::NodeType::Fallback);
+    mTreeModel = std::make_shared<Tree>(Tree::NodeType::Leaf);
 
     QPen pen;
     pen.setWidth(2);
-    pen.setColor(QColor(0xcc,0xcc,0x55));
+    pen.setColor(QColor(0x55,0xff,0x99));
     setPen(pen);
 
-    auto textItem = new QGraphicsTextItem("Fallback", this);
+    auto textItem = new QGraphicsTextItem("Leaf", this);
     textItem->setTextInteractionFlags(Qt::TextEditorInteraction);
     connect(textItem->document(), &QTextDocument::contentsChange, [this, textItem](int, int, int){
         textItem->adjustSize();

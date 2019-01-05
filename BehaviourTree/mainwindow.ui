@@ -48,8 +48,14 @@
           <widget class="SequenceNodeLabel" name="sequenceItemLabel">
            <property name="minimumSize">
             <size>
-             <width>0</width>
+             <width>56</width>
              <height>70</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>56</width>
+             <height>16777215</height>
             </size>
            </property>
            <property name="text">
@@ -64,8 +70,14 @@
           <widget class="FallbackNodeLabel" name="fallbackItemLabel">
            <property name="minimumSize">
             <size>
-             <width>0</width>
+             <width>56</width>
              <height>70</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>56</width>
+             <height>16777215</height>
             </size>
            </property>
            <property name="text">
@@ -80,8 +92,14 @@
           <widget class="RootNodeLabel" name="roomItemLabel">
            <property name="minimumSize">
             <size>
-             <width>0</width>
+             <width>56</width>
              <height>70</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>56</width>
+             <height>16777215</height>
             </size>
            </property>
            <property name="text">
@@ -93,6 +111,28 @@
           </widget>
          </item>
         </layout>
+       </item>
+       <item>
+        <widget class="LeafNodeLabel" name="label">
+         <property name="minimumSize">
+          <size>
+           <width>56</width>
+           <height>70</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>56</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>Leaf</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
        </item>
        <item>
         <widget class="QPushButton" name="traverseButton">
@@ -163,6 +203,11 @@
    <class>RootNodeLabel</class>
    <extends>QLabel</extends>
    <header>NodeLabels/rootnodelabel.h</header>
+  </customwidget>
+  <customwidget>
+   <class>LeafNodeLabel</class>
+   <extends>QLabel</extends>
+   <header>NodeLabels/leafnodelabel.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

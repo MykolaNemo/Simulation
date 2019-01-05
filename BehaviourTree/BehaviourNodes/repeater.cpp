@@ -26,7 +26,7 @@ Repeater::~Repeater()
     mThread->join();
 }
 
-BehaviourTree::ExecuteResult Repeater::execute(const std::chrono::milliseconds &tick)
+BehaviourTree::ExecuteResult Repeater::execute(const std::chrono::milliseconds &tick, std::shared_ptr<Sheep> &sheep)
 {
     if(!mThread)
     {

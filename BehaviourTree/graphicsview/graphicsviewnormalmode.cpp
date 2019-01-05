@@ -2,9 +2,14 @@
 
 #include "graphicsview.h"
 
-GraphicsViewNormalMode::GraphicsViewNormalMode(GraphicsView* view)
+GraphicsViewNormalMode::GraphicsViewNormalMode(GraphicsView* view):
+    mView(view)
 {
-    view->setMouseTracking(false);
+    if(!mView)
+    {
+        throw std::logic_error("GraphicsViewNormalMode::GraphicsViewNormalMode -> view is null!");
+    }
+    mView->setMouseTracking(false);
 }
 
 GraphicsViewAbstractMode::Mode GraphicsViewNormalMode::getMode() const

@@ -14,7 +14,7 @@ public:
     NodeGraphicsItem* getStartItem() const;
     void setStartItem(NodeGraphicsItem* nodeItem);
     bool setEndItem(NodeGraphicsItem* nodeItem);
-    void setEndPoint(const QPointF& endPointItemCoord);
+    void setEndPoint(const QPointF& endPoint);
     QRectF boundingRect() const override;
 
 protected:

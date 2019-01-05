@@ -6,11 +6,14 @@
 #include <atomic>
 #include <chrono>
 #include "behaviourtree.h"
+#include "sheep.h"
+
+#include <memory>
 
 class TickGenerator
 {
 public:
-    TickGenerator();
+    TickGenerator(std::shared_ptr<Sheep>& sheep);
     ~TickGenerator();
     void start();
     void stop();
@@ -21,6 +24,8 @@ private:
     std::unique_ptr<std::thread> mThread;
     std::atomic_bool mInterrupt;
     std::vector<std::shared_ptr<BehaviourTree> > mTreesList;
+
+    std::shared_ptr<Sheep> mSheep;
 };
 
 #endif // TICKGENERATOR_H

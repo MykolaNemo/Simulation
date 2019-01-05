@@ -1,6 +1,7 @@
 #include "rootgraphicsitem.h"
 
 #include <QPainter>
+#include <QTextDocument>
 #include "tree.h"
 
 RootGraphicsItem::RootGraphicsItem(QGraphicsItem *parent):
@@ -23,7 +24,15 @@ void RootGraphicsItem::init()
     pen.setColor(QColor(0xcc,0x55,0x55));
     setPen(pen);
 
-    QGraphicsSimpleTextItem *textItem = new QGraphicsSimpleTextItem("Root", this);
+    QGraphicsTextItem *textItem = new QGraphicsTextItem("Root", this);
+    textItem->setTextInteractionFlags(Qt::TextEditorInteraction);
+    connect(textItem->document(), &QTextDocument::contentsChange, [this, textItem](int, int, int){
+        textItem->adjustSize();
+        const auto size = this->boundingRect().size();
+        const auto textItemSize = textItem->boundingRect().size();
+        textItem->setPos((size.width() - textItemSize.width())/2.0,
+                         (size.height() - textItemSize.height())/2.0);
+    });
     const auto size = boundingRect().size();
     const auto textItemSize = textItem->boundingRect().size();
     textItem->setPos((size.width() - textItemSize.width())/2.0,

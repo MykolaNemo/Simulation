@@ -9,7 +9,10 @@ class GraphicsViewNormalMode: public GraphicsViewAbstractMode
 {
 public:
     GraphicsViewNormalMode(GraphicsView* view);
-    GraphicsViewAbstractMode::Mode getMode() const;
+    GraphicsViewAbstractMode::Mode getMode() const override;
+
+private:
+    GraphicsView* mView = nullptr;
 };
 
 #endif // GRAPHICSVIEWNORMALMODE_H

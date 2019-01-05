@@ -1,10 +1,7 @@
 #include "fallbacknodelabel.h"
 
 FallbackNodeLabel::FallbackNodeLabel::FallbackNodeLabel(QWidget *parent, Qt::WindowFlags f):
-    NodeLabel (parent, f)
-{
-    init();
-}
+    FallbackNodeLabel ("", parent, f){}
 
 FallbackNodeLabel::FallbackNodeLabel::FallbackNodeLabel(const QString &text, QWidget *parent, Qt::WindowFlags f):
     NodeLabel (text, parent, f)

@@ -12,7 +12,8 @@ public:
     void addChild(BehaviourTree* child) override;
     void removeChild(BehaviourTree* child) override;
     std::vector<BehaviourTree*> getChildren() const override;
-    ExecuteResult execute(const std::chrono::milliseconds& tick) override;
+    ExecuteResult execute(const std::chrono::milliseconds& tick,
+                          std::shared_ptr<Sheep>& sheep) override;
 
 private:
     std::vector<BehaviourTree*> mChildren;
