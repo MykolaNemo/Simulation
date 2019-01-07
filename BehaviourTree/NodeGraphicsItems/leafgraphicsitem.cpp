@@ -33,6 +33,7 @@ void LeafGraphicsItem::init()
         const auto textItemSize = textItem->boundingRect().size();
         textItem->setPos((size.width() - textItemSize.width())/2.0,
                          (size.height() - textItemSize.height())/2.0);
+        this->mTreeModel->setName(textItem->toPlainText().toStdString());
     });
     const auto size = boundingRect().size();
     const auto textItemSize = textItem->boundingRect().size();

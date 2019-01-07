@@ -6,8 +6,6 @@
 #include <chrono>
 #include <memory>
 
-class Sheep;
-
 class BehaviourTree
 {
 public:
@@ -19,25 +17,21 @@ public:
     };
     virtual ~BehaviourTree(){}
     BehaviourTree* getParent() const;
-    int getValue() const;
     std::string getName() const;
 
-    virtual void setValue(int value);
     virtual void addChild(BehaviourTree* child) = 0;
     virtual void removeChild(BehaviourTree* child) = 0;
     virtual std::vector<BehaviourTree*> getChildren() const = 0;
-    virtual ExecuteResult execute(const std::chrono::milliseconds& tick,
-                                  std::shared_ptr<Sheep>& sheep) = 0;
+    virtual ExecuteResult execute(const std::chrono::milliseconds& tick) = 0;
 
 protected:
-    BehaviourTree(int value, std::string name, BehaviourTree* parent);
+    BehaviourTree(std::string name, BehaviourTree* parent);
     BehaviourTree(const BehaviourTree&) = default;
     BehaviourTree(BehaviourTree&&) = default;
     BehaviourTree& operator=(const BehaviourTree&) = default;
     BehaviourTree& operator=(BehaviourTree&&) = default;
 
 private:
-    int mValue = 0;
     std::string mName;
     BehaviourTree* mParent;
 };

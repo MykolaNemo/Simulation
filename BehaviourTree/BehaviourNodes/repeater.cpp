@@ -4,19 +4,13 @@
 #include <thread>
 
 Repeater::Repeater(BehaviourTree *parent):
-    Repeater(0,"",parent)
+    Repeater("", parent)
 {
 
 }
 
 Repeater::Repeater(std::string name, BehaviourTree *parent)
-    : Repeater(0,std::move(name),parent)
-{
-}
-
-Repeater::Repeater(int value, std::string name, BehaviourTree *parent)
-    : BehaviourTree(value, std::move(name), parent),
-      mInterrupt(false)
+    : BehaviourTree(std::move(name), parent)
 {
 }
 
@@ -26,7 +20,7 @@ Repeater::~Repeater()
     mThread->join();
 }
 
-BehaviourTree::ExecuteResult Repeater::execute(const std::chrono::milliseconds &tick, std::shared_ptr<Sheep> &sheep)
+BehaviourTree::ExecuteResult Repeater::execute(const std::chrono::milliseconds &)
 {
     if(!mThread)
     {
@@ -38,11 +32,11 @@ BehaviourTree::ExecuteResult Repeater::execute(const std::chrono::milliseconds &
 void Repeater::executeAsync()
 {
     std::cout<<getName()<<std::endl;
-    while((mRepeatCount > 0 || mRepeatCount == -1) && !mChildren.empty() && !mInterrupt.load())
-    {
+//    while((mRepeatCount > 0 || mRepeatCount == -1) && !mChildren.empty() && !mInterrupt.load())
+//    {
 //        mChildren.front()->execute();
-        std::this_thread::sleep_for(std::chrono::milliseconds(50));
-    }
+//        std::this_thread::sleep_for(std::chrono::milliseconds(50));
+//    }
 }
 
 void Repeater::addChild(BehaviourTree *child)

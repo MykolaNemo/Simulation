@@ -24,7 +24,6 @@ signals:
     void treeGenerated(const std::shared_ptr<Tree>& tree);
 
 private:
-    void onRootChanged(const std::shared_ptr<Tree>& treeRoot);
     std::string traverseTree(const std::shared_ptr<Tree> &tree, std::string &generatedString);
 
     std::string tickGeneratorString(const std::string &name) const;

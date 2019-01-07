@@ -13,7 +13,7 @@
 class TickGenerator
 {
 public:
-    TickGenerator(std::shared_ptr<Sheep>& sheep);
+    TickGenerator();
     ~TickGenerator();
     void start();
     void stop();
@@ -24,8 +24,6 @@ private:
     std::unique_ptr<std::thread> mThread;
     std::atomic_bool mInterrupt;
     std::vector<std::shared_ptr<BehaviourTree> > mTreesList;
-
-    std::shared_ptr<Sheep> mSheep;
 };
 
 #endif // TICKGENERATOR_H

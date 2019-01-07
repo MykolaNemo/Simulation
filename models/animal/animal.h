@@ -1,12 +1,12 @@
 #ifndef ANIMAL_H
 #define ANIMAL_H
 
-#include <boost/signals2/signal.hpp>
+#include "boost/signals2/signal.hpp"
 
 #include "models/fieldobject.h"
-#include "state/state.h"
 
 class StateAbstract;
+class AnimalState;
 
 class Animal : public FieldObject
 {

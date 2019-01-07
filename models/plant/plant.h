@@ -4,6 +4,7 @@
 #include "models/fieldobject.h"
 
 class PlantState;
+class StateAbstract;
 
 class Plant: public FieldObject
 {

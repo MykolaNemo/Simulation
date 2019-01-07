@@ -18,15 +18,16 @@ class Field
 public:
     Field(int _width, int _height);
 
-    void addObjects(const std::vector<std::shared_ptr<FieldObject> > &objects);
+    void addObjects(const std::vector<std::shared_ptr<FieldObject>> &objects);
     void addObject(const std::shared_ptr<FieldObject> &object);
-    std::vector<std::shared_ptr<FieldObject> > getObjectsAt(const int x, const int y) const;
-    inline std::vector<std::shared_ptr<FieldObject> > getObjectsAt(const Position& position) const
-    { return getObjectsAt(position.x, position.y); }
 
     std::vector<std::shared_ptr<FieldObject>> getObjects() const;
+    std::vector<std::shared_ptr<FieldObject>> getObjectsAt(const int x, const int y) const;
+    inline std::vector<std::shared_ptr<FieldObject>> getObjectsAt(const Position& position) const
+    { return getObjectsAt(position.x, position.y); }
     std::shared_ptr<FieldObject> getClosestObject(const Position &centralPoint,
                                                   const std::type_info &type) const;
+
     std::shared_ptr<FieldObject> getClosestGrass(const Position &centralPoint) const;
 
     Size2D getSize() const;

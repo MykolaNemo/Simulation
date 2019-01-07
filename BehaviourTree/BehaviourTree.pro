@@ -50,7 +50,9 @@ SOURCES += \
     BehaviourNodes/tickgenerator.cpp \
     BehaviourNodes/fallback.cpp \
     NodeLabels/leafnodelabel.cpp \
-    NodeGraphicsItems/leafgraphicsitem.cpp
+    NodeGraphicsItems/leafgraphicsitem.cpp \
+    BehaviourNodes/own/ishungrycheck.cpp \
+    BehaviourNodes/own/eataction.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -79,7 +81,9 @@ HEADERS += \
     BehaviourNodes/fallback.h \
     NodeLabels/leafnodelabel.h \
     NodeGraphicsItems/leafgraphicsitem.h \
-    sheep.h
+    sheep.h \
+    BehaviourNodes/own/ishungrycheck.h \
+    BehaviourNodes/own/eataction.h
 
 FORMS += \
         mainwindow.ui

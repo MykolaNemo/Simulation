@@ -46,14 +46,10 @@ void SimCore::mainLoop()
     while(!m_interrupt.load())
     {
         const auto objects = field->getObjects();
-        QElapsedTimer t;
-        t.start();
         for(const auto& object : objects)
         {
             object->update(*field.get());
         }
-        std::cout<<"Whole update cycle: "<<t.elapsed()<<std::endl;
-        std::cout<<"==================================="<<std::endl;
         std::this_thread::sleep_for(std::chrono::milliseconds(50));
     }
 }

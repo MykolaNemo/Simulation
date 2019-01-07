@@ -1,8 +1,7 @@
 #include "tickgenerator.h"
 
-TickGenerator::TickGenerator(std::shared_ptr<Sheep> &sheep):
-    mInterrupt(false),
-    mSheep(sheep)
+TickGenerator::TickGenerator():
+    mInterrupt(false)
 {
 
 }
@@ -44,7 +43,7 @@ void TickGenerator::mainLoop()
         auto tickDuration = std::chrono::duration_cast<std::chrono::milliseconds>(now - time);
         for(auto tree : mTreesList)
         {
-            tree->execute(tickDuration, mSheep);
+            tree->execute(tickDuration);
         }
         time = now;
     }

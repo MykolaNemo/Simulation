@@ -4,17 +4,12 @@
 #include <string>
 
 Fallback::Fallback(BehaviourTree *parent)
-    : Fallback(0,"",parent)
+    : Fallback("",parent)
 {
 }
 
 Fallback::Fallback(std::string name, BehaviourTree *parent)
-    : Fallback(0,std::move(name),parent)
-{
-}
-
-Fallback::Fallback(int value, std::string name, BehaviourTree *parent)
-    : BehaviourTree(value, std::move(name), parent)
+    : BehaviourTree(std::move(name),parent)
 {
 }
 
@@ -33,13 +28,13 @@ std::vector<BehaviourTree *> Fallback::getChildren() const
     return mChildren;
 }
 
-BehaviourTree::ExecuteResult Fallback::execute(const std::chrono::milliseconds &tick, std::shared_ptr<Sheep> &sheep)
+BehaviourTree::ExecuteResult Fallback::execute(const std::chrono::milliseconds &tick)
 {
     std::cout<<getName()<<std::endl;
     for(BehaviourTree* child : mChildren)
     {
         if(!child) continue;
-        ExecuteResult result = child->execute(tick, sheep);
+        ExecuteResult result = child->execute(tick);
         switch (result) {
         case ExecuteResult::FAILURE:
             continue;

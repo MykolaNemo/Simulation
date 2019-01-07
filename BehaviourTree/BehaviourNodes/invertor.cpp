@@ -1,28 +1,22 @@
 #include "invertor.h"
 
 Invertor::Invertor(BehaviourTree *parent):
-    Invertor(0, "", parent)
+    Invertor("", parent)
 {
 
 }
 
 Invertor::Invertor(std::string name, BehaviourTree *parent):
-    Invertor(0, std::move(name), parent)
+    BehaviourTree(std::move(name), parent)
 {
 
 }
 
-Invertor::Invertor(int value, std::string name, BehaviourTree *parent):
-    BehaviourTree(value, std::move(name), parent)
-{
-
-}
-
-BehaviourTree::ExecuteResult Invertor::execute(const std::chrono::milliseconds &tick, std::shared_ptr<Sheep> &sheep)
+BehaviourTree::ExecuteResult Invertor::execute(const std::chrono::milliseconds &tick)
 {
     if(!mChildren.empty())
     {
-        ExecuteResult result = mChildren.front()->execute(tick, sheep);
+        ExecuteResult result = mChildren.front()->execute(tick);
         switch(result)
         {
         case ExecuteResult::SUCCESS:

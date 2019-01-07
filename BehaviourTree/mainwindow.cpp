@@ -24,7 +24,9 @@ MainWindow::MainWindow(QWidget *parent) :
         qDebug().noquote()<<QString::fromStdString(generatedString);
         qDebug()<<"=================================";
     });
-    connect(ui->graphicsView, &GraphicsView::rootWasChanged, this, &MainWindow::onRootChanged);
+    connect(ui->graphicsView, &GraphicsView::rootWasChanged, [this](const std::shared_ptr<Tree>& treeRoot){
+        mTreeRoot = treeRoot;
+    });
 }
 
 MainWindow::~MainWindow()
@@ -87,7 +89,7 @@ std::string MainWindow::traverseTree(const std::shared_ptr<Tree>& tree, std::str
         {
         case Tree::NodeType::TickGenerator:
         {
-            currentName = "tickGenerator";
+            currentName = tree->getName() + "TickGenerator";
             generatedString += tickGeneratorString(currentName);
             break;
         }
@@ -95,7 +97,7 @@ std::string MainWindow::traverseTree(const std::shared_ptr<Tree>& tree, std::str
         {
             sequenceNumber++;
             std::ostringstream stream;
-            stream << "sequence"<<sequenceNumber;
+            stream << tree->getName() + "Sequence"<<sequenceNumber;
             currentName = stream.str();
             generatedString += sequenceString(currentName);
             break;
@@ -104,7 +106,7 @@ std::string MainWindow::traverseTree(const std::shared_ptr<Tree>& tree, std::str
         {
             fallbackNumber++;
             std::ostringstream stream;
-            stream << "fallback"<<fallbackNumber;
+            stream << tree->getName() + "Fallback"<<fallbackNumber;
             currentName = stream.str();
             generatedString += fallbackString(currentName);
             break;
@@ -113,7 +115,7 @@ std::string MainWindow::traverseTree(const std::shared_ptr<Tree>& tree, std::str
         {
             leafNumber++;
             std::ostringstream stream;
-            stream << "leaf"<<leafNumber;
+            stream << tree->getName() + "Leaf"<<leafNumber;
             currentName = stream.str();
             generatedString += leafString(currentName);
             break;
@@ -135,9 +137,4 @@ std::string MainWindow::traverseTree(const std::shared_ptr<Tree>& tree, std::str
         return currentName;
     }
     return "";
-}
-
-void MainWindow::onRootChanged(const std::shared_ptr<Tree>& treeRoot)
-{
-    mTreeRoot = treeRoot;
 }

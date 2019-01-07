@@ -5,17 +5,12 @@
 #include <string>
 
 Sequence::Sequence(BehaviourTree *parent)
-    : Sequence(0,"",parent)
+    : Sequence("", parent)
 {
 }
 
 Sequence::Sequence(std::string name, BehaviourTree *parent)
-    : Sequence(0,std::move(name),parent)
-{
-}
-
-Sequence::Sequence(int value, std::string name, BehaviourTree *parent)
-    : BehaviourTree(value, std::move(name), parent)
+    : BehaviourTree(std::move(name),parent)
 {
 }
 
@@ -34,13 +29,13 @@ std::vector<BehaviourTree *> Sequence::getChildren() const
     return mChildren;
 }
 
-BehaviourTree::ExecuteResult Sequence::execute(const std::chrono::milliseconds &tick, std::shared_ptr<Sheep> &sheep)
+BehaviourTree::ExecuteResult Sequence::execute(const std::chrono::milliseconds &tick)
 {
     std::cout<<getName()<<std::endl;
     for(BehaviourTree* child : mChildren)
     {
         if(!child) continue;
-        ExecuteResult result = child->execute(tick, sheep);
+        ExecuteResult result = child->execute(tick);
         switch (result) {
         case ExecuteResult::FAILURE:
             return ExecuteResult::FAILURE;

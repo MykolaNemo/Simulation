@@ -8,9 +8,7 @@ class Invertor: public BehaviourTree
 public:
     explicit Invertor(BehaviourTree *parent = nullptr);
     explicit Invertor(std::string name, BehaviourTree *parent = nullptr);
-    explicit Invertor(int value, std::string name = "", BehaviourTree* parent = nullptr);
-    ExecuteResult execute(const std::chrono::milliseconds& tick,
-                          std::shared_ptr<Sheep>& sheep) override;
+    ExecuteResult execute(const std::chrono::milliseconds& tick) override;
 
 private:
     void addChild(BehaviourTree* child) override;

@@ -1,8 +1,9 @@
 #ifndef SHEEP_H
 #define SHEEP_H
 
-struct Sheep
+class Sheep
 {
+public:
     bool hungry = false;
 };
 

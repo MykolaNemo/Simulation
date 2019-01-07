@@ -1,4 +1,5 @@
 #include "animal.h"
+#include "state/state.h"
 #include "state/animalstates/animalstateidle.h"
 #include "state/animalstates/animalstatewalking.h"
 #include "state/animalstates/animalstateeating.h"

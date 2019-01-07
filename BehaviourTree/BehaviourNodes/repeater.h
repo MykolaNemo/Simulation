@@ -13,15 +13,13 @@ class Repeater: public BehaviourTree
 public:
     explicit Repeater(BehaviourTree *parent = nullptr);
     explicit Repeater(std::string name, BehaviourTree *parent = nullptr);
-    explicit Repeater(int value, std::string name = "", BehaviourTree* parent = nullptr);
     ~Repeater() override;
     Repeater(const Repeater&) = default;
     Repeater(Repeater&&) = default;
     Repeater& operator=(const Repeater&) = default;
     Repeater& operator=(Repeater&&) = default;
 
-    ExecuteResult execute(const std::chrono::milliseconds& tick,
-                          std::shared_ptr<Sheep>& sheep) override;
+    ExecuteResult execute(const std::chrono::milliseconds&) override;
     void executeAsync();
 
 private:

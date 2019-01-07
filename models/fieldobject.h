@@ -3,7 +3,7 @@
 
 #include "position.h"
 #include "boost/signals2/signal.hpp"
-#include "state/state.h"
+#include "models/field.h"
 
 class QGraphicsItem;
 class FieldObject: public std::enable_shared_from_this<FieldObject>

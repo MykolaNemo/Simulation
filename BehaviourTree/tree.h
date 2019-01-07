@@ -15,7 +15,17 @@ public:
         Leaf
     };
 
-    Tree(NodeType _type):type(_type){}
+    Tree(NodeType _type, std::string name = ""):type(_type),mName(std::move(name)){}
+
+    std::string getName() const
+    {
+        return mName;
+    }
+
+    void setName(const std::string& name)
+    {
+        mName = name;
+    }
 
     void addChild(const std::shared_ptr<Tree> &childTree)
     {
@@ -53,5 +63,6 @@ public:
 private:
     std::shared_ptr<Tree> parent;
     std::vector<std::shared_ptr<Tree>> children;
+    std::string mName;
     NodeType type = NodeType::Leaf;
 };
