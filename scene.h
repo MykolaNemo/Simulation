@@ -18,6 +18,9 @@ public:
 signals:
     void positionChanged(const std::shared_ptr<FieldObject>& object, const Position& pos);
 
+private slots:
+    Q_INVOKABLE void updateItemInMainThread(QGraphicsItem *item);
+
 private:
     Scene(QObject *parent = nullptr);
     Scene(const Scene& other) = default;

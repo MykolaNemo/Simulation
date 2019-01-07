@@ -3,13 +3,17 @@
 #include "models/fieldobject.h"
 
 #include <QGraphicsEllipseItem>
+#include <QThread>
+#include <QApplication>
+#include <QDebug>
 
 Scene::Scene(QObject *parent):
     QGraphicsScene(parent)
 {
     qRegisterMetaType<std::shared_ptr<FieldObject>>("std::shared_ptr<FieldObject>");
     qRegisterMetaType<Position>("Position");
-    connect(this, &Scene::positionChanged, this, &Scene::objectPositionChanged);
+    qRegisterMetaType<QGraphicsItem*>("QGraphicsItem*");
+    connect(this, &Scene::positionChanged, this, &Scene::objectPositionChanged, Qt::QueuedConnection);
 }
 
 void Scene::objectPositionChanged(const std::shared_ptr<FieldObject> &object, const Position &pos)
@@ -63,8 +67,25 @@ void Scene::setField(const std::shared_ptr<Field> &field)
         object->invalidated.connect([this](const std::shared_ptr<FieldObject>& obj){
             if(auto it = mGraphicsItemsMap.find(obj); it != mGraphicsItemsMap.end())
             {
-                it->second->update();
+                updateItemInMainThread(it->second);
             }
         });
     }
+}
+
+void Scene::updateItemInMainThread(QGraphicsItem* item)
+{
+    if(!item) return;
+
+    if(QThread::currentThread() != thread() )
+    {
+        bool ok = QMetaObject::invokeMethod(this, "updateItemInMainThread", Qt::QueuedConnection,
+                                            Q_ARG(QGraphicsItem*, item));
+        if(!ok)
+        {
+            qDebug() << "Couldn't invoke method";
+        }
+        return;
+    }
+    item->update();
 }
