@@ -90,37 +90,38 @@ std::shared_ptr<FieldObject> Field::getClosestObject(const Position &centralPoin
     return closestObject;
 }
 
-std::shared_ptr<FieldObject> Field::getClosestGrass(const Position &centralPoint) const
+std::shared_ptr<Plant> Field::getClosestPlant(const Position &centralPoint) const
 {
-    if (m_objects.empty()) return std::shared_ptr<FieldObject>();
+    if (m_objects.empty()) return std::shared_ptr<Plant>();
 
-    auto distanceLambda = [&centralPoint](const std::shared_ptr<FieldObject>& object)->std::optional<double>{
-        if(!object->isInUse() &&
-                std::dynamic_pointer_cast<Grass>(object) &&
-                (object->getFoodPoints() == object->getMaxFoodPoints()))
+    auto distanceLambda = [&centralPoint](const std::shared_ptr<Plant>& plant)->std::optional<double>{
+        if(!plant->isInUse() && (plant->getFoodPoints() == plant->getMaxFoodPoints()))
         {
-            return objectDistanceSquared(object->getPosition(), centralPoint);
+            return objectDistanceSquared(plant->getPosition(), centralPoint);
         }
         return std::optional<double>();
     };
 
     std::optional<double> minDistance;
-    std::shared_ptr<FieldObject> closestObject;
+    std::shared_ptr<Plant> closestPlant;
     for(const auto& object : m_objects)
     {
-        const std::optional<double> currentDistance = distanceLambda(object);
+        auto plant = std::dynamic_pointer_cast<Plant>(object);
+        if(!plant) continue;
+
+        const std::optional<double> currentDistance = distanceLambda(plant);
         if(!minDistance.has_value() && currentDistance.has_value())
         {
             minDistance = currentDistance;
-            closestObject = object;
+            closestPlant = plant;
         }
         else if(currentDistance.has_value() && currentDistance.value() < minDistance.value())
         {
             minDistance = currentDistance;
-            closestObject = object;
+            closestPlant = plant;
         }
     }
-    return closestObject;
+    return closestPlant;
 }
 
 Size2D Field::getSize() const

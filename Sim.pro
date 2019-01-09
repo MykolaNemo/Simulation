@@ -47,7 +47,18 @@ SOURCES += \
     state/plantstates/plantstatenotgrowing.cpp \
     graphicsitems/sheepgraphicsitem.cpp \
     graphicsitems/grassgraphicsitem.cpp \
-    datastruct/binarysearchtree.cpp
+    datastruct/binarysearchtree.cpp \
+    behaviours/behaviourtree.cpp \
+    behaviours/fallback.cpp \
+    behaviours/invertor.cpp \
+    behaviours/sequence.cpp \
+    behaviours/tickgenerator.cpp \
+    models/food.cpp \
+    behaviours/leafactions/eataction.cpp \
+    behaviours/leafactions/ishungrycheck.cpp \
+    sheepbehaviour.cpp \
+    behaviours/leafactions/nearfoodcheck.cpp \
+    behaviours/leafactions/gotofoodaction.cpp
 
 HEADERS += \
     position.h \
@@ -70,4 +81,16 @@ HEADERS += \
     state/plantstates/plantstatenotgrowing.h \
     graphicsitems/sheepgraphicsitem.h \
     graphicsitems/grassgraphicsitem.h \
-    datastruct/binarysearchtree.h
+    datastruct/binarysearchtree.h \
+    behaviours/behaviourtree.h \
+    behaviours/fallback.h \
+    behaviours/invertor.h \
+    behaviours/sequence.h \
+    behaviours/tickgenerator.h \
+    models/food.h \
+    virtual_enable_shared_from_this.h \
+    behaviours/leafactions/eataction.h \
+    behaviours/leafactions/ishungrycheck.h \
+    sheepbehaviour.h \
+    behaviours/leafactions/nearfoodcheck.h \
+    behaviours/leafactions/gotofoodaction.h

@@ -18,7 +18,7 @@ std::shared_ptr<StateAbstract> AnimalStateIdle::update(std::shared_ptr<FieldObje
     }
     else
     {
-        const auto closestGrass = field.getClosestGrass(object->getPosition());
+        const auto closestGrass = field.getClosestPlant(object->getPosition());
         if(closestGrass)
         {
             idlingCount = 0;

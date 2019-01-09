@@ -1,6 +1,9 @@
 #include "sheep.h"
 #include <iostream>
 #include "graphicsitems/sheepgraphicsitem.h"
+//#include "sheepbehaviour.h"
+
+SheepBehaviour Sheep::mBehaviour = SheepBehaviour();
 
 //ugly hack for shared_ptr with protected constructors
 class SheepDer:public Sheep
@@ -17,6 +20,7 @@ Sheep::Sheep(Position pos):
 void Sheep::init()
 {
     mGraphics = new SheepGraphicsItem(std::static_pointer_cast<Sheep>(shared_from_this()));
+    mGraphics->setZValue(1);
 }
 
 QGraphicsItem *Sheep::getGraphics() const
@@ -29,4 +33,14 @@ std::shared_ptr<Sheep> Sheep::create(const Position& pos)
     std::shared_ptr<Sheep> sheep = std::make_shared<SheepDer>(pos);
     sheep->init();
     return sheep;
+}
+
+int Sheep::getHungerThreshold() const
+{
+    return mHungerThreshold;
+}
+
+void Sheep::update(const Field &field, const std::chrono::milliseconds& tick)
+{
+    mBehaviour.update(tick);
 }

@@ -9,6 +9,7 @@
 #include "position.h"
 #include "boost/signals2/signal.hpp"
 
+class Plant;
 class FieldObject;
 class Animal;
 enum class FieldObjectType;
@@ -28,7 +29,7 @@ public:
     std::shared_ptr<FieldObject> getClosestObject(const Position &centralPoint,
                                                   const std::type_info &type) const;
 
-    std::shared_ptr<FieldObject> getClosestGrass(const Position &centralPoint) const;
+    std::shared_ptr<Plant> getClosestPlant(const Position &centralPoint) const;
 
     Size2D getSize() const;
     inline int getWidth() const {return getSize().width;}

@@ -11,7 +11,7 @@
 #define _USE_MATH_DEFINES
 #include "math.h"
 
-const double AnimalStateWalking::velocity = 10.0;
+const double AnimalStateWalking::velocity = 3.0;
 
 namespace {
     Position calculateDestinationPositionCircleContact(const std::shared_ptr<FieldObject>& animalObject,

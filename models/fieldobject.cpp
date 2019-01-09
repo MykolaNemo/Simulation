@@ -34,26 +34,3 @@ void FieldObject::setInUse(bool occupied)
         /*emit*/ wasOccupied();
     }
 }
-
-void FieldObject::setFoodPoints(const int foodPoints)
-{
-    if(foodPoints < 0)
-    {
-        mFoodPoints = 0;
-    }
-    else
-    {
-        mFoodPoints = foodPoints;
-        /*emit*/ invalidated(shared_from_this());
-    }
-}
-
-int FieldObject::getMaxFoodPoints() const
-{
-    return mMaxFoodPoints;
-}
-
-int FieldObject::getFoodPoints() const
-{
-    return mFoodPoints;
-}

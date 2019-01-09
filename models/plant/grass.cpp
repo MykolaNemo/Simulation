@@ -15,7 +15,8 @@ Grass::Grass(const Position& pos):
 
 void Grass::init()
 {
-    mGraphics = new GrassGraphicsItem(std::static_pointer_cast<Grass>(shared_from_this()));
+    mGraphics = new GrassGraphicsItem(std::static_pointer_cast<Grass>(FieldObject::shared_from_this()));
+    mGraphics->setZValue(0);
 }
 
 QGraphicsItem *Grass::getGraphics() const

@@ -2,14 +2,15 @@
 #define PLANT_H
 
 #include "models/fieldobject.h"
+#include "models/food.h"
 
 class PlantState;
 class StateAbstract;
 
-class Plant: public FieldObject
+class Plant: public FieldObject, public Food
 {
 public:
-    void update(const Field &field) override;
+    void update(const Field &field, const std::chrono::milliseconds &tick) override;
 
 protected:
     Plant(const Position &pos = Position());

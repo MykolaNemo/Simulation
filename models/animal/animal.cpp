@@ -14,17 +14,17 @@ Animal::Animal(const Position& _position):
     m_state = animalState;
 }
 
-void Animal::update(const Field &field)
+void Animal::update(const Field &field, const std::chrono::milliseconds &tick)
 {
-    if(!m_state) return;
+//    if(!m_state) return;
 
-    hunger++;
-    auto ptr(shared_from_this());
-    std::shared_ptr<StateAbstract> nextState = m_state->update(ptr, field);
-    if(nextState)
-    {
-        m_state = nextState;
-    }
+//    hunger++;
+//    auto ptr(shared_from_this());
+//    std::shared_ptr<StateAbstract> nextState = m_state->update(ptr, field);
+//    if(nextState)
+//    {
+//        m_state = nextState;
+//    }
 }
 
 void Animal::setState(const std::shared_ptr<AnimalState> &newState)

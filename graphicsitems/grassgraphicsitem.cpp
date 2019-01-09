@@ -2,6 +2,7 @@
 #include "models/plant/grass.h"
 
 #include <QBrush>
+#include <QPainter>
 
 const QColor GrassGraphicsItem::eatedColor = QColor(127, 102, 48);
 const QColor GrassGraphicsItem::notEatedColor = QColor(127, 255, 48);
@@ -38,5 +39,6 @@ void GrassGraphicsItem::paint(QPainter *painter, const QStyleOptionGraphicsItem 
     const QColor c(eatedColor.red(), greenness, eatedColor.blue());
     painterBrush.setColor(c);
     setBrush(painterBrush);
+    painter->setRenderHint(QPainter::Antialiasing);
     QGraphicsEllipseItem::paint(painter, option, widget);
 }
