@@ -3,6 +3,7 @@
 
 #include <QGraphicsRectItem>
 #include <vector>
+#include <memory>
 
 class Tree;
 class ArrowItem;

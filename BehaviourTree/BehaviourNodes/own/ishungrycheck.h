@@ -9,8 +9,8 @@ class Sheep;
 class IsHungryCheck : public BehaviourTree
 {
 public:
-    explicit IsHungryCheck(std::shared_ptr<Sheep> &sheep, BehaviourTree* parent = nullptr);
-    explicit IsHungryCheck(std::string name, std::shared_ptr<Sheep> &sheep, BehaviourTree* parent = nullptr);
+    explicit IsHungryCheck(std::shared_ptr<Sheep> sheep, BehaviourTree* parent = nullptr);
+    explicit IsHungryCheck(std::string name, std::shared_ptr<Sheep> sheep, BehaviourTree* parent = nullptr);
 
     // BehaviourTree interface
 public:

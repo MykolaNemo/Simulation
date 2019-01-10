@@ -63,6 +63,6 @@ public:
 private:
     std::shared_ptr<Tree> parent;
     std::vector<std::shared_ptr<Tree>> children;
-    std::string mName;
     NodeType type = NodeType::Leaf;
+    std::string mName;
 };

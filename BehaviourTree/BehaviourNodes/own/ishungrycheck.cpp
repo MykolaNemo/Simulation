@@ -3,12 +3,12 @@
 #include "sheep.h"
 #include <iostream>
 
-IsHungryCheck::IsHungryCheck(const std::shared_ptr<Sheep> &sheep, BehaviourTree *parent)
-    : IsHungryCheck("", sheep, parent){}
+IsHungryCheck::IsHungryCheck(std::shared_ptr<Sheep> sheep, BehaviourTree *parent)
+    : IsHungryCheck("", std::move(sheep), parent){}
 
 IsHungryCheck::IsHungryCheck(std::string name, std::shared_ptr<Sheep> sheep, BehaviourTree *parent)
     : BehaviourTree(std::move(name), parent)
-    , mSheep(sheep)
+    , mSheep(std::move(sheep))
 {
 
 }
