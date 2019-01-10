@@ -1,13 +1,16 @@
 #include "nearfoodcheck.h"
 #include <QRect>
+#include <iostream>
 
 NearFoodCheck::NearFoodCheck(std::string name, BehaviourTree *parent):
     BehaviourTree(name, parent)
 {
 }
 
-BehaviourTree::ExecuteResult NearFoodCheck::execute(const std::chrono::milliseconds &)
+BehaviourTree::ExecuteResult NearFoodCheck::execute(const std::chrono::milliseconds &,
+                                                    std::shared_ptr<Blackboard>& blackboard)
 {
+    std::cout<<getName()<<std::endl;
     if((eaterRect.left() == foodRect.right() + 1) || (foodRect.left() == eaterRect.right() + 1))
     {
         return BehaviourTree::ExecuteResult::SUCCESS;

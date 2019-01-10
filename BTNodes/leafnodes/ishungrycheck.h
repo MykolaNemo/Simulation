@@ -21,7 +21,7 @@ public:
     {
         return std::vector<BehaviourTree *>();
     }
-    ExecuteResult execute(const std::chrono::milliseconds &) override;
+    ExecuteResult execute(const std::chrono::milliseconds &, std::shared_ptr<Blackboard> &blackboard) override;
 
 private:
     std::shared_ptr<Sheep> mSheep;

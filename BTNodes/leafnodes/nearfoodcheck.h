@@ -1,7 +1,7 @@
 #ifndef NEARFOODCHECK_H
 #define NEARFOODCHECK_H
 
-#include "../behaviourtree.h"
+#include "BTNodes/behaviourtree.h"
 #include <QRect>
 
 class NearFoodCheck: public BehaviourTree
@@ -15,7 +15,7 @@ public:
     {
         return std::vector<BehaviourTree *>();
     }
-    ExecuteResult execute(const std::chrono::milliseconds &) override;
+    ExecuteResult execute(const std::chrono::milliseconds &, std::shared_ptr<Blackboard> &blackboard) override;
 
     void setFoodRect(const QRect &rect);
     void setEaterRect(const QRect &rect);

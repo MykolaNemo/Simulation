@@ -31,66 +31,81 @@ QMAKE_RPATHDIR += /usr/local/gcc-8.2/lib64
 
 SOURCES += \
         main.cpp \
-    fieldview.cpp \
-    simcore.cpp \
     scene.cpp \
-    models/field.cpp \
-    models/fieldobject.cpp \
+    behaviours/sheepbehaviour.cpp \
+    BTNodes/leafnodes/eatfoodaction.cpp \
+    BTNodes/leafnodes/gotofoodaction.cpp \
+    BTNodes/leafnodes/idleaction.cpp \
+    BTNodes/leafnodes/ishungrycheck.cpp \
+    BTNodes/leafnodes/nearfoodcheck.cpp \
+    BTNodes/behaviourtree.cpp \
+    BTNodes/fallback.cpp \
+    BTNodes/invertor.cpp \
+    BTNodes/sequence.cpp \
+    BTNodes/tickgenerator.cpp \
+    datastruct/binarysearchtree.cpp \
+    graphicsitems/grassgraphicsitem.cpp \
+    graphicsitems/sheepgraphicsitem.cpp \
     models/animal/animal.cpp \
     models/animal/sheep.cpp \
-    models/plant/plant.cpp \
     models/plant/grass.cpp \
-    state/animalstates/animalstatewalking.cpp \
-    state/animalstates/animalstateidle.cpp \
+    models/plant/plant.cpp \
+    models/drawableobject.cpp \
+    models/field.cpp \
+    models/fieldobject.cpp \
+    models/food.cpp \
     state/animalstates/animalstateeating.cpp \
+    state/animalstates/animalstateidle.cpp \
+    state/animalstates/animalstatewalking.cpp \
     state/plantstates/plantstategrowing.cpp \
     state/plantstates/plantstatenotgrowing.cpp \
-    graphicsitems/sheepgraphicsitem.cpp \
-    graphicsitems/grassgraphicsitem.cpp \
-    datastruct/binarysearchtree.cpp \
-    behaviours/behaviourtree.cpp \
-    behaviours/fallback.cpp \
-    behaviours/invertor.cpp \
-    behaviours/sequence.cpp \
-    behaviours/tickgenerator.cpp \
-    models/food.cpp \
-    behaviours/leafactions/eataction.cpp \
-    behaviours/leafactions/ishungrycheck.cpp \
-    sheepbehaviour.cpp \
-    behaviours/leafactions/nearfoodcheck.cpp \
-    behaviours/leafactions/gotofoodaction.cpp
+    fieldview.cpp \
+    simcore.cpp
 
 HEADERS += \
     position.h \
     size2d.h \
-    fieldview.h \
-    simcore.h \
     signal.h \
     scene.h \
+    state/state.h \
+    virtual_enable_shared_from_this.h \
+    behaviours/blackboards/blackboard.h \
+    behaviours/sheepbehaviour.h \
+    BTNodes/leafnodes/eatfoodaction.h \
+    BTNodes/leafnodes/gotofoodaction.h \
+    BTNodes/leafnodes/idleaction.h \
+    BTNodes/leafnodes/ishungrycheck.h \
+    BTNodes/leafnodes/nearfoodcheck.h \
+    BTNodes/behaviourtree.h \
+    BTNodes/fallback.h \
+    BTNodes/invertor.h \
+    BTNodes/sequence.h \
+    BTNodes/tickgenerator.h \
+    datastruct/binarysearchtree.h \
+    graphicsitems/grassgraphicsitem.h \
+    graphicsitems/sheepgraphicsitem.h \
     models/animal/animal.h \
     models/animal/sheep.h \
+    models/plant/grass.h \
+    models/plant/plant.h \
+    models/drawableobject.h \
     models/field.h \
     models/fieldobject.h \
-    models/plant/plant.h \
-    models/plant/grass.h \
-    state/state.h \
-    state/animalstates/animalstatewalking.h \
-    state/animalstates/animalstateidle.h \
+    models/food.h \
     state/animalstates/animalstateeating.h \
+    state/animalstates/animalstateidle.h \
+    state/animalstates/animalstatewalking.h \
     state/plantstates/plantstategrowing.h \
     state/plantstates/plantstatenotgrowing.h \
-    graphicsitems/sheepgraphicsitem.h \
-    graphicsitems/grassgraphicsitem.h \
-    datastruct/binarysearchtree.h \
-    behaviours/behaviourtree.h \
-    behaviours/fallback.h \
-    behaviours/invertor.h \
-    behaviours/sequence.h \
-    behaviours/tickgenerator.h \
-    models/food.h \
+    state/state.h \
+    fieldview.h \
+    position.h \
+    scene.h \
+    signal.h \
+    simcore.h \
+    size2d.h \
     virtual_enable_shared_from_this.h \
-    behaviours/leafactions/eataction.h \
-    behaviours/leafactions/ishungrycheck.h \
-    sheepbehaviour.h \
-    behaviours/leafactions/nearfoodcheck.h \
-    behaviours/leafactions/gotofoodaction.h
+    behaviours/blackboards/sheepblackboard.h
+
+SUBDIRS += \
+    Sim.pro

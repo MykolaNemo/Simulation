@@ -1,7 +1,8 @@
 #include "sheep.h"
 #include <iostream>
 #include "graphicsitems/sheepgraphicsitem.h"
-//#include "sheepbehaviour.h"
+#include "behaviours/blackboards/blackboard.h"
+#include "behaviours/blackboards/sheepblackboard.h"
 
 SheepBehaviour Sheep::mBehaviour = SheepBehaviour();
 
@@ -13,8 +14,10 @@ public:
 };
 
 Sheep::Sheep(Position pos):
-    Animal(pos)
+    Animal(pos),
+    mBlackboard(std::make_shared<SheepBlackboard>())
 {
+    mBlackboard->sheep = std::static_pointer_cast<Sheep>(shared_from_this());
 }
 
 void Sheep::init()
@@ -42,5 +45,5 @@ int Sheep::getHungerThreshold() const
 
 void Sheep::update(const Field &field, const std::chrono::milliseconds& tick)
 {
-    mBehaviour.update(tick);
+    mBehaviour.update(tick, mBlackboard);
 }

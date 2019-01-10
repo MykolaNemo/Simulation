@@ -13,7 +13,8 @@ IsHungryCheck::IsHungryCheck(std::string name, std::shared_ptr<Sheep> sheep, Beh
 
 }
 
-BehaviourTree::ExecuteResult IsHungryCheck::execute(const std::chrono::milliseconds &)
+BehaviourTree::ExecuteResult IsHungryCheck::execute(const std::chrono::milliseconds &,
+                                                    std::shared_ptr<Blackboard>& blackboard)
 {
     if(!mSheep)
     {

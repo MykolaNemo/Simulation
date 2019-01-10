@@ -1,4 +1,5 @@
 #include "gotofoodaction.h"
+#include <iostream>
 
 GoToFoodAction::GoToFoodAction(std::string name, BehaviourTree *parent):
     BehaviourTree(name, parent)
@@ -6,8 +7,10 @@ GoToFoodAction::GoToFoodAction(std::string name, BehaviourTree *parent):
 
 }
 
-BehaviourTree::ExecuteResult GoToFoodAction::execute(const std::chrono::milliseconds &tick)
+BehaviourTree::ExecuteResult GoToFoodAction::execute(const std::chrono::milliseconds &tick,
+                                                     std::shared_ptr<Blackboard>& blackboard)
 {
+    std::cout<<getName()<<std::endl;
     long long microsecondsPast = std::chrono::duration_cast<std::chrono::microseconds>(tick).count();
 
 //    m_distanceWalked += velocity*(static_cast<double>(microsecondsPast)/1000000.0);

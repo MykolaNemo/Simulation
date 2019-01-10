@@ -6,6 +6,8 @@
 #include <chrono>
 #include <memory>
 
+struct Blackboard;
+
 class BehaviourTree
 {
 public:
@@ -22,7 +24,8 @@ public:
     virtual BehaviourTree* addChild(BehaviourTree* child) = 0;
     virtual void removeChild(BehaviourTree* child) = 0;
     virtual std::vector<BehaviourTree*> getChildren() const = 0;
-    virtual ExecuteResult execute(const std::chrono::milliseconds& tick) = 0;
+    virtual ExecuteResult execute(const std::chrono::milliseconds& tick,
+                                  std::shared_ptr<Blackboard>& blackboard) = 0;
 
 protected:
     BehaviourTree(std::string name, BehaviourTree* parent);

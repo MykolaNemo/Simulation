@@ -7,11 +7,11 @@
 
 class Sheep;
 
-class EatAction : public BehaviourTree
+class EatFoodAction : public BehaviourTree
 {
 public:
-    explicit EatAction(std::shared_ptr<Sheep> &sheep, BehaviourTree* parent = nullptr);
-    explicit EatAction(std::string name, std::shared_ptr<Sheep> &sheep, BehaviourTree* parent = nullptr);
+    explicit EatFoodAction(std::shared_ptr<Sheep> &sheep, BehaviourTree* parent = nullptr);
+    explicit EatFoodAction(std::string name, std::shared_ptr<Sheep> &sheep, BehaviourTree* parent = nullptr);
 
     // BehaviourTree interface
 public:

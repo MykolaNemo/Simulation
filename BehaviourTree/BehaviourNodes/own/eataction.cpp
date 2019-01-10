@@ -3,17 +3,17 @@
 #include "sheep.h"
 #include <iostream>
 
-EatAction::EatAction(std::shared_ptr<Sheep> &sheep, BehaviourTree *parent)
-    : EatAction("", sheep, parent){}
+EatFoodAction::EatFoodAction(std::shared_ptr<Sheep> &sheep, BehaviourTree *parent)
+    : EatFoodAction("", sheep, parent){}
 
-EatAction::EatAction(std::string name, std::shared_ptr<Sheep> &sheep, BehaviourTree *parent)
+EatFoodAction::EatFoodAction(std::string name, std::shared_ptr<Sheep> &sheep, BehaviourTree *parent)
     : BehaviourTree(std::move(name), parent)
     , mSheep(sheep)
 {
 
 }
 
-BehaviourTree::ExecuteResult EatAction::execute(const std::chrono::milliseconds &)
+BehaviourTree::ExecuteResult EatFoodAction::execute(const std::chrono::milliseconds &)
 {
     std::cout<<"EatAction"<<std::endl;
     if(!mSheep)

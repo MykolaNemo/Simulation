@@ -14,7 +14,7 @@ public:
     {
         return std::vector<BehaviourTree *>();
     }
-    ExecuteResult execute(const std::chrono::milliseconds &tick) override;
+    ExecuteResult execute(const std::chrono::milliseconds &tick, std::shared_ptr<Blackboard> &blackboard) override;
 };
 
 #endif // GOTOFOODACTION_H

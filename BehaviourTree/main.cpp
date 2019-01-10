@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
     BehaviourTree* sequence = new Sequence("Sequence");
     BehaviourTree* isHungryLeaf1 = new IsHungryCheck("IsHungry_Leaf", hungrySheep);
     sequence->addChild(isHungryLeaf1);
-    BehaviourTree* eatLeaf = new EatAction("Eat_Leaf", hungrySheep);
+    BehaviourTree* eatLeaf = new EatFoodAction("Eat_Leaf", hungrySheep);
     sequence->addChild(eatLeaf);
     tickGenerator->addTree(std::shared_ptr<BehaviourTree>(sequence));
     tickGenerator->start();
