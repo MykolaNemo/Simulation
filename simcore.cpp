@@ -61,11 +61,7 @@ void SimCore::mainLoop()
     {
         auto now = std::chrono::system_clock::now();
         auto tickDuration = std::chrono::duration_cast<std::chrono::milliseconds>(now - time);
-        const auto objects = field->getObjects();
-        for(const auto& object : objects)
-        {
-            object->update(*field.get(), tickDuration);
-        }
+        field->updateObjects(tickDuration);
         time = now;
         std::this_thread::sleep_for(std::chrono::milliseconds(50));
     }

@@ -12,7 +12,7 @@ class Animal : public FieldObject
 {
 public:
     void grow();
-    void update(const Field &field, const std::chrono::milliseconds& tick);
+//    void update(const Field &field, const std::chrono::milliseconds& tick);
 
     int getHunger() const;
     virtual int getHungerThreshold() const = 0;

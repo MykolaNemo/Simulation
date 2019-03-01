@@ -100,7 +100,6 @@ HEADERS += \
     state/state.h \
     fieldview.h \
     position.h \
-    scene.h \
     signal.h \
     simcore.h \
     size2d.h \

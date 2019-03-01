@@ -4,6 +4,7 @@
 #include <vector>
 #include <memory>
 #include <set>
+#include <chrono>
 
 #include "size2d.h"
 #include "position.h"
@@ -21,6 +22,7 @@ public:
 
     void addObjects(const std::vector<std::shared_ptr<FieldObject>> &objects);
     void addObject(const std::shared_ptr<FieldObject> &object);
+    void updateObjects(const std::chrono::milliseconds& tickDuration);
 
     std::vector<std::shared_ptr<FieldObject>> getObjects() const;
     std::vector<std::shared_ptr<FieldObject>> getObjectsAt(const int x, const int y) const;

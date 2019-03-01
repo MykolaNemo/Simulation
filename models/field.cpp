@@ -32,6 +32,14 @@ void Field::addObject(const std::shared_ptr<FieldObject> &object)
     m_objects.push_back(object);
 }
 
+void Field::updateObjects(const std::chrono::milliseconds& tickDuration)
+{
+  for(const auto& object : m_objects)
+  {
+    object->update(*this, tickDuration);
+  }
+}
+
 std::vector<std::shared_ptr<FieldObject>> Field::getObjectsAt(const int x, const int y) const
 {
     if((x < 0) || (x > size.width-1) || (y < 0) || (y > size.height-1))

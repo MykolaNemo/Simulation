@@ -10,7 +10,7 @@ struct SheepBlackboard: public Blackboard
 {
     SheepBlackboard() = default;
     ~SheepBlackboard() override {}
-    std::shared_ptr<Sheep> sheep;
+//    std::shared_ptr<Sheep> sheep;
 };
 
 #endif // SHEEPBLACKBOARD_H

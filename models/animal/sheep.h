@@ -19,6 +19,7 @@ protected:
 
 private:
     void init();
+
     SheepGraphicsItem* mGraphics = nullptr;
     const int mHungerThreshold = 5;
 

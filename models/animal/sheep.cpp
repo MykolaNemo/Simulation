@@ -17,13 +17,14 @@ Sheep::Sheep(Position pos):
     Animal(pos),
     mBlackboard(std::make_shared<SheepBlackboard>())
 {
-    mBlackboard->sheep = std::static_pointer_cast<Sheep>(shared_from_this());
 }
 
 void Sheep::init()
 {
     mGraphics = new SheepGraphicsItem(std::static_pointer_cast<Sheep>(shared_from_this()));
     mGraphics->setZValue(1);
+//    mBlackboard->sheep = std::static_pointer_cast<Sheep>(shared_from_this());
+    mBlackboard->actor = shared_from_this();
 }
 
 QGraphicsItem *Sheep::getGraphics() const
@@ -43,7 +44,7 @@ int Sheep::getHungerThreshold() const
     return mHungerThreshold;
 }
 
-void Sheep::update(const Field &field, const std::chrono::milliseconds& tick)
+void Sheep::update(const Field &/*field*/, const std::chrono::milliseconds& tick)
 {
     mBehaviour.update(tick, mBlackboard);
 }

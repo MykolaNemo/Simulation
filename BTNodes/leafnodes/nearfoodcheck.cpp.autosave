@@ -16,7 +16,7 @@ BehaviourTree::ExecuteResult NearFoodCheck::execute(const std::chrono::milliseco
 //    {
 //        return BehaviourTree::ExecuteResult::SUCCESS;
 //    }
-    QRect eaterRect = blackboard->actor;
+    QRect eaterRect = blackboard->actor->;
     QRect foodRect;
     if((eaterRect.left() == foodRect.right() + 1) || (foodRect.left() == eaterRect.right() + 1))
     {

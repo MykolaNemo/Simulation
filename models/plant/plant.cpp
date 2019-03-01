@@ -12,7 +12,7 @@ Plant::Plant(const Position& pos):
     });
 }
 
-void Plant::update(const Field &field, const std::chrono::milliseconds& tick)
+void Plant::update(const Field &field, const std::chrono::milliseconds& /*tick*/)
 {
     if(!m_state) return;
 

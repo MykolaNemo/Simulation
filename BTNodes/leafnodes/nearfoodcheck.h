@@ -17,12 +17,12 @@ public:
     }
     ExecuteResult execute(const std::chrono::milliseconds &, std::shared_ptr<Blackboard> &blackboard) override;
 
-    void setFoodRect(const QRect &rect);
-    void setEaterRect(const QRect &rect);
+//    void setFoodRect(const QRect &rect);
+//    void setEaterRect(const QRect &rect);
 
-private:
-    QRect foodRect;
-    QRect eaterRect;
+//private:
+//    QRect foodRect;
+//    QRect eaterRect;
 };
 
 #endif // NEARFOODCHECK_H

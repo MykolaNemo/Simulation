@@ -14,8 +14,8 @@ Animal::Animal(const Position& _position):
     m_state = animalState;
 }
 
-void Animal::update(const Field &field, const std::chrono::milliseconds &tick)
-{
+//void Animal::update(const Field &field, const std::chrono::milliseconds &tick)
+//{
 //    if(!m_state) return;
 
 //    hunger++;
@@ -25,7 +25,7 @@ void Animal::update(const Field &field, const std::chrono::milliseconds &tick)
 //    {
 //        m_state = nextState;
 //    }
-}
+//}
 
 void Animal::setState(const std::shared_ptr<AnimalState> &newState)
 {
