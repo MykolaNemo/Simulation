@@ -12,16 +12,16 @@ Plant::Plant(const Position& pos):
     });
 }
 
-void Plant::update(const Field &field, const std::chrono::milliseconds& /*tick*/)
+void Plant::update(const std::shared_ptr<Field> &field, const std::chrono::milliseconds& /*tick*/)
 {
-    if(!m_state) return;
+//    if(!m_state) return;
 
-    auto ptr(FieldObject::shared_from_this());
-    std::shared_ptr<StateAbstract> nextState = m_state->update(ptr, field);
-    if(nextState)
-    {
-        m_state = nextState;
-    }
+//    auto ptr(FieldObject::shared_from_this());
+//    std::shared_ptr<StateAbstract> nextState = m_state->update(ptr, field);
+//    if(nextState)
+//    {
+//        m_state = nextState;
+//    }
 }
 
 void Plant::setState(const std::shared_ptr<PlantState> &newState)

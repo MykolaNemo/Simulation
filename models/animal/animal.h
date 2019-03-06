@@ -15,6 +15,8 @@ public:
 //    void update(const Field &field, const std::chrono::milliseconds& tick);
 
     int getHunger() const;
+    void increaseHunger(int amount);
+    void decreaseHunger(int amount);
     virtual int getHungerThreshold() const = 0;
 
 protected:

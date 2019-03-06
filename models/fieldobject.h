@@ -19,7 +19,7 @@ public:
     FieldObject& operator =(const FieldObject& other) = default;
     FieldObject& operator =(FieldObject&& other) = default;
 
-    virtual void update(const Field&, const std::chrono::milliseconds&) = 0;
+    virtual void update(const std::shared_ptr<Field> &, const std::chrono::milliseconds&) = 0;
     virtual QGraphicsItem* getGraphics() const = 0;
 
     inline Position getPosition() const { return m_position; }

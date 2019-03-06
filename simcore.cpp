@@ -57,11 +57,14 @@ void SimCore::mainLoop()
 //        }
 //    }
     auto time = std::chrono::system_clock::now();
+    QElapsedTimer t;
     while(!m_interrupt.load())
     {
         auto now = std::chrono::system_clock::now();
         auto tickDuration = std::chrono::duration_cast<std::chrono::milliseconds>(now - time);
+        t.start();
         field->updateObjects(tickDuration);
+        std::cout<<"Elapsed: "<<t.elapsed()<<std::endl;
         time = now;
         std::this_thread::sleep_for(std::chrono::milliseconds(50));
     }

@@ -9,10 +9,7 @@ class Sheep;
 class IsHungryCheck : public BehaviourTree
 {
 public:
-    explicit IsHungryCheck(std::shared_ptr<Sheep> sheep,
-                           BehaviourTree* parent = nullptr);
     explicit IsHungryCheck(std::string name,
-                           std::shared_ptr<Sheep> sheep = std::shared_ptr<Sheep>(),
                            BehaviourTree* parent = nullptr);
 
     BehaviourTree* addChild(BehaviourTree *) override {return this;}
@@ -22,9 +19,6 @@ public:
         return std::vector<BehaviourTree *>();
     }
     ExecuteResult execute(const std::chrono::milliseconds &, std::shared_ptr<Blackboard> &blackboard) override;
-
-private:
-    std::shared_ptr<Sheep> mSheep;
 };
 
 #endif // ISHUNGRYCHECK_H

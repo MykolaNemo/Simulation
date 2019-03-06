@@ -9,10 +9,10 @@ struct SheepBlackboard;
 class Sheep: public Animal
 {
 public:
-    QGraphicsItem* getGraphics() const;
+    QGraphicsItem* getGraphics() const override;
     static std::shared_ptr<Sheep> create(const Position& pos = Position());
     int getHungerThreshold() const override;
-    void update(const Field& field, const std::chrono::milliseconds &tick) override;
+    void update(const std::shared_ptr<Field> &field, const std::chrono::milliseconds &tick) override;
 
 protected:
     Sheep(Position pos = Position());

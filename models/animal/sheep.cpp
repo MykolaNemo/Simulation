@@ -23,7 +23,6 @@ void Sheep::init()
 {
     mGraphics = new SheepGraphicsItem(std::static_pointer_cast<Sheep>(shared_from_this()));
     mGraphics->setZValue(1);
-//    mBlackboard->sheep = std::static_pointer_cast<Sheep>(shared_from_this());
     mBlackboard->actor = shared_from_this();
 }
 
@@ -44,7 +43,8 @@ int Sheep::getHungerThreshold() const
     return mHungerThreshold;
 }
 
-void Sheep::update(const Field &/*field*/, const std::chrono::milliseconds& tick)
+void Sheep::update(const std::shared_ptr<Field> &field, const std::chrono::milliseconds& tick)
 {
+    mBlackboard->field = field;
     mBehaviour.update(tick, mBlackboard);
 }

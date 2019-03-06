@@ -16,6 +16,7 @@ public:
 
 private:
     std::vector<BehaviourTree*> mChildren;
+    BehaviourTree* currentNode = nullptr;
 };
 
 #endif // SELECTOR_H

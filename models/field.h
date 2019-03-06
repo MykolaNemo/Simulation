@@ -15,7 +15,7 @@ class FieldObject;
 class Animal;
 enum class FieldObjectType;
 
-class Field
+class Field: public std::enable_shared_from_this<Field>
 {
 public:
     Field(int _width, int _height);

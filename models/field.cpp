@@ -36,7 +36,7 @@ void Field::updateObjects(const std::chrono::milliseconds& tickDuration)
 {
   for(const auto& object : m_objects)
   {
-    object->update(*this, tickDuration);
+    object->update(shared_from_this(), tickDuration);
   }
 }
 
