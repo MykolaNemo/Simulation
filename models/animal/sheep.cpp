@@ -13,7 +13,8 @@ public:
 };
 
 Sheep::Sheep(const Position pos):
-    Animal(std::move(pos))
+    Animal(std::move(pos)),
+    mBlackboard(std::make_shared<Blackboard>())
 {
 }
 
