@@ -7,13 +7,13 @@
 
 class BehaviourTree;
 class Sheep;
-struct SheepBlackboard;
+struct Blackboard;
 
 class SheepBehaviour
 {
 public:
     SheepBehaviour();
-    void update(const std::chrono::milliseconds &tick, std::shared_ptr<SheepBlackboard> &blackboard);
+    void update(const std::chrono::milliseconds &tick, std::shared_ptr<Blackboard>& blackboard);
 
 private:
     BehaviourTree* mRoot;

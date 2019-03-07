@@ -12,7 +12,6 @@
 #include "BTNodes/leafnodes/eatfoodaction.h"
 #include "BTNodes/leafnodes/idleaction.h"
 #include "behaviours/blackboards/blackboard.h"
-#include "behaviours/blackboards/sheepblackboard.h"
 
 SheepBehaviour::SheepBehaviour()
 {
@@ -32,8 +31,7 @@ SheepBehaviour::SheepBehaviour()
 }
 
 void SheepBehaviour::update(const std::chrono::milliseconds& tick,
-                            std::shared_ptr<SheepBlackboard> &blackboard)
+                            std::shared_ptr<Blackboard> &blackboard)
 {
-    std::shared_ptr<Blackboard> blackboardBasePtr = std::static_pointer_cast<Blackboard>(blackboard);
-    mRoot->execute(tick, blackboardBasePtr);
+    mRoot->execute(tick, blackboard);
 }

@@ -3,7 +3,6 @@
 #include "fieldobject.h"
 
 #include <iostream>
-#include "state/state.h"
 
 FieldObject::FieldObject(const Position &_position):
     m_position(_position)

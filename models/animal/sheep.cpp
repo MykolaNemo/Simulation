@@ -2,7 +2,6 @@
 #include <iostream>
 #include "graphicsitems/sheepgraphicsitem.h"
 #include "behaviours/blackboards/blackboard.h"
-#include "behaviours/blackboards/sheepblackboard.h"
 
 SheepBehaviour Sheep::mBehaviour = SheepBehaviour();
 
@@ -13,9 +12,8 @@ public:
     SheepDer(Position pos = Position()): Sheep(pos){}
 };
 
-Sheep::Sheep(Position pos):
-    Animal(pos),
-    mBlackboard(std::make_shared<SheepBlackboard>())
+Sheep::Sheep(const Position pos):
+    Animal(std::move(pos))
 {
 }
 

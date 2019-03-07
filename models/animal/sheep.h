@@ -5,7 +5,6 @@
 #include "behaviours/sheepbehaviour.h"
 
 class SheepGraphicsItem;
-struct SheepBlackboard;
 class Sheep: public Animal
 {
 public:
@@ -15,7 +14,7 @@ public:
     void update(const std::shared_ptr<Field> &field, const std::chrono::milliseconds &tick) override;
 
 protected:
-    Sheep(Position pos = Position());
+    Sheep(const Position pos = Position());
 
 private:
     void init();
@@ -24,7 +23,7 @@ private:
     const int mHungerThreshold = 5;
 
     static SheepBehaviour mBehaviour;
-    std::shared_ptr<SheepBlackboard> mBlackboard;
+    std::shared_ptr<Blackboard> mBlackboard;
 };
 
 #endif // SHEEP_H

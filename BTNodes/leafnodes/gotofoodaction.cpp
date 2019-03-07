@@ -93,9 +93,6 @@ BehaviourTree::ExecuteResult GoToFoodAction::execute(const std::chrono::millisec
         return BehaviourTree::ExecuteResult::SUCCESS;
     }
 
-    Position oldActorPos = blackboard->actor->getPosition();
-    Position foodPos = blackboard->food->getPosition();
-
     long long microsecondsPast = std::chrono::duration_cast<std::chrono::microseconds>(tick).count();
     data.distanceWalked += velocity*(static_cast<double>(microsecondsPast)/1000000.0);
     if(data.distanceWalked >= data.totalDistance)
@@ -117,16 +114,4 @@ BehaviourTree::ExecuteResult GoToFoodAction::execute(const std::chrono::millisec
     }
     std::cout<<"RUNNING"<<std::endl;
     return BehaviourTree::ExecuteResult::RUNNING;
-
-
-    //    m_distanceWalked += velocity*(static_cast<double>(microsecondsPast)/1000000.0);
-    //    if(m_distanceWalked > m_totalDistance)
-    //    {
-    //        m_distanceWalked = m_totalDistance;
-    //    }
-    //    const auto x = static_cast<int>(static_cast<double>(m_startPoint.x) -
-    //                                    (m_distanceWalked * static_cast<double>(m_startPoint.x - m_destinationPoint.x))/m_totalDistance);
-    //    const auto y = static_cast<int>(static_cast<double>(m_startPoint.y) -
-    //                                    (m_distanceWalked * static_cast<double>(m_startPoint.y - m_destinationPoint.y))/m_totalDistance);
-
 }

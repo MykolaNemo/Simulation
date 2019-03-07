@@ -54,11 +54,6 @@ SOURCES += \
     models/field.cpp \
     models/fieldobject.cpp \
     models/food.cpp \
-    state/animalstates/animalstateeating.cpp \
-    state/animalstates/animalstateidle.cpp \
-    state/animalstates/animalstatewalking.cpp \
-    state/plantstates/plantstategrowing.cpp \
-    state/plantstates/plantstatenotgrowing.cpp \
     fieldview.cpp \
     simcore.cpp
 
@@ -67,7 +62,6 @@ HEADERS += \
     size2d.h \
     signal.h \
     scene.h \
-    state/state.h \
     virtual_enable_shared_from_this.h \
     behaviours/blackboards/blackboard.h \
     behaviours/sheepbehaviour.h \
@@ -92,19 +86,12 @@ HEADERS += \
     models/field.h \
     models/fieldobject.h \
     models/food.h \
-    state/animalstates/animalstateeating.h \
-    state/animalstates/animalstateidle.h \
-    state/animalstates/animalstatewalking.h \
-    state/plantstates/plantstategrowing.h \
-    state/plantstates/plantstatenotgrowing.h \
-    state/state.h \
     fieldview.h \
     position.h \
     signal.h \
     simcore.h \
     size2d.h \
-    virtual_enable_shared_from_this.h \
-    behaviours/blackboards/sheepblackboard.h
+    virtual_enable_shared_from_this.h
 
 SUBDIRS += \
     Sim.pro
