@@ -2,7 +2,6 @@
 #define NEARFOODCHECK_H
 
 #include "BTNodes/behaviourtree.h"
-#include <QRect>
 
 class NearFoodCheck: public BehaviourTree
 {

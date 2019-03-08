@@ -1,12 +1,7 @@
 #include "simcore.h"
 #include "models/field.h"
-#include "models/fieldobject.h"
-#include "models/animal/animal.h"
 
-#include <QDebug>
-#include <stdexcept>
 #include <iostream>
-#include <thread>
 #include <QElapsedTimer>
 
 SimCore::SimCore(const std::shared_ptr<Field>& _field)
@@ -43,19 +38,6 @@ void SimCore::join()
 
 void SimCore::mainLoop()
 {
-//    while(!mInterrupt.load())
-//    {
-//        std::this_thread::sleep_for(std::chrono::milliseconds(5));
-//        auto now = std::chrono::system_clock::now();
-//        auto tickDuration = std::chrono::duration_cast<std::chrono::milliseconds>(now - time);
-//        for(auto blackboardIt : blackboards)
-//        {
-//            for(auto tree : mTreesList)
-//            {
-//                tree->execute(tickDuration);
-//            }
-//        }
-//    }
     auto time = std::chrono::system_clock::now();
     QElapsedTimer t;
     while(!m_interrupt.load())

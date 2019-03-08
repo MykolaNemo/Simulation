@@ -1,5 +1,6 @@
 #include "grass.h"
 #include "graphicsitems/grassgraphicsitem.h"
+#include <iostream>
 
 //ugly hack for shared_ptr with protected constructors
 class GrassDer:public Grass
@@ -29,4 +30,12 @@ std::shared_ptr<Grass> Grass::create(const Position& pos)
     std::shared_ptr<Grass> grass = std::make_shared<GrassDer>(pos);
     grass->init();
     return grass;
+}
+
+void Grass::update(const std::shared_ptr<Field> &/*field*/, const std::chrono::milliseconds& /*tick*/)
+{
+    if(!isOccupied() && (getFoodPoints() < getMaxFoodPoints()))
+    {
+        increaseFoodPoints(1);
+    }
 }

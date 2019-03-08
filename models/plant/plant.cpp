@@ -7,7 +7,3 @@ Plant::Plant(const Position& pos):
         invalidated(FieldObject::shared_from_this());
     });
 }
-
-void Plant::update(const std::shared_ptr<Field> &/*field*/, const std::chrono::milliseconds& /*tick*/)
-{
-}

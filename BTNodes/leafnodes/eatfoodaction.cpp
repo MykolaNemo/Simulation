@@ -1,34 +1,34 @@
 #include "eatfoodaction.h"
 
-#include "models/animal/sheep.h"
-#include "models/plant/plant.h"
 #include "behaviours/blackboards/blackboard.h"
-#include <iostream>
+#include "models/animal/animal.h"
+#include "models/plant/plant.h"
+//#include <iostream>
 
 EatFoodAction::EatFoodAction(std::string name, BehaviourTree *parent)
     : BehaviourTree(std::move(name), parent)
 {
-
 }
 
 BehaviourTree::ExecuteResult EatFoodAction::execute(const std::chrono::milliseconds &,
                                                     std::shared_ptr<Blackboard>& blackboard)
 {
-    std::cout<<getName();
-    if(!blackboard->actor || !blackboard->food)
+//    std::cout<<getName();
+    if(!blackboard->animal || !blackboard->food)
     {
+//        std::cout<<": FAILURE"<<std::endl;
         return BehaviourTree::ExecuteResult::FAILURE;
     }
-    blackboard->food->setFoodPoints(blackboard->food->getFoodPoints()-1);
-    std::shared_ptr<Sheep> sheep = std::static_pointer_cast<Sheep>(blackboard->actor);
-    sheep->decreaseHunger(1);
+    blackboard->food->decreaseFoodPoints(1);
+    blackboard->animal->decreaseHunger(1);
 
     if(blackboard->food->getFoodPoints() == 0)
     {
+        blackboard->food->setAsOccupied(false);
         blackboard->food = std::shared_ptr<Plant>();
-        std::cout<<": SUCCESS"<<std::endl;
+//        std::cout<<": SUCCESS"<<std::endl;
         return BehaviourTree::ExecuteResult::SUCCESS;
     }
-    std::cout<<": RUNNING"<<std::endl;
+//    std::cout<<": RUNNING"<<std::endl;
     return BehaviourTree::ExecuteResult::RUNNING;
 }

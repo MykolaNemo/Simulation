@@ -1,5 +1,5 @@
-#ifndef SELECTOR_H
-#define SELECTOR_H
+#ifndef FALLBACK_H
+#define FALLBACK_H
 
 #include "behaviourtree.h"
 
@@ -16,7 +16,6 @@ public:
 
 private:
     std::vector<BehaviourTree*> mChildren;
-    BehaviourTree* currentNode = nullptr;
 };
 
-#endif // SELECTOR_H
+#endif // FALLBACK_H

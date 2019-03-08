@@ -2,13 +2,10 @@
 #define SHEEPBEHAVIOUR_H
 
 #include <memory>
-#include <vector>
 #include <chrono>
+#include "BTNodes/behaviourtree.h"
 
-class BehaviourTree;
-class Sheep;
 struct Blackboard;
-
 class SheepBehaviour
 {
 public:
@@ -16,7 +13,7 @@ public:
     void update(const std::chrono::milliseconds &tick, std::shared_ptr<Blackboard>& blackboard);
 
 private:
-    BehaviourTree* mRoot;
+    std::unique_ptr<BehaviourTree> mRoot;
 };
 
 #endif // SHEEPBEHAVIOUR_H

@@ -32,29 +32,16 @@ std::vector<BehaviourTree *> Fallback::getChildren() const
 BehaviourTree::ExecuteResult Fallback::execute(const std::chrono::milliseconds &tick,
                                                std::shared_ptr<Blackboard>& blackboard)
 {
-    std::cout<<getName()<<std::endl;
+//    std::cout<<getName()<<std::endl;
     for(BehaviourTree* child : mChildren)
     {
-        if(!child)
-        {
-            continue;
-        }
-
-        if(currentNode != nullptr && currentNode != child)
-        {
-//            continue;
-        }
-        currentNode = child;
-
         ExecuteResult result = child->execute(tick, blackboard);
         switch (result) {
         case ExecuteResult::FAILURE:
-            currentNode = nullptr;
-            break;
+            continue;
         case ExecuteResult::RUNNING:
             return ExecuteResult::RUNNING;
         case ExecuteResult::SUCCESS:
-            currentNode = nullptr;
             return ExecuteResult::SUCCESS;
         }
     }

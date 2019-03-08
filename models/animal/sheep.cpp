@@ -13,7 +13,7 @@ public:
 };
 
 Sheep::Sheep(const Position pos):
-    Animal(std::move(pos)),
+    Animal(pos),
     mBlackboard(std::make_shared<Blackboard>())
 {
 }
@@ -22,7 +22,7 @@ void Sheep::init()
 {
     mGraphics = new SheepGraphicsItem(std::static_pointer_cast<Sheep>(shared_from_this()));
     mGraphics->setZValue(1);
-    mBlackboard->actor = shared_from_this();
+    mBlackboard->animal = std::static_pointer_cast<Animal>(FieldObject::shared_from_this());
 }
 
 QGraphicsItem *Sheep::getGraphics() const
@@ -40,6 +40,11 @@ std::shared_ptr<Sheep> Sheep::create(const Position& pos)
 int Sheep::getHungerThreshold() const
 {
     return mHungerThreshold;
+}
+
+int Sheep::getVelocity() const
+{
+    return mSpeed;
 }
 
 void Sheep::update(const std::shared_ptr<Field> &field, const std::chrono::milliseconds& tick)

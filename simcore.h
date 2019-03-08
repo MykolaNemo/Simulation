@@ -4,7 +4,6 @@
 #include <memory>
 #include <future>
 #include <atomic>
-#include "signal.h"
 
 class Field;
 class SimCore

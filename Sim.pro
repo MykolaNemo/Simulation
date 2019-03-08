@@ -42,7 +42,6 @@ SOURCES += \
     BTNodes/fallback.cpp \
     BTNodes/invertor.cpp \
     BTNodes/sequence.cpp \
-    BTNodes/tickgenerator.cpp \
     datastruct/binarysearchtree.cpp \
     graphicsitems/grassgraphicsitem.cpp \
     graphicsitems/sheepgraphicsitem.cpp \
@@ -74,7 +73,6 @@ HEADERS += \
     BTNodes/fallback.h \
     BTNodes/invertor.h \
     BTNodes/sequence.h \
-    BTNodes/tickgenerator.h \
     datastruct/binarysearchtree.h \
     graphicsitems/grassgraphicsitem.h \
     graphicsitems/sheepgraphicsitem.h \

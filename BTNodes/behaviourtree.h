@@ -4,10 +4,8 @@
 #include <vector>
 #include <string>
 #include <chrono>
-#include <memory>
 
 struct Blackboard;
-
 class BehaviourTree
 {
 public:

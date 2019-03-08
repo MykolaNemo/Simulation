@@ -1,10 +1,11 @@
 #include "nearfoodcheck.h"
-#include <QRect>
-#include <iostream>
 #include "behaviours/blackboards/blackboard.h"
 #include "models/fieldobject.h"
-#include <QGraphicsItem>
 #include "models/plant/plant.h"
+#include "models/animal/animal.h"
+
+#include <QGraphicsItem>
+//#include <iostream>
 
 namespace
 {
@@ -41,25 +42,23 @@ Position calculateDestinationPositionFromTheSide(const std::shared_ptr<FieldObje
 }
 
 NearFoodCheck::NearFoodCheck(std::string name, BehaviourTree *parent):
-    BehaviourTree(name, parent)
+    BehaviourTree(std::move(name), parent)
 {
 }
 
 BehaviourTree::ExecuteResult NearFoodCheck::execute(const std::chrono::milliseconds &,
                                                     std::shared_ptr<Blackboard>& blackboard)
 {
-    std::cout<<getName();
-    if(blackboard->food && blackboard->actor)
+//    std::cout<<getName();
+    if(blackboard->food && blackboard->animal)
     {
-        Position startPos = blackboard->actor->getPosition();
-        Position endPos = calculateDestinationPositionFromTheSide(blackboard->actor, blackboard->food);
+        Position startPos = blackboard->animal->getPosition();
+        Position endPos = calculateDestinationPositionFromTheSide(blackboard->animal, blackboard->food);
         double totalDistance = sqrt(pow(abs(endPos.x - startPos.x),2) + pow(abs(endPos.y - startPos.y),2));
-        if(totalDistance == 0)
+        if(totalDistance < 1E-3)
         {
-            std::cout<<": SUCCESS"<<std::endl;
             return BehaviourTree::ExecuteResult::SUCCESS;
         }
     }
-    std::cout<<": FAILURE"<<std::endl;
     return BehaviourTree::ExecuteResult::FAILURE;
 }

@@ -37,6 +37,7 @@ void Field::updateObjects(const std::chrono::milliseconds& tickDuration)
   for(const auto& object : m_objects)
   {
     object->update(shared_from_this(), tickDuration);
+//    std::cout<<"================================"<<std::endl;
   }
 }
 
@@ -103,7 +104,7 @@ std::shared_ptr<Plant> Field::getClosestPlant(const Position &centralPoint) cons
     if (m_objects.empty()) return std::shared_ptr<Plant>();
 
     auto distanceLambda = [&centralPoint](const std::shared_ptr<Plant>& plant)->std::optional<double>{
-        if(!plant->isInUse() && (plant->getFoodPoints() == plant->getMaxFoodPoints()))
+        if(!plant->isOccupied() && (plant->getFoodPoints() == plant->getMaxFoodPoints()))
         {
             return objectDistanceSquared(plant->getPosition(), centralPoint);
         }

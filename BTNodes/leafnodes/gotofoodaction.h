@@ -1,12 +1,11 @@
 #ifndef GOTOFOODACTION_H
 #define GOTOFOODACTION_H
 
-#include <map>
 #include "../behaviourtree.h"
 #include "position.h"
+#include <map>
 
 class FieldObject;
-
 class GoToFoodAction: public BehaviourTree
 {
 public:
@@ -29,7 +28,6 @@ private:
         Position destinationPoint;
     };
     std::map<std::shared_ptr<FieldObject>, Data> mDataMap;
-    static const double velocity;
 };
 
 #endif // GOTOFOODACTION_H

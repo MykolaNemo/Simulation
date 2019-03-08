@@ -25,17 +25,13 @@ public:
     inline Position getPosition() const { return m_position; }
     void setPosition(const int x, const int y);
     inline void setPosition(const Position& m_position) {setPosition(m_position.x, m_position.y);}
-    bool isInUse() const;
-    void setInUse(bool occupied);
 
 public:
     boost::signals2::signal<void(const std::shared_ptr<FieldObject>&, const Position&)> positionChanged;
-    boost::signals2::signal<void(void)> wasOccupied;
     boost::signals2::signal<void(const std::shared_ptr<FieldObject>&)> invalidated;
 
 private:
     Position m_position;
-    bool mInUse = false;
 };
 
 #endif // FIELDOBJECT_H
