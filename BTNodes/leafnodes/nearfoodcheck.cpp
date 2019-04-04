@@ -41,15 +41,14 @@ Position calculateDestinationPositionFromTheSide(const std::shared_ptr<FieldObje
 }
 }
 
-NearFoodCheck::NearFoodCheck(std::string name, BehaviourTree *parent):
-    BehaviourTree(std::move(name), parent)
+IsNearFood::IsNearFood(std::string name, BehaviourTree *parent):
+    BehaviourTree(name, parent)
 {
 }
 
-BehaviourTree::ExecuteResult NearFoodCheck::execute(const std::chrono::milliseconds &,
+BehaviourTree::ExecuteResult IsNearFood::execute(const std::chrono::milliseconds &,
                                                     std::shared_ptr<Blackboard>& blackboard)
 {
-//    std::cout<<getName();
     if(blackboard->food && blackboard->animal)
     {
         Position startPos = blackboard->animal->getPosition();

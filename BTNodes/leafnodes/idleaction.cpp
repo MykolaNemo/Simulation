@@ -9,16 +9,13 @@ IdleAction::IdleAction(std::string name, BehaviourTree *parent)
 {
 }
 
-BehaviourTree::ExecuteResult IdleAction::execute(const std::chrono::milliseconds &,
+BehaviourTree::ExecuteResult IdleAction::execute(const std::chrono::milliseconds &/*tick*/,
                                                  std::shared_ptr<Blackboard>& blackboard)
 {
-//    std::cout<<getName();
     if(!blackboard->animal)
     {
-//        std::cout<<": FAILURE"<<std::endl;
         return BehaviourTree::ExecuteResult::FAILURE;
     }
     blackboard->animal->increaseHunger(1);
-//    std::cout<<": SUCCESS"<<std::endl;
     return BehaviourTree::ExecuteResult::SUCCESS;
 }

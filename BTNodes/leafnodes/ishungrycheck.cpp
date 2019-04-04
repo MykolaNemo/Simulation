@@ -4,16 +4,15 @@
 #include "behaviours/blackboards/blackboard.h"
 //#include <iostream>
 
-IsHungryCheck::IsHungryCheck(std::string name, BehaviourTree *parent)
+IsHungry::IsHungry(std::string name, BehaviourTree *parent)
     : BehaviourTree(std::move(name), parent)
 {
 
 }
 
-BehaviourTree::ExecuteResult IsHungryCheck::execute(const std::chrono::milliseconds &,
+BehaviourTree::ExecuteResult IsHungry::execute(const std::chrono::milliseconds &,
                                                     std::shared_ptr<Blackboard>& blackboard)
 {
-//    std::cout<<getName();
     if(!blackboard->animal)
     {
         return BehaviourTree::ExecuteResult::FAILURE;

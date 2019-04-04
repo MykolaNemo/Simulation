@@ -41,18 +41,16 @@ Position calculateDestinationPositionFromTheSide(const std::shared_ptr<FieldObje
 }
 }
 
-GoToFoodAction::GoToFoodAction(std::string name, BehaviourTree *parent):
+GoToFood::GoToFood(std::string name, BehaviourTree *parent):
     BehaviourTree(std::move(name), parent)
 {
 }
 
-BehaviourTree::ExecuteResult GoToFoodAction::execute(const std::chrono::milliseconds &tick,
+BehaviourTree::ExecuteResult GoToFood::execute(const std::chrono::milliseconds &tick,
                                                      std::shared_ptr<Blackboard>& blackboard)
 {
-//    std::cout<<getName()<<": ";
     if(!blackboard->field || !blackboard->animal)
     {
-//        std::cout<<"FAILURE 1"<<std::endl;
         return BehaviourTree::ExecuteResult::FAILURE;
     }
 
@@ -61,7 +59,6 @@ BehaviourTree::ExecuteResult GoToFoodAction::execute(const std::chrono::millisec
         blackboard->food = blackboard->field->getClosestPlant(blackboard->animal->getPosition());
         if(!blackboard->food)
         {
-//            std::cout<<"FAILURE 2"<<std::endl;
             return BehaviourTree::ExecuteResult::FAILURE;
         }
         else
@@ -77,7 +74,6 @@ BehaviourTree::ExecuteResult GoToFoodAction::execute(const std::chrono::millisec
             data.startPoint = blackboard->animal->getPosition();
             data.destinationPoint = calculateDestinationPositionFromTheSide(blackboard->animal,
                                                                             std::static_pointer_cast<FieldObject>(blackboard->food));
-//            std::cout<<"New: "<<data.destinationPoint.x<<", "<<data.destinationPoint.y<<std::endl;
             data.totalDistance = sqrt(pow(abs(data.destinationPoint.x - data.startPoint.x),2) +
                                       pow(abs(data.destinationPoint.y - data.startPoint.y),2));
             mDataMap.insert({blackboard->animal, data});
@@ -87,7 +83,6 @@ BehaviourTree::ExecuteResult GoToFoodAction::execute(const std::chrono::millisec
 
     if(data.totalDistance < 1E-3)
     {
-//        std::cout<<"SUCCESS 1"<<std::endl;
         return BehaviourTree::ExecuteResult::SUCCESS;
     }
 
@@ -107,10 +102,8 @@ BehaviourTree::ExecuteResult GoToFoodAction::execute(const std::chrono::millisec
 
     if(data.distanceWalked >= data.totalDistance)
     {
-//        std::cout<<"SUCCESS 2"<<std::endl;
         mDataMap.erase(blackboard->animal);
         return BehaviourTree::ExecuteResult::SUCCESS;
     }
-//    std::cout<<"RUNNING"<<std::endl;
     return BehaviourTree::ExecuteResult::RUNNING;
 }

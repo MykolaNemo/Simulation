@@ -4,10 +4,10 @@
 #include "../behaviourtree.h"
 #include <memory>
 
-class EatFoodAction : public BehaviourTree
+class EatFood : public BehaviourTree
 {
 public:
-    EatFoodAction(std::string name, BehaviourTree* parent = nullptr);
+    EatFood(std::string name, BehaviourTree* parent = nullptr);
 
     BehaviourTree* addChild(BehaviourTree *) override {return this;}
     void removeChild(BehaviourTree *) override {}

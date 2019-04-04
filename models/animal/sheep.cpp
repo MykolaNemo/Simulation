@@ -32,7 +32,7 @@ QGraphicsItem *Sheep::getGraphics() const
 
 std::shared_ptr<Sheep> Sheep::create(const Position& pos)
 {
-    std::shared_ptr<Sheep> sheep = std::make_shared<SheepDer>(pos);
+    auto sheep = std::make_shared<SheepDer>(pos);
     sheep->init();
     return sheep;
 }

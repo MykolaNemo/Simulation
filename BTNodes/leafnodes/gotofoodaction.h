@@ -6,10 +6,11 @@
 #include <map>
 
 class FieldObject;
-class GoToFoodAction: public BehaviourTree
+
+class GoToFood: public BehaviourTree
 {
 public:
-    explicit GoToFoodAction(std::string name, BehaviourTree* parent = nullptr);
+    explicit GoToFood(std::string name, BehaviourTree* parent = nullptr);
 
     BehaviourTree* addChild(BehaviourTree *) override {return this;}
     void removeChild(BehaviourTree *) override {}

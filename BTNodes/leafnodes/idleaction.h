@@ -2,7 +2,6 @@
 #define IDLEACTION_H
 
 #include "../behaviourtree.h"
-
 #include <memory>
 
 class IdleAction : public BehaviourTree

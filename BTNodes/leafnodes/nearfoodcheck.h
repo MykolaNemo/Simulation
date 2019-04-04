@@ -3,10 +3,10 @@
 
 #include "BTNodes/behaviourtree.h"
 
-class NearFoodCheck: public BehaviourTree
+class IsNearFood: public BehaviourTree
 {
 public:
-    explicit NearFoodCheck(std::string name, BehaviourTree* parent = nullptr);
+    explicit IsNearFood(std::string name, BehaviourTree* parent = nullptr);
 
     BehaviourTree* addChild(BehaviourTree *) override {return this;}
     void removeChild(BehaviourTree *) override {}

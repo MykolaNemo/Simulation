@@ -6,10 +6,10 @@
 
 class Sheep;
 
-class IsHungryCheck : public BehaviourTree
+class IsHungry : public BehaviourTree
 {
 public:
-    explicit IsHungryCheck(std::string name,
+    explicit IsHungry(std::string name,
                            BehaviourTree* parent = nullptr);
 
     BehaviourTree* addChild(BehaviourTree *) override {return this;}
