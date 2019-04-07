@@ -2,8 +2,9 @@
 #define ANIMAL_H
 
 #include "models/fieldobject.h"
+#include "ECS/entity.h"
 
-class Animal : public FieldObject
+class Animal : public FieldObject, public IEntity
 {
 public:
     void grow();
@@ -12,14 +13,13 @@ public:
     void increaseHunger(int amount);
     void decreaseHunger(int amount);
     virtual int getHungerThreshold() const = 0;
-    virtual int getVelocity() const = 0;
+//    virtual int getVelocity() const = 0;
 
 protected:
     Animal(const Position& _position = Position());
 
 private:
     int m_age = 0;//days
-    int hunger = 0;
 };
 
 #endif // ANIMAL_H

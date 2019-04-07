@@ -2,6 +2,10 @@
 #include <iostream>
 #include "graphicsitems/sheepgraphicsitem.h"
 #include "behaviours/blackboards/blackboard.h"
+#include "ECS/Components/graphicscomponent.h"
+#include "components/animalmovingcomponent.h"
+#include "components/sheepgraphicscomponent.h"
+#include "components/animalhungercomponent.h"
 
 SheepBehaviour Sheep::mBehaviour = SheepBehaviour();
 
@@ -20,14 +24,13 @@ Sheep::Sheep(const Position pos):
 
 void Sheep::init()
 {
-    mGraphics = new SheepGraphicsItem(std::static_pointer_cast<Sheep>(shared_from_this()));
-    mGraphics->setZValue(1);
+    addComponent(std::make_shared<SheepGraphicsComponent>(std::static_pointer_cast<Sheep>(shared_from_this())));
     mBlackboard->animal = std::static_pointer_cast<Animal>(FieldObject::shared_from_this());
 }
 
 QGraphicsItem *Sheep::getGraphics() const
 {
-    return mGraphics;
+    return getComponent<SheepGraphicsComponent>()->getGraphicsItem();
 }
 
 std::shared_ptr<Sheep> Sheep::create(const Position& pos)
@@ -39,13 +42,13 @@ std::shared_ptr<Sheep> Sheep::create(const Position& pos)
 
 int Sheep::getHungerThreshold() const
 {
-    return mHungerThreshold;
+    return getComponent<AnimalHungerComponent>()->getHungerMaximum();
 }
 
-int Sheep::getVelocity() const
-{
-    return mSpeed;
-}
+//int Sheep::getVelocity() const
+//{
+//    return getComponent<AnimalMovingComponent>()->getVelocity();
+//}
 
 void Sheep::update(const std::shared_ptr<Field> &field, const std::chrono::milliseconds& tick)
 {

@@ -7,7 +7,6 @@
 IsHungry::IsHungry(std::string name, BehaviourTree *parent)
     : BehaviourTree(std::move(name), parent)
 {
-
 }
 
 BehaviourTree::ExecuteResult IsHungry::execute(const std::chrono::milliseconds &,

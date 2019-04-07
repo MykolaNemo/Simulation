@@ -4,6 +4,7 @@
 #include "models/field.h"
 #include "models/animal/animal.h"
 #include "models/plant/plant.h"
+#include "models/animal/components/animalmovingcomponent.h"
 
 #include <QGraphicsItem>
 
@@ -86,7 +87,13 @@ BehaviourTree::ExecuteResult GoToFood::execute(const std::chrono::milliseconds &
         return BehaviourTree::ExecuteResult::SUCCESS;
     }
 
-    double velocity = blackboard->animal->getVelocity();
+    auto movingComp = blackboard->animal->getComponent<AnimalMovingComponent>();
+    if(!movingComp)
+    {
+        return BehaviourTree::ExecuteResult::FAILURE;
+    }
+
+    double velocity = movingComp->getVelocity();
     long long microsecondsPast = std::chrono::duration_cast<std::chrono::microseconds>(tick).count();
     data.distanceWalked += velocity*(static_cast<double>(microsecondsPast)/1000000.0);
     if(data.distanceWalked >= data.totalDistance)

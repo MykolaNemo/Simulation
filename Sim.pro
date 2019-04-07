@@ -49,7 +49,6 @@ SOURCES += \
     models/animal/sheep.cpp \
     models/plant/grass.cpp \
     models/plant/plant.cpp \
-    models/drawableobject.cpp \
     models/field.cpp \
     models/fieldobject.cpp \
     models/food.cpp \
@@ -80,7 +79,6 @@ HEADERS += \
     models/animal/sheep.h \
     models/plant/grass.h \
     models/plant/plant.h \
-    models/drawableobject.h \
     models/field.h \
     models/fieldobject.h \
     models/food.h \
@@ -89,7 +87,15 @@ HEADERS += \
     signal.h \
     simcore.h \
     size2d.h \
-    virtual_enable_shared_from_this.h
+    virtual_enable_shared_from_this.h \
+    ECS/component.h \
+    ECS/entity.h \
+    ECS/Components/graphicscomponent.h \
+    ECS/Components/hungercomponent.h \
+    ECS/Components/movingcomponent.h \
+    models/animal/components/animalmovingcomponent.h \
+    models/animal/components/animalhungercomponent.h \
+    models/animal/components/sheepgraphicscomponent.h
 
 SUBDIRS += \
     Sim.pro
