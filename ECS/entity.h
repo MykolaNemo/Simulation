@@ -7,8 +7,9 @@
 #include <typeindex>
 
 #include "component.h"
+#include "virtual_enable_shared_from_this.h"
 
-class IEntity
+class IEntity: public virtual_enable_shared_from_this<IEntity>
 {
 public:
     void addComponent(const std::shared_ptr<IComponent>& component)

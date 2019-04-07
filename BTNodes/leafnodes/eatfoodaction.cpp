@@ -3,7 +3,6 @@
 #include "behaviours/blackboards/blackboard.h"
 #include "models/animal/animal.h"
 #include "models/plant/plant.h"
-//#include <iostream>
 
 EatFood::EatFood(std::string name, BehaviourTree *parent)
     : BehaviourTree(std::move(name), parent)

@@ -1,15 +1,15 @@
 #include "animal.h"
 #include "ECS/Components/graphicscomponent.h"
 #include "ECS/Components/hungercomponent.h"
-#include "components/animalmovingcomponent.h"
+#include "components/animalvelocitycomponent.h"
+#include "components/generalpositioncomponent.h"
 #include "components/animalhungercomponent.h"
 
 Animal::Animal(const Position& _position):
     FieldObject(_position)
 {
-    auto movingComp = std::make_shared<AnimalMovingComponent>();
-    movingComp->setPosition(_position);
-    addComponent(movingComp);
+    auto velocityComp = std::make_shared<AnimalVelocityComponent>();
+    addComponent(velocityComp);
 
     auto hungerComp = std::make_shared<AnimalHungerComponent>();
     addComponent(hungerComp);

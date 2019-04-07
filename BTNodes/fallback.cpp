@@ -32,7 +32,6 @@ std::vector<BehaviourTree *> Fallback::getChildren() const
 BehaviourTree::ExecuteResult Fallback::execute(const std::chrono::milliseconds &tick,
                                                std::shared_ptr<Blackboard>& blackboard)
 {
-//    std::cout<<getName()<<std::endl;
     for(BehaviourTree* child : mChildren)
     {
         ExecuteResult result = child->execute(tick, blackboard);

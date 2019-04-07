@@ -3,7 +3,7 @@
 #include "graphicsitems/sheepgraphicsitem.h"
 #include "behaviours/blackboards/blackboard.h"
 #include "ECS/Components/graphicscomponent.h"
-#include "components/animalmovingcomponent.h"
+#include "components/animalvelocitycomponent.h"
 #include "components/sheepgraphicscomponent.h"
 #include "components/animalhungercomponent.h"
 
@@ -44,11 +44,6 @@ int Sheep::getHungerThreshold() const
 {
     return getComponent<AnimalHungerComponent>()->getHungerMaximum();
 }
-
-//int Sheep::getVelocity() const
-//{
-//    return getComponent<AnimalMovingComponent>()->getVelocity();
-//}
 
 void Sheep::update(const std::shared_ptr<Field> &field, const std::chrono::milliseconds& tick)
 {

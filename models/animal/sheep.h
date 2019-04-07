@@ -12,16 +12,12 @@ public:
     void update(const std::shared_ptr<Field> &field, const std::chrono::milliseconds &tick) override;
     QGraphicsItem* getGraphics() const override;
     int getHungerThreshold() const override;
-//    int getVelocity() const override;
 
 protected:
     Sheep(const Position pos = Position());
 
 private:
     void init();
-
-//    const int mHungerThreshold = 5;
-//    const int mSpeed = 10;
 
     static SheepBehaviour mBehaviour;
     std::shared_ptr<Blackboard> mBlackboard;

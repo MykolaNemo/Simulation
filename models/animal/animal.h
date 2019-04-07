@@ -4,7 +4,7 @@
 #include "models/fieldobject.h"
 #include "ECS/entity.h"
 
-class Animal : public FieldObject, public IEntity
+class Animal : public FieldObject
 {
 public:
     void grow();
@@ -13,7 +13,6 @@ public:
     void increaseHunger(int amount);
     void decreaseHunger(int amount);
     virtual int getHungerThreshold() const = 0;
-//    virtual int getVelocity() const = 0;
 
 protected:
     Animal(const Position& _position = Position());

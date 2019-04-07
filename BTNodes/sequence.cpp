@@ -1,7 +1,6 @@
 #include "sequence.h"
 
 #include <algorithm>
-//#include <iostream>
 
 Sequence::Sequence(BehaviourTree *parent)
     : Sequence("", parent)

@@ -5,7 +5,6 @@
 #include "models/animal/animal.h"
 
 #include <QGraphicsItem>
-//#include <iostream>
 
 namespace
 {
@@ -42,7 +41,7 @@ Position calculateDestinationPositionFromTheSide(const std::shared_ptr<FieldObje
 }
 
 IsNearFood::IsNearFood(std::string name, BehaviourTree *parent):
-    BehaviourTree(name, parent)
+    BehaviourTree(std::move(name), parent)
 {
 }
 

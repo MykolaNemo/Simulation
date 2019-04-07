@@ -2,7 +2,6 @@
 
 #include "models/animal/sheep.h"
 #include "behaviours/blackboards/blackboard.h"
-//#include <iostream>
 
 IsHungry::IsHungry(std::string name, BehaviourTree *parent)
     : BehaviourTree(std::move(name), parent)

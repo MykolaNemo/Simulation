@@ -4,7 +4,7 @@
 #include "models/field.h"
 #include "models/animal/animal.h"
 #include "models/plant/plant.h"
-#include "models/animal/components/animalmovingcomponent.h"
+#include "models/animal/components/animalvelocitycomponent.h"
 
 #include <QGraphicsItem>
 
@@ -87,7 +87,7 @@ BehaviourTree::ExecuteResult GoToFood::execute(const std::chrono::milliseconds &
         return BehaviourTree::ExecuteResult::SUCCESS;
     }
 
-    auto movingComp = blackboard->animal->getComponent<AnimalMovingComponent>();
+    auto movingComp = blackboard->animal->getComponent<AnimalVelocityComponent>();
     if(!movingComp)
     {
         return BehaviourTree::ExecuteResult::FAILURE;

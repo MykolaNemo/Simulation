@@ -1,6 +1,5 @@
 #include "idleaction.h"
 
-//#include <iostream>
 #include "models/animal/animal.h"
 #include "behaviours/blackboards/blackboard.h"
 

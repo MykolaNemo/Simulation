@@ -53,7 +53,10 @@ SOURCES += \
     models/fieldobject.cpp \
     models/food.cpp \
     fieldview.cpp \
-    simcore.cpp
+    simcore.cpp \
+    ECS/Systems/graphicssystem.cpp \
+    ECS/Systems/hungersystem.cpp \
+    ECS/Systems/movingsystem.cpp
 
 HEADERS += \
     position.h \
@@ -92,10 +95,16 @@ HEADERS += \
     ECS/entity.h \
     ECS/Components/graphicscomponent.h \
     ECS/Components/hungercomponent.h \
-    ECS/Components/movingcomponent.h \
-    models/animal/components/animalmovingcomponent.h \
     models/animal/components/animalhungercomponent.h \
-    models/animal/components/sheepgraphicscomponent.h
+    models/animal/components/sheepgraphicscomponent.h \
+    ECS/system.h \
+    ECS/Systems/graphicssystem.h \
+    ECS/Systems/hungersystem.h \
+    ECS/Systems/movingsystem.h \
+    ECS/Components/positioncomponent.h \
+    ECS/Components/velocitycomponent.h \
+    models/animal/components/animalvelocitycomponent.h \
+    models/animal/components/generalpositioncomponent.h
 
 SUBDIRS += \
     Sim.pro

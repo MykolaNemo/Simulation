@@ -4,11 +4,11 @@
 #include "position.h"
 #include "boost/signals2/signal.hpp"
 #include "models/field.h"
-#include "virtual_enable_shared_from_this.h"
 #include <chrono>
+#include <ECS/entity.h>
 
 class QGraphicsItem;
-class FieldObject: public virtual_enable_shared_from_this<FieldObject>
+class FieldObject: public IEntity
 {
 public:
     FieldObject(const Position& _position = Position());
@@ -22,16 +22,13 @@ public:
     virtual void update(const std::shared_ptr<Field> &, const std::chrono::milliseconds&) = 0;
     virtual QGraphicsItem* getGraphics() const = 0;
 
-    inline Position getPosition() const { return m_position; }
+    Position getPosition() const;
     void setPosition(const int x, const int y);
-    inline void setPosition(const Position& m_position) {setPosition(m_position.x, m_position.y);}
+    inline void setPosition(const Position& pos) {setPosition(pos.x, pos.y);}
 
 public:
-    boost::signals2::signal<void(const std::shared_ptr<FieldObject>&, const Position&)> positionChanged;
+    boost::signals2::signal<void(const std::shared_ptr<FieldObject>&, const Position)> positionChanged;
     boost::signals2::signal<void(const std::shared_ptr<FieldObject>&)> invalidated;
-
-private:
-    Position m_position;
 };
 
 #endif // FIELDOBJECT_H
