@@ -5,33 +5,47 @@
 #include <map>
 #include <typeinfo>
 #include <typeindex>
+#include <mutex>
 
 #include "component.h"
-#include "virtual_enable_shared_from_this.h"
+//#include "virtual_enable_shared_from_this.h"
 
-class IEntity: public virtual_enable_shared_from_this<IEntity>
+using EntityId = unsigned int;
+using ComponentMap = std::map<const std::type_index, std::shared_ptr<IComponent>>;
+
+//class IEntity: public virtual_enable_shared_from_this<IEntity>
+class IEntity: public std::enable_shared_from_this<IEntity>
 {
+    IEntity(const IEntity&) = default;
+    IEntity& operator=(const IEntity&) = default;
+
+protected:
+    IEntity();
+
 public:
-    void addComponent(const std::shared_ptr<IComponent>& component)
-    {
-        components[std::type_index(typeid(*component))] = component;
-    }
+    EntityId getId() const;
+
+    void addComponent(const std::shared_ptr<IComponent>& component);
+    bool removeComponent(const std::shared_ptr<IComponent>& component);
 
     template <typename T>
     std::shared_ptr<T> getComponent() const
     {
-        std::type_index index(typeid(T));
-        if(components.count(index) != 0)
+        if(components.count(typeid(T)) != 0)
         {
-            return std::static_pointer_cast<T>(components.at(index));
+            return std::static_pointer_cast<T>(components.at(typeid(T)));
         }
         else
         {
             return std::shared_ptr<T>();
         }
     }
+
 private:
-    std::map<const std::type_index, std::shared_ptr<IComponent>> components;
+    ComponentMap components;
+    EntityId mId;
+    static EntityId mLastId;
+    std::mutex idMutex;
 };
 
 #endif // ENTITY_H

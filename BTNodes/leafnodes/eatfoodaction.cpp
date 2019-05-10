@@ -12,17 +12,17 @@ EatFood::EatFood(std::string name, BehaviourTree *parent)
 BehaviourTree::ExecuteResult EatFood::execute(const std::chrono::milliseconds &,
                                                     std::shared_ptr<Blackboard>& blackboard)
 {
-    if(!blackboard->animal || !blackboard->food)
+    if(!blackboard->animal || !blackboard->plant)
     {
         return BehaviourTree::ExecuteResult::FAILURE;
     }
-    blackboard->food->decreaseFoodPoints(1);
+    blackboard->plant->decreaseFoodPoints(1);
     blackboard->animal->decreaseHunger(1);
 
-    if(blackboard->food->getFoodPoints() == 0)
+    if(blackboard->plant->getFoodPoints() == 0)
     {
-        blackboard->food->setAsOccupied(false);
-        blackboard->food = std::shared_ptr<Plant>();
+        blackboard->plant->setAsOccupied(false);
+        blackboard->plant = std::shared_ptr<Plant>();
         return BehaviourTree::ExecuteResult::SUCCESS;
     }
     return BehaviourTree::ExecuteResult::RUNNING;

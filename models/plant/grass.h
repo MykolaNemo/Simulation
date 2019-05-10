@@ -8,12 +8,12 @@ class GrassGraphicsItem;
 class Grass: public Plant
 {
 public:
-    static std::shared_ptr<Grass> create(const Position &pos = Position());
+    static std::shared_ptr<Grass> create();
     QGraphicsItem *getGraphics() const override;
     void update(const std::shared_ptr<Field> &, const std::chrono::milliseconds &) override;
 
 protected:
-    explicit Grass(const Position &pos = Position());
+    Grass() = default;
 
 private:
     void init();

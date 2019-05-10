@@ -12,7 +12,7 @@ struct Blackboard
     Blackboard() = default;
     virtual ~Blackboard(){}
     std::shared_ptr<Animal> animal;
-    std::shared_ptr<Plant> food;
+    std::shared_ptr<Plant> plant;
     std::shared_ptr<Field> field;
 };
 

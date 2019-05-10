@@ -55,16 +55,16 @@ BehaviourTree::ExecuteResult GoToFood::execute(const std::chrono::milliseconds &
         return BehaviourTree::ExecuteResult::FAILURE;
     }
 
-    if(!blackboard->food)
+    if(!blackboard->plant)
     {
-        blackboard->food = blackboard->field->getClosestPlant(blackboard->animal->getPosition());
-        if(!blackboard->food)
+        blackboard->plant = blackboard->field->getClosestPlant(blackboard->animal->getPosition());
+        if(!blackboard->plant)
         {
             return BehaviourTree::ExecuteResult::FAILURE;
         }
         else
         {
-            blackboard->food->setAsOccupied(true);
+            blackboard->plant->setAsOccupied(true);
         }
     }
 
@@ -74,7 +74,7 @@ BehaviourTree::ExecuteResult GoToFood::execute(const std::chrono::milliseconds &
             Data data;
             data.startPoint = blackboard->animal->getPosition();
             data.destinationPoint = calculateDestinationPositionFromTheSide(blackboard->animal,
-                                                                            std::static_pointer_cast<FieldObject>(blackboard->food));
+                                                                            std::static_pointer_cast<FieldObject>(blackboard->plant));
             data.totalDistance = sqrt(pow(abs(data.destinationPoint.x - data.startPoint.x),2) +
                                       pow(abs(data.destinationPoint.y - data.startPoint.y),2));
             mDataMap.insert({blackboard->animal, data});

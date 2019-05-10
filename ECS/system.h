@@ -9,6 +9,7 @@ public:
     ISystem() = default;
     virtual ~ISystem() = default;
     virtual void update(const std::chrono::milliseconds& tickDuration) = 0;
+//    virtual void addComponents(const ComponentSet& ) = 0;
 };
 
 #endif // SYSTEM_H

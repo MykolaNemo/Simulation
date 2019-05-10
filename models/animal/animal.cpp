@@ -30,6 +30,11 @@ void Animal::decreaseHunger(int amount)
     getComponent<AnimalHungerComponent>()->decreaseHunger(amount);
 }
 
+int Animal::getHungerThreshold() const
+{
+    return getComponent<AnimalHungerComponent>()->getHungerMaximum();
+}
+
 void Animal::grow()
 {
     m_age++;

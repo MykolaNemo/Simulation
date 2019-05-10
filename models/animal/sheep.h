@@ -8,18 +8,19 @@ class SheepGraphicsItem;
 class Sheep: public Animal
 {
 public:
-    static std::shared_ptr<Sheep> create(const Position& pos = Position());
+    static std::shared_ptr<Sheep> create();
     void update(const std::shared_ptr<Field> &field, const std::chrono::milliseconds &tick) override;
     QGraphicsItem* getGraphics() const override;
-    int getHungerThreshold() const override;
+//    int getHungerThreshold() const override;
+    std::shared_ptr<SheepBehaviour> getBehaviour() const;
 
 protected:
-    Sheep(const Position pos = Position());
+    Sheep();
 
 private:
     void init();
 
-    static SheepBehaviour mBehaviour;
+    static std::shared_ptr<SheepBehaviour> mBehaviour;
     std::shared_ptr<Blackboard> mBlackboard;
 };
 

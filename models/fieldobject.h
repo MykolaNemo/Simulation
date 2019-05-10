@@ -1,11 +1,12 @@
 #ifndef FIELDOBJECT_H
 #define FIELDOBJECT_H
 
+#include <chrono>
+
 #include "position.h"
 #include "boost/signals2/signal.hpp"
 #include "models/field.h"
-#include <chrono>
-#include <ECS/entity.h>
+#include "ECS/entity.h"
 
 class QGraphicsItem;
 class FieldObject: public IEntity

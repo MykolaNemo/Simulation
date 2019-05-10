@@ -4,6 +4,7 @@
 #include <memory>
 #include <future>
 #include <atomic>
+#include "ECS/Systems/aisystem.h"
 
 class Field;
 class SimCore
@@ -26,6 +27,7 @@ private:
     std::future<void> m_future;
     std::shared_ptr<Field> field;
     std::atomic_bool m_interrupt = {false};
+    std::unique_ptr<AISystem> aiSystem;
 };
 
 #endif // SIMCORE_H

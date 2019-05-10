@@ -3,7 +3,8 @@
 
 #include <iostream>
 
-FieldObject::FieldObject(const Position &_position)
+FieldObject::FieldObject(const Position &_position):
+    IEntity()
 {
     auto positionComp = std::make_shared<GeneralPositionComponent>();
     positionComp->setPosition(_position);

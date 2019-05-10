@@ -48,10 +48,10 @@ IsNearFood::IsNearFood(std::string name, BehaviourTree *parent):
 BehaviourTree::ExecuteResult IsNearFood::execute(const std::chrono::milliseconds &,
                                                     std::shared_ptr<Blackboard>& blackboard)
 {
-    if(blackboard->food && blackboard->animal)
+    if(blackboard->plant && blackboard->animal)
     {
         Position startPos = blackboard->animal->getPosition();
-        Position endPos = calculateDestinationPositionFromTheSide(blackboard->animal, blackboard->food);
+        Position endPos = calculateDestinationPositionFromTheSide(blackboard->animal, blackboard->plant);
         double totalDistance = sqrt(pow(abs(endPos.x - startPos.x),2) + pow(abs(endPos.y - startPos.y),2));
         if(totalDistance < 1E-3)
         {

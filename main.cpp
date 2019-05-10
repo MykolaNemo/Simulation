@@ -9,6 +9,9 @@
 #include "models/animal/sheep.h"
 #include "models/plant/grass.h"
 #include "scene.h"
+#include "ECS/ecsengine.h"
+
+ECSEngine Engine;
 
 std::shared_ptr<Field> createField()
 {
@@ -21,7 +24,7 @@ std::shared_ptr<Field> createField()
         v.reserve(amount);
         for(auto i = 0; i < amount; ++i)
         {
-            v.emplace_back(Sheep::create());
+            v.emplace_back(std::static_pointer_cast<FieldObject>(Engine.newEntity<Sheep>()));
         }
         return v;
     }();
@@ -32,7 +35,7 @@ std::shared_ptr<Field> createField()
         v.reserve(amount);
         for(auto i = 0; i < amount; ++i)
         {
-            v.emplace_back(Grass::create());
+            v.emplace_back(std::static_pointer_cast<FieldObject>(Engine.newEntity<Grass>()));
         }
         return v;
     }();

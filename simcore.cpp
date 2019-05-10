@@ -4,13 +4,15 @@
 #include <iostream>
 #include <QElapsedTimer>
 
-SimCore::SimCore(const std::shared_ptr<Field>& _field)
+SimCore::SimCore(const std::shared_ptr<Field>& _field):
+    aiSystem(std::make_unique<AISystem>())
 {
     if(!_field)
     {
         throw std::invalid_argument("SimCore::SimCore(field): field is null");
     }
     field = _field;
+    aiSystem->setField(field);
 }
 
 SimCore::~SimCore()
@@ -45,6 +47,7 @@ void SimCore::mainLoop()
         auto now = std::chrono::system_clock::now();
         auto tickDuration = std::chrono::duration_cast<std::chrono::milliseconds>(now - time);
         t.start();
+//        aiSystem->update(tickDuration);
         field->updateObjects(tickDuration);
         std::cout<<"Elapsed: "<<t.elapsed()<<std::endl;
         time = now;

@@ -4,13 +4,15 @@
 #include <memory>
 #include <chrono>
 #include "BTNodes/behaviourtree.h"
+#include "behaviour.h"
 
 struct Blackboard;
-class SheepBehaviour
+class SheepBehaviour: public IBehaviour
 {
 public:
     SheepBehaviour();
-    void update(const std::chrono::milliseconds &tick, std::shared_ptr<Blackboard>& blackboard);
+    ~SheepBehaviour() override = default;
+    void update(const std::chrono::milliseconds &tick, std::shared_ptr<Blackboard>& blackboard) override;
 
 private:
     std::unique_ptr<BehaviourTree> mRoot;
