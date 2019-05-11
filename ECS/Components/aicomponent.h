@@ -5,13 +5,32 @@
 
 #include "ECS/component.h"
 #include "behaviours/behaviour.h"
+#include "behaviours/blackboards/blackboard.h"
 
-class IAIComponent: public IComponent
+class IEntity;
+class AIComponent: public IComponent
 {
 public:
-    virtual ~IAIComponent() = default;
-    virtual std::shared_ptr<IBehaviour> getBehaviour() const = 0;
-    virtual std::shared_ptr<Blackboard> getBlackboard() const = 0;
+    AIComponent(const std::shared_ptr<IEntity>& actor, const std::shared_ptr<IBehaviour>& behaviour)
+        : mBehaviour(behaviour)
+        , mBlackboard(std::make_shared<Blackboard>())
+    {
+        mBlackboard->actor = actor;
+    }
+
+    std::shared_ptr<IBehaviour> getBehaviour() const
+    {
+        return mBehaviour;
+    }
+
+    std::shared_ptr<Blackboard> getBlackboard() const
+    {
+        return mBlackboard;
+    }
+
+private:
+    const std::shared_ptr<IBehaviour> mBehaviour;
+    std::shared_ptr<Blackboard> mBlackboard;
 };
 
 #endif // AICOMPONENT_H

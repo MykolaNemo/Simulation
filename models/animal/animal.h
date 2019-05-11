@@ -14,7 +14,7 @@ public:
     virtual int getHungerThreshold() const;
 
 protected:
-    Animal(const Position& _position = Position());
+    Animal();
 
 private:
     int m_age = 0;//days

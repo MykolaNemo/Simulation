@@ -1,15 +1,12 @@
 #include <QtWidgets/QApplication>
 
-#include <iostream>
-#include <algorithm>
-
 #include "fieldview.h"
-#include "simcore.h"
 #include "models/field.h"
 #include "models/animal/sheep.h"
 #include "models/plant/grass.h"
 #include "scene.h"
 #include "ECS/ecsengine.h"
+#include "ECS/Systems/aisystem.h"
 
 ECSEngine Engine;
 
@@ -59,12 +56,20 @@ int main(int argc, char *argv[])
     view.setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     view.show();
 
-    SimCore simCore(field);
-    QObject::connect(&view, &FieldView::aboutToClose, [&simCore](){
-        simCore.join();
-    });
+//    SimCore simCore(field);
+//    QObject::connect(&view, &FieldView::aboutToClose, [&simCore](){
+//        simCore.join();
+//    });
+//    simCore.start();
 
-    simCore.start();
+    auto aiSystem = std::make_shared<AISystem>();
+    aiSystem->setField(field);
+    Engine.addSystem(aiSystem, 1);
+
+    QObject::connect(&view, &FieldView::aboutToClose, [](){
+        Engine.stop();
+    });
+    Engine.start();
 
     return QApplication::exec();
 }

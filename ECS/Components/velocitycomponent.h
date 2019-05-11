@@ -3,11 +3,14 @@
 
 #include "../component.h"
 
-class IVelocityComponent: public IComponent
+class VelocityComponent: public IComponent
 {
 public:
-    virtual ~IVelocityComponent() = default;
-    virtual double getVelocity() const = 0;
+    double getVelocity() const { return mVelocity; }
+    void setVelocity(double velocity) { mVelocity = velocity; }
+
+private:
+    double mVelocity = 5.0;
 };
 
 #endif // VELOCITYCOMPONENT_H

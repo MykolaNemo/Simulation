@@ -129,6 +129,7 @@ std::shared_ptr<Plant> Field::getClosestPlant(const Position &centralPoint) cons
             closestPlant = plant;
         }
     }
+    std::cout<<"closestPlant = "<<closestPlant<<std::endl;
     return closestPlant;
 }
 

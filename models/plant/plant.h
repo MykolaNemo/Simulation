@@ -16,12 +16,8 @@ public:
 
     boost::signals2::signal<void(const std::shared_ptr<Plant>)> foodPointsChanged;
     boost::signals2::signal<void(void)> wasOccupied;
-
 protected:
     Plant();
-
-private:
-    bool mIsOccupied = false;
 };
 
 #endif // PLANT_H

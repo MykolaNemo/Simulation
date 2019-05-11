@@ -4,12 +4,14 @@
 #include "position.h"
 #include "ECS/component.h"
 
-class IPositionComponent: public IComponent
+class PositionComponent: public IComponent
 {
 public:
-    virtual ~IPositionComponent() = default;
-    virtual Position getPosition() const = 0;
-    virtual void setPosition(const Position& pos) = 0;
+    Position getPosition() const { return mPosition; }
+    void setPosition(const Position& pos) { mPosition = pos; }
+
+private:
+    Position mPosition;
 };
 
 #endif // POSITIONCOMPONENT_H

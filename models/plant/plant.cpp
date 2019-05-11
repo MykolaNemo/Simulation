@@ -1,41 +1,43 @@
 #include "plant.h"
-#include "models/plant/grassfoodcomponent.h"
+#include "ECS/Components/foodcomponent.h"
+#include "ECS/Components/canbeoccupiedcomponent.h"
 
 Plant::Plant()
     : FieldObject()
 {
     foodPointsChanged.connect([this](const std::shared_ptr<Plant>&){
-        invalidated(std::static_pointer_cast<FieldObject>(IEntity::shared_from_this()));
+        invalidated(std::static_pointer_cast<FieldObject>(shared_from_this()));
     });
 
-    addComponent(std::make_shared<GrassFoodComponent>());
+    addComponent(std::make_shared<FoodComponent>());
+    addComponent(std::make_shared<CanBeOccupiedComponent>());
 }
 
 void Plant::decreaseFoodPoints(int points)
 {
-    getComponent<GrassFoodComponent>()->decreaseAmount(points);
+    getComponent<FoodComponent>()->decreaseAmount(points);
     /*emit*/foodPointsChanged(std::static_pointer_cast<Plant>(shared_from_this()));
 }
 
 int Plant::getFoodPoints() const
 {
-    return getComponent<GrassFoodComponent>()->getCurrentAmount();
+    return getComponent<FoodComponent>()->getCurrentAmount();
 }
 
 int Plant::getMaxFoodPoints() const
 {
-    return getComponent<GrassFoodComponent>()->getMaximumAmount();
+    return getComponent<FoodComponent>()->getMaximumAmount();
 }
 
 bool Plant::isOccupied() const
 {
-    return mIsOccupied;
+    return getComponent<CanBeOccupiedComponent>()->isOccupied();
 }
 
 void Plant::setAsOccupied(bool occupied)
 {
-    mIsOccupied = occupied;
-    if(mIsOccupied)
+    getComponent<CanBeOccupiedComponent>()->setAsOccupied(occupied);
+    if(occupied)
     {
         /*emit*/ wasOccupied();
     }

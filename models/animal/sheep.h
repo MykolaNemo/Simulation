@@ -11,17 +11,14 @@ public:
     static std::shared_ptr<Sheep> create();
     void update(const std::shared_ptr<Field> &field, const std::chrono::milliseconds &tick) override;
     QGraphicsItem* getGraphics() const override;
-//    int getHungerThreshold() const override;
     std::shared_ptr<SheepBehaviour> getBehaviour() const;
 
 protected:
-    Sheep();
+    Sheep() = default;
 
 private:
     void init();
-
-    static std::shared_ptr<SheepBehaviour> mBehaviour;
-    std::shared_ptr<Blackboard> mBlackboard;
+    static const std::shared_ptr<SheepBehaviour> mBehaviour;
 };
 
 #endif // SHEEP_H

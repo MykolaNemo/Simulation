@@ -51,7 +51,6 @@ SOURCES += \
     models/plant/plant.cpp \
     models/field.cpp \
     models/fieldobject.cpp \
-    models/food.cpp \
     fieldview.cpp \
     simcore.cpp \
     ECS/Systems/graphicssystem.cpp \
@@ -85,7 +84,6 @@ HEADERS += \
     models/plant/plant.h \
     models/field.h \
     models/fieldobject.h \
-    models/food.h \
     fieldview.h \
     position.h \
     signal.h \
@@ -96,21 +94,16 @@ HEADERS += \
     ECS/entity.h \
     ECS/Components/graphicscomponent.h \
     ECS/Components/hungercomponent.h \
-    models/animal/components/animalhungercomponent.h \
-    models/animal/components/sheepgraphicscomponent.h \
     ECS/system.h \
     ECS/Systems/graphicssystem.h \
     ECS/Components/positioncomponent.h \
     ECS/Components/velocitycomponent.h \
-    models/animal/components/animalvelocitycomponent.h \
-    models/animal/components/generalpositioncomponent.h \
     ECS/Systems/aisystem.h \
     ECS/Components/aicomponent.h \
     behaviours/behaviour.h \
-    models/animal/components/sheepaicomponent.h \
     ECS/ecsengine.h \
     ECS/Components/foodcomponent.h \
-    models/plant/grassfoodcomponent.h
+    ECS/Components/canbeoccupiedcomponent.h
 
 SUBDIRS += \
     Sim.pro

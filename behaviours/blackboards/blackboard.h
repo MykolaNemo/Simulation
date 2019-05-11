@@ -3,16 +3,15 @@
 
 #include <memory>
 
-class Animal;
-class Plant;
+class IEntity;
 class Field;
 
 struct Blackboard
 {
     Blackboard() = default;
     virtual ~Blackboard(){}
-    std::shared_ptr<Animal> animal;
-    std::shared_ptr<Plant> plant;
+    std::shared_ptr<IEntity> actor;
+    std::shared_ptr<IEntity> plant;
     std::shared_ptr<Field> field;
 };
 

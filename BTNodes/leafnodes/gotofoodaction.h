@@ -5,7 +5,7 @@
 #include "position.h"
 #include <map>
 
-class FieldObject;
+class IEntity;
 
 class GoToFood: public BehaviourTree
 {
@@ -28,7 +28,7 @@ private:
         Position startPoint;
         Position destinationPoint;
     };
-    std::map<std::shared_ptr<FieldObject>, Data> mDataMap;
+    std::map<std::shared_ptr<IEntity>, Data> mDataMap;
 };
 
 #endif // GOTOFOODACTION_H

@@ -2,15 +2,43 @@
 #define HUNGERCOMPONENT_H
 
 #include "../component.h"
+#include <algorithm>
 
-class IHungerComponent: public IComponent
+class HungerComponent: public IComponent
 {
 public:
-    virtual ~IHungerComponent() = default;
-    virtual void increaseHunger(int amount) = 0;
-    virtual void decreaseHunger(int amount) = 0;
-    virtual int getHungerCurrent() const = 0;
-    virtual int getHungerMaximum() const = 0;
+    virtual ~HungerComponent() = default;
+
+    void increaseHunger(int hunger)
+    {
+        mCurrentHunger = std::min(mCurrentHunger + hunger, mMaximumHunger);
+    }
+    void decreaseHunger(int hunger)
+    {
+        mCurrentHunger = std::min(mCurrentHunger - hunger, 0);
+    }
+
+    int getCurrentHunger() const
+    {
+        return mCurrentHunger;
+    }
+    void setCurrentHunger(int hunger)
+    {
+        mCurrentHunger = std::min(hunger, mMaximumHunger);
+    }
+
+    int getMaximumHunger() const
+    {
+        return mMaximumHunger;
+    }
+    void setMaximumHunger(int hunger)
+    {
+        mMaximumHunger = hunger;
+    }
+
+private:
+    int mCurrentHunger = 0;
+    int mMaximumHunger = 100;
 };
 
 #endif // HUNGERCOMPONENT_H

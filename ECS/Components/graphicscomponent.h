@@ -4,11 +4,27 @@
 #include "../component.h"
 
 class QGraphicsItem;
-class IGraphicsComponent: public IComponent
+class GraphicsComponent: public IComponent
 {
 public:
-    virtual ~IGraphicsComponent() = default;
-    virtual QGraphicsItem* getGraphicsItem() const = 0;
+    GraphicsComponent(QGraphicsItem* graphicsItem)
+        : mGraphicsItem(graphicsItem)
+    {
+    }
+
+    QGraphicsItem* getGraphics() const
+    {
+        return mGraphicsItem;
+    }
+
+    void setGraphicsItem(QGraphicsItem *graphicsItem)
+    {
+        mGraphicsItem = graphicsItem;
+    }
+
+private:
+    QGraphicsItem* mGraphicsItem;
 };
 
 #endif // GRAPHICSCOMPONENT_H
+

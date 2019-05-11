@@ -12,7 +12,7 @@ class QGraphicsItem;
 class FieldObject: public IEntity
 {
 public:
-    FieldObject(const Position& _position = Position());
+    FieldObject();
 
     virtual ~FieldObject() = default;
     FieldObject(const FieldObject& other) = default;

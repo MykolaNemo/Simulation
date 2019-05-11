@@ -2,14 +2,15 @@
 #define SYSTEM_H
 
 #include <chrono>
+#include <memory>
 
+class IEntity;
 class ISystem
 {
 public:
-    ISystem() = default;
     virtual ~ISystem() = default;
-    virtual void update(const std::chrono::milliseconds& tickDuration) = 0;
-//    virtual void addComponents(const ComponentSet& ) = 0;
+    virtual void update(const std::chrono::milliseconds& tickDuration,
+                        std::shared_ptr<IEntity>& entity) = 0;
 };
 
 #endif // SYSTEM_H

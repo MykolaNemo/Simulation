@@ -1,29 +1,25 @@
 #include "fieldobject.h"
-#include "models/animal/components/generalpositioncomponent.h"
+#include "ECS/Components/positioncomponent.h"
 
-#include <iostream>
-
-FieldObject::FieldObject(const Position &_position):
+FieldObject::FieldObject():
     IEntity()
 {
-    auto positionComp = std::make_shared<GeneralPositionComponent>();
-    positionComp->setPosition(_position);
-    addComponent(positionComp);
+    addComponent(std::make_shared<PositionComponent>());
 }
 
 Position FieldObject::getPosition() const
 {
-    return getComponent<GeneralPositionComponent>()->getPosition();
+    return getComponent<PositionComponent>()->getPosition();
 }
 
 void FieldObject::setPosition(const int x, const int y)
 {
-    Position oldPos = getComponent<GeneralPositionComponent>()->getPosition();
+    Position oldPos = getComponent<PositionComponent>()->getPosition();
     if((oldPos.x == x) && (oldPos.y == y))
     {
         return;
     }
     const Position newPos(x,y);
-    getComponent<GeneralPositionComponent>()->setPosition(newPos);
+    getComponent<PositionComponent>()->setPosition(newPos);
     positionChanged(std::static_pointer_cast<FieldObject>(shared_from_this()), newPos);
 }

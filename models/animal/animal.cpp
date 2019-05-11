@@ -1,38 +1,36 @@
 #include "animal.h"
 #include "ECS/Components/graphicscomponent.h"
 #include "ECS/Components/hungercomponent.h"
-#include "components/animalvelocitycomponent.h"
-#include "components/generalpositioncomponent.h"
-#include "components/animalhungercomponent.h"
+#include "ECS/Components/velocitycomponent.h"
 
-Animal::Animal(const Position& _position):
-    FieldObject(_position)
+Animal::Animal():
+    FieldObject()
 {
-    auto velocityComp = std::make_shared<AnimalVelocityComponent>();
+    auto velocityComp = std::make_shared<VelocityComponent>();
     addComponent(velocityComp);
 
-    auto hungerComp = std::make_shared<AnimalHungerComponent>();
+    auto hungerComp = std::make_shared<HungerComponent>();
     addComponent(hungerComp);
 }
 
 int Animal::getHunger() const
 {
-    return getComponent<AnimalHungerComponent>()->getHungerCurrent();
+    return getComponent<HungerComponent>()->getCurrentHunger();
 }
 
 void Animal::increaseHunger(int amount)
 {
-    getComponent<AnimalHungerComponent>()->increaseHunger(amount);
+    getComponent<HungerComponent>()->increaseHunger(amount);
 }
 
 void Animal::decreaseHunger(int amount)
 {
-    getComponent<AnimalHungerComponent>()->decreaseHunger(amount);
+    getComponent<HungerComponent>()->decreaseHunger(amount);
 }
 
 int Animal::getHungerThreshold() const
 {
-    return getComponent<AnimalHungerComponent>()->getHungerMaximum();
+    return getComponent<HungerComponent>()->getMaximumHunger();
 }
 
 void Animal::grow()

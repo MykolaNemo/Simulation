@@ -3,14 +3,42 @@
 
 #include "../component.h"
 
-class IFoodComponent: public IComponent
+class FoodComponent: public IComponent
 {
 public:
-    virtual ~IFoodComponent() = default;
-    virtual void increaseAmount(int amount) = 0;
-    virtual void decreaseAmount(int amount) = 0;
-    virtual int getCurrentAmount() const = 0;
-    virtual int getMaximumAmount() const = 0;
+    void increaseAmount(int amount)
+    {
+        int newValue = mAmount + amount;
+        if(newValue > mMaxAmount)
+        {
+            newValue = mMaxAmount;
+        }
+        mAmount = newValue;
+    }
+
+    void decreaseAmount(int amount)
+    {
+        int newValue = mAmount - amount;
+        if(newValue < 0)
+        {
+            newValue = 0;
+        }
+        mAmount = newValue;
+    }
+
+    int getCurrentAmount() const
+    {
+        return mAmount;
+    }
+
+    int getMaximumAmount() const
+    {
+        return mMaxAmount;
+    }
+
+private:
+    int mMaxAmount = 250;
+    int mAmount = mMaxAmount;
 };
 
 #endif // FOODCOMPONENT_H

@@ -8,12 +8,10 @@
 #include <mutex>
 
 #include "component.h"
-//#include "virtual_enable_shared_from_this.h"
 
 using EntityId = unsigned int;
 using ComponentMap = std::map<const std::type_index, std::shared_ptr<IComponent>>;
 
-//class IEntity: public virtual_enable_shared_from_this<IEntity>
 class IEntity: public std::enable_shared_from_this<IEntity>
 {
     IEntity(const IEntity&) = default;
